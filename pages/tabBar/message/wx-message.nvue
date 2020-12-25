@@ -1,12 +1,13 @@
 <template>
 	<view>
 		<!-- 导航栏 -->
-		<nav-bar showTitle fixed>仿微信(10)</nav-bar>
+		<wx-nav-bar showTitle fixed>仿微信(10)</wx-nav-bar>
 		<!-- 列表 -->
 		<block v-for="(item, index) in list" :key="item.id">
 			<view class="flex align-center">
 				<!-- 左边 -->
 				<view class="flex align-center p-3">
+					<!-- <wx-avatar :scr="item.avatar" size="92"></wx-avatar> -->
 					<image class="rounded" :src="item.avatar"
 						   mode="widthFix" style="height: 90rpx; width: 92rpx;"></image>
 				</view>
@@ -27,20 +28,28 @@
 </template>
 
 <script>
-	import navBar from '@/components/general-ui/nav-bar.nvue'
-	import timeUtil from '../../../common/util/time.js'
+	import wxTimeUtil from '@/common/util/wx-time.js'
+	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
+	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
 	export default {
 		components: {
-			navBar
+			wxNavBar,
+			wxAvatar
 		},
 		data() {
 			return {
 				list: [
 					{	
+						id:"0",
+						avatar:"/static/image/iocn_1.jpeg",
+						nick_name:"昵称0",
+						update_time:1608885572,
+						data:"最新消息0"
+					},{	
 						id:"1",
 						avatar:"/static/image/iocn_1.jpeg",
 						nick_name:"昵称1",
-						update_time:1608885572,
+						update_time:1608873608,
 						data:"最新消息1"
 					},{	
 						id:"2",
@@ -72,7 +81,7 @@
 		},
 		filters: {
 			formatTime(value) {
-				return timeUtil.getTime(value)
+				return wxTimeUtil.getTime(value)
 			}
 		}
 		 ,

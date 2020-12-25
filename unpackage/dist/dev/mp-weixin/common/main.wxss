@@ -602,6 +602,23 @@
 }
 .shadow-none { -webkit-box-shadow: none !important; box-shadow: none !important;
 }
+
+/* 1. 页面背景色 */
+.page {
+	background-color: #EDEDED;
+	
+
+	min-height: 100%;
+	height: auto;
+}
+/* 主背景色 */
+.main-bg-color {
+	background-color: #08C060;
+}
+/* 主文字颜色 */
+.main-text-color {
+	color: #08C060;
+}
 @font-face {font-family: "iconfont";
   src: url('https://at.alicdn.com/t/font_1365296_vumpzwvr0z.ttf') format('truetype') /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
 }

@@ -11,8 +11,8 @@
 				</view>
 				<!-- 右边 -->
 				<view class="flex align-center">
-					<icon-button @click_action='click_action'><text class="iconfont font-normal">&#xe6e3;</text></icon-button>
-					<icon-button><text class="iconfont font-normal">&#xe682;</text></icon-button>
+					<wx-icon-button @click_action='click_action'><text class="iconfont font-normal">&#xe6e3;</text></wx-icon-button>
+					<wx-icon-button><text class="iconfont font-normal">&#xe682;</text></wx-icon-button>
 				</view>
 			</view>
 		</view>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-	import iconButton from './icon-button.nvue'
+	import wxIconButton from './wx-icon-button.nvue'
 	export default {
 		props: {
 			showTitle: {
@@ -36,7 +36,7 @@
 			}
 		},
 		components: {
-			iconButton
+			wxIconButton
 		},
 		data() {
 			return {

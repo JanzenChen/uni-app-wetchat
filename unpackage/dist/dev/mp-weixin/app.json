@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/tabBar/message/message",
-    "pages/tabBar/friend/friend",
-    "pages/tabBar/find/find",
-    "pages/tabBar/mine/mine"
+    "pages/tabBar/message/wx-message",
+    "pages/tabBar/friend/wx-friend",
+    "pages/tabBar/find/wx-find",
+    "pages/tabBar/mine/wx-mine"
   ],
   "subPackages": [],
   "window": {
@@ -22,25 +22,25 @@
         "iconPath": "static/tabbar/message_n.png",
         "selectedIconPath": "static/tabbar/message_s.png",
         "text": "微信",
-        "pagePath": "pages/tabBar/message/message"
+        "pagePath": "pages/tabBar/message/wx-message"
       },
       {
         "iconPath": "static/tabbar/friend_n.png",
         "selectedIconPath": "static/tabbar/friend_s.png",
         "text": "通讯录",
-        "pagePath": "pages/tabBar/friend/friend"
+        "pagePath": "pages/tabBar/friend/wx-friend"
       },
       {
         "iconPath": "static/tabbar/find_n.png",
         "selectedIconPath": "static/tabbar/find_s.png",
         "text": "发现",
-        "pagePath": "pages/tabBar/find/find"
+        "pagePath": "pages/tabBar/find/wx-find"
       },
       {
         "iconPath": "static/tabbar/mine_n.png",
         "selectedIconPath": "static/tabbar/mine_s.png",
         "text": "我",
-        "pagePath": "pages/tabBar/mine/mine"
+        "pagePath": "pages/tabBar/mine/wx-mine"
       }
     ]
   },

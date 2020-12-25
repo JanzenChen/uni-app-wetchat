@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "weixin-icon-button": "/components/general-ui/wx-icon-button"
+  }
+}

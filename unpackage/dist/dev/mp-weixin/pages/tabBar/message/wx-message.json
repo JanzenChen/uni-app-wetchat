@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "weixin-nav-bar": "/components/general-ui/wx-nav-bar",
+    "weixin-avatar": "/components/general-ui/wx-avatar"
+  }
+}

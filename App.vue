@@ -21,9 +21,9 @@
 
 <style>
 	/*每个页面公共css */
-	@import "./common/free.css";
-	@import "./common/common.css";
+	@import "./common/wx-free.css";
+	@import "./common/wx-common.css";
 	/* #ifndef APP-PLUS-NVUE */
-	@import "./common/icon.css";
+	@import "./common/wx-icon.css";
 	/* #endif */
 </style>

@@ -1,23 +1,19 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		// {
-		// 	"path": "pages/index/index",
-		// 	"style": {}
-		// },
 		{
-			"path": "pages/tabBar/message/message",
+			"path": "pages/tabBar/message/wx-message",
 			"style": {}
 		},
 		{
-			"path": "pages/tabBar/friend/friend",
+			"path": "pages/tabBar/friend/wx-friend",
 			"style": {}
 		},
 		{
-			"path": "pages/tabBar/find/find",
+			"path": "pages/tabBar/find/wx-find",
 			"style": {}
 		},
 		{
-			"path": "pages/tabBar/mine/mine",
+			"path": "pages/tabBar/mine/wx-mine",
 			"style": {}
 		}
 	],
@@ -41,25 +37,25 @@
 				"iconPath":"static/tabbar/message_n.png",
 				"selectedIconPath":"static/tabbar/message_s.png",
 				"text":"微信",
-				"pagePath":"pages/tabBar/message/message"
+				"pagePath":"pages/tabBar/message/wx-message"
 			},
 			{
 				"iconPath":"static/tabbar/friend_n.png",
 				"selectedIconPath":"static/tabbar/friend_s.png",
 				"text":"通讯录",
-				"pagePath":"pages/tabBar/friend/friend"
+				"pagePath":"pages/tabBar/friend/wx-friend"
 			},
 			{
 				"iconPath":"static/tabbar/find_n.png",
 				"selectedIconPath":"static/tabbar/find_s.png",
 				"text":"发现",
-				"pagePath":"pages/tabBar/find/find"
+				"pagePath":"pages/tabBar/find/wx-find"
 			},
 			{
 				"iconPath":"static/tabbar/mine_n.png",
 				"selectedIconPath":"static/tabbar/mine_s.png",
 				"text":"我",
-				"pagePath":"pages/tabBar/mine/mine"
+				"pagePath":"pages/tabBar/mine/wx-mine"
 			}
 		]
 	},

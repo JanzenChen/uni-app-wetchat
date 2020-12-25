@@ -138,7 +138,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _App
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("/* WEBPACK VAR INJECTION */(function(__f__) {Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0;var _default =\n{\n  onLaunch: function onLaunch() {\n\n    var domModule = weex.requireModule('dom');\n    domModule.addRule('fontFace', {\n      'fontFamily': \"iconfont\",\n      'src': \"url('https://at.alicdn.com/t/font_1365296_vumpzwvr0z.ttf')\" });\n\n\n    __f__(\"log\", 'App Launch', \" at App.vue:11\");\n  },\n  onShow: function onShow() {\n    __f__(\"log\", 'App Show', \" at App.vue:14\");\n  },\n  onHide: function onHide() {\n    __f__(\"log\", 'App Hide', \" at App.vue:17\");\n  } };exports.default = _default;\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/lib/format-log.js */ 6)[\"default\"]))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vQXBwLnZ1ZSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0EsOEJBREE7QUFFQSx5RUFGQTs7O0FBS0E7QUFDQSxHQVZBO0FBV0E7QUFDQTtBQUNBLEdBYkE7QUFjQTtBQUNBO0FBQ0EsR0FoQkEsRSIsImZpbGUiOiI1LmpzIiwic291cmNlc0NvbnRlbnQiOlsiPHNjcmlwdD5cclxuXHRleHBvcnQgZGVmYXVsdCB7XHJcblx0XHRvbkxhdW5jaDogZnVuY3Rpb24oKSB7XG5cdFx0XHQvLyAjaWZkZWYgQVBQLVBMVVMtTlZVRVxuXHRcdFx0dmFyIGRvbU1vZHVsZSA9IHdlZXgucmVxdWlyZU1vZHVsZSgnZG9tJyk7XG5cdFx0XHRkb21Nb2R1bGUuYWRkUnVsZSgnZm9udEZhY2UnLCB7XG5cdFx0XHRcdCdmb250RmFtaWx5JzogXCJpY29uZm9udFwiLFxuXHRcdFx0XHQnc3JjJzogXCJ1cmwoJ2h0dHBzOi8vYXQuYWxpY2RuLmNvbS90L2ZvbnRfMTM2NTI5Nl92dW1wend2cjB6LnR0ZicpXCJcblx0XHRcdH0pXG5cdFx0XHQvLyAjZW5kaWZcclxuXHRcdFx0Y29uc29sZS5sb2coJ0FwcCBMYXVuY2gnKVxyXG5cdFx0fSxcclxuXHRcdG9uU2hvdzogZnVuY3Rpb24oKSB7XHJcblx0XHRcdGNvbnNvbGUubG9nKCdBcHAgU2hvdycpXHJcblx0XHR9LFxyXG5cdFx0b25IaWRlOiBmdW5jdGlvbigpIHtcclxuXHRcdFx0Y29uc29sZS5sb2coJ0FwcCBIaWRlJylcclxuXHRcdH1cclxuXHR9XHJcbjwvc2NyaXB0PlxyXG5cclxuPHN0eWxlPlxyXG5cdC8q5q+P5Liq6aG16Z2i5YWs5YWxY3NzICovXG5cdEBpbXBvcnQgXCIuL2NvbW1vbi9mcmVlLmNzc1wiO1xuXHRAaW1wb3J0IFwiLi9jb21tb24vY29tbW9uLmNzc1wiO1xuXHQvKiAjaWZuZGVmIEFQUC1QTFVTLU5WVUUgKi9cblx0QGltcG9ydCBcIi4vY29tbW9uL2ljb24uY3NzXCI7XG5cdC8qICNlbmRpZiAqL1xyXG48L3N0eWxlPlxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///5\n");
+eval("/* WEBPACK VAR INJECTION */(function(__f__) {Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0;var _default =\n{\n  onLaunch: function onLaunch() {\n\n    var domModule = weex.requireModule('dom');\n    domModule.addRule('fontFace', {\n      'fontFamily': \"iconfont\",\n      'src': \"url('https://at.alicdn.com/t/font_1365296_vumpzwvr0z.ttf')\" });\n\n\n    __f__(\"log\", 'App Launch', \" at App.vue:11\");\n  },\n  onShow: function onShow() {\n    __f__(\"log\", 'App Show', \" at App.vue:14\");\n  },\n  onHide: function onHide() {\n    __f__(\"log\", 'App Hide', \" at App.vue:17\");\n  } };exports.default = _default;\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/lib/format-log.js */ 6)[\"default\"]))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vQXBwLnZ1ZSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0EsOEJBREE7QUFFQSx5RUFGQTs7O0FBS0E7QUFDQSxHQVZBO0FBV0E7QUFDQTtBQUNBLEdBYkE7QUFjQTtBQUNBO0FBQ0EsR0FoQkEsRSIsImZpbGUiOiI1LmpzIiwic291cmNlc0NvbnRlbnQiOlsiPHNjcmlwdD5cclxuXHRleHBvcnQgZGVmYXVsdCB7XHJcblx0XHRvbkxhdW5jaDogZnVuY3Rpb24oKSB7XG5cdFx0XHQvLyAjaWZkZWYgQVBQLVBMVVMtTlZVRVxuXHRcdFx0dmFyIGRvbU1vZHVsZSA9IHdlZXgucmVxdWlyZU1vZHVsZSgnZG9tJyk7XG5cdFx0XHRkb21Nb2R1bGUuYWRkUnVsZSgnZm9udEZhY2UnLCB7XG5cdFx0XHRcdCdmb250RmFtaWx5JzogXCJpY29uZm9udFwiLFxuXHRcdFx0XHQnc3JjJzogXCJ1cmwoJ2h0dHBzOi8vYXQuYWxpY2RuLmNvbS90L2ZvbnRfMTM2NTI5Nl92dW1wend2cjB6LnR0ZicpXCJcblx0XHRcdH0pXG5cdFx0XHQvLyAjZW5kaWZcclxuXHRcdFx0Y29uc29sZS5sb2coJ0FwcCBMYXVuY2gnKVxyXG5cdFx0fSxcclxuXHRcdG9uU2hvdzogZnVuY3Rpb24oKSB7XHJcblx0XHRcdGNvbnNvbGUubG9nKCdBcHAgU2hvdycpXHJcblx0XHR9LFxyXG5cdFx0b25IaWRlOiBmdW5jdGlvbigpIHtcclxuXHRcdFx0Y29uc29sZS5sb2coJ0FwcCBIaWRlJylcclxuXHRcdH1cclxuXHR9XHJcbjwvc2NyaXB0PlxyXG5cclxuPHN0eWxlPlxyXG5cdC8q5q+P5Liq6aG16Z2i5YWs5YWxY3NzICovXG5cdEBpbXBvcnQgXCIuL2NvbW1vbi93eC1mcmVlLmNzc1wiO1xuXHRAaW1wb3J0IFwiLi9jb21tb24vd3gtY29tbW9uLmNzc1wiO1xuXHQvKiAjaWZuZGVmIEFQUC1QTFVTLU5WVUUgKi9cblx0QGltcG9ydCBcIi4vY29tbW9uL3d4LWljb24uY3NzXCI7XG5cdC8qICNlbmRpZiAqL1xyXG48L3N0eWxlPlxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///5\n");
 
 /***/ }),
 /* 6 */
@@ -1098,6 +1098,16 @@ module.exports = {
   },
   "right-0": {
     "right": "0rpx"
+  },
+  "page": {
+    "backgroundColor": "#EDEDED",
+    "flex": 1
+  },
+  "main-bg-color": {
+    "backgroundColor": "#08C060"
+  },
+  "main-text-color": {
+    "color": "#08C060"
   }
 }
 

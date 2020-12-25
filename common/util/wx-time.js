@@ -57,7 +57,7 @@ export default {
 
 		let curDate = new Date(curTimestamp); // 当前时间日期对象
 		let tmDate = new Date(timestamp); // 参数时间戳转换成的日期对象
-		console.log('--->:tmDate.getDate():' + tmDate.getDate());
+		
 		let Y = tmDate.getFullYear(),
 			m = tmDate.getMonth() + 1,
 			w = this.getWeekNum(timestamp),
@@ -66,7 +66,7 @@ export default {
 			i = tmDate.getMinutes(),
 			s = tmDate.getSeconds();
 
-		console.log('--->:Y:' + Y + " m:" + m + " w:" + w + " d:" + d + " h:" + h + " i:" + i + " s:" + s)
+		// console.log('--->:Y:' + Y + " m:" + m + " w:" + w + " d:" + d + " h:" + h + " i:" + i + " s:" + s)
 		if (timestampDiff < 60) { // 一分钟以内
 			return "刚刚";
 		} else if (timestampDiff < 1800) { // 30分钟之内
