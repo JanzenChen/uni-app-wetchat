@@ -1,0 +1,86 @@
+<template>
+	<view>
+		<!-- 导航栏 -->
+		<nav-bar showTitle fixed>仿微信(10)</nav-bar>
+		<!-- 列表 -->
+		<block v-for="(item, index) in list" :key="item.id">
+			<view class="flex align-center">
+				<!-- 左边 -->
+				<view class="flex align-center p-3">
+					<image class="rounded" :src="item.avatar"
+						   mode="widthFix" style="height: 90rpx; width: 92rpx;"></image>
+				</view>
+				<!-- 中间 -->
+				<view class="flex flex-column border-bottom flex-1 py-3 pr-3 border-light-secondary">
+					<view class="flex align-center justify-between mb-1">
+						<text class="font-normal">{{item.nick_name}}</text>
+						<text class="font-samll text-light-muted">{{item.update_time|formatTime}}</text>
+					</view>
+					<text class="font-normaler text-ellipsis text-light-muted">{{item.data}}</text>
+				</view>
+				<!-- 右边 -->
+				<view></view>
+			</view>
+		</block>
+
+	</view>
+</template>
+
+<script>
+	import navBar from '@/components/general-ui/nav-bar.nvue'
+	import timeUtil from '../../../common/util/time.js'
+	export default {
+		components: {
+			navBar
+		},
+		data() {
+			return {
+				list: [
+					{	
+						id:"1",
+						avatar:"/static/image/iocn_1.jpeg",
+						nick_name:"昵称1",
+						update_time:1608885572,
+						data:"最新消息1"
+					},{	
+						id:"2",
+						avatar:"/static/image/iocn_1.jpeg",
+						nick_name:"昵称2",
+						update_time:1608787208,
+						data:"最新消息2"
+					},{	
+						id:"3",
+						avatar:"/static/image/iocn_1.jpeg",
+						nick_name:"昵称3",
+						update_time:1608614408,
+						data:"最新消息3"
+					},{	
+						id:"4",
+						avatar:"/static/image/iocn_1.jpeg",
+						nick_name:"昵称4",
+						update_time:1608355208,
+						data:"最新消息4"
+					},{	
+						id:"5",
+						avatar:"../../../static/image/iocn_1.jpeg",
+						nick_name:"昵称5",
+						update_time:1605466608,
+						data:"最新消息5"
+					},
+				]
+			}
+		},
+		filters: {
+			formatTime(value) {
+				return timeUtil.getTime(value)
+			}
+		}
+		 ,
+		 onLoad() {
+		}
+	}
+</script>
+
+<style>
+
+</style>

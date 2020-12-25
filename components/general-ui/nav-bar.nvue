@@ -1,0 +1,75 @@
+<template>
+	<view>
+		<view class="bg-light" :class="fixed?'fixed-top':''">
+			<!-- 状态栏 -->
+			<view :style="fixedStatusStyle"></view>
+			<!-- 导航栏 -->
+			<view class="w-100 flex align-center justify-between" style="height: 90rpx;">
+				<!-- 左边 -->
+				<view class="flex align-center">
+					<text v-if="showTitle" class="font-normal ml-3"><slot></slot></text>
+				</view>
+				<!-- 右边 -->
+				<view class="flex align-center">
+					<icon-button @click_action='click_action'><text class="iconfont font-normal">&#xe6e3;</text></icon-button>
+					<icon-button><text class="iconfont font-normal">&#xe682;</text></icon-button>
+				</view>
+			</view>
+		</view>
+		<!-- 占位 -->
+		<view v-if="fixed" :style="fixedNavBarStyle"></view>
+	</view>
+
+</template>
+
+<script>
+	import iconButton from './icon-button.nvue'
+	export default {
+		props: {
+			showTitle: {
+				type: Boolean,
+				default: false 
+			},
+			fixed: {
+				type: Boolean,
+				default: true
+			}
+		},
+		components: {
+			iconButton
+		},
+		data() {
+			return {
+				statusBarHeight: 0,
+				navBarHeight: 0,
+			}
+		},
+		mounted() {
+			// #ifdef APP-PLUS-NVUE
+			this.statusBarHeight = plus.navigator.getStatusbarHeight()
+			// #endif
+			// upx转rpx
+			this.navBarHeight = this.statusBarHeight + uni.upx2px(90)
+		},
+		computed: {
+			fixedStatusStyle() {
+				return this.getFixedStyle(this.statusBarHeight)
+			},
+			fixedNavBarStyle() {
+				return this.getFixedStyle(this.navBarHeight)
+			},
+		},
+		methods: {
+			getFixedStyle(height) {
+				return `height:${height}px`
+			},
+			click_action() {
+				console.log("-----")
+			}
+		},
+	}
+</script>
+
+<style>
+
+</style>
