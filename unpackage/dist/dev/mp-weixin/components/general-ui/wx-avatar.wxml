@@ -1,1 +1,1 @@
-<image class="{{['rounded',type]}}" style=";" src="{{src}}" mode="widthFix"></image>
+<image class="{{['rounded',type]}}" style="{{(getStyle)}}" src="{{src}}" mode="widthFix"></image>

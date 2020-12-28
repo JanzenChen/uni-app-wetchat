@@ -134,7 +134,7 @@ var _default =
 
   computed: {
     getStyle: function getStyle() {
-      return "width: ".concat(this.size, "rpx; height:").concat(this.size, "rpx;");
+      return "width: ".concat(this.size, "rpx; height: ").concat(this.size, "rpx;");
     } } };exports.default = _default;
 
 /***/ })

@@ -212,7 +212,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
 var _wxTime = _interopRequireDefault(__webpack_require__(/*! @/common/util/wx-time.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -270,8 +269,8 @@ var _wxTime = _interopRequireDefault(__webpack_require__(/*! @/common/util/wx-ti
 //
 //
 //
-//
-var wxNavBar = function wxNavBar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-nav-bar */ "components/general-ui/wx-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-nav-bar.nvue */ 44));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxAvatar = function wxAvatar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-avatar */ "components/general-ui/wx-avatar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-avatar.nvue */ 59));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wxNavBar: wxNavBar, wxAvatar: wxAvatar }, data: function data() {return { list: [{ id: "0", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称0", update_time: 1608885572, data: "最新消息0" }, { id: "1", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称1", update_time: 1608873608, data: "最新消息1" }, { id: "2", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称2", update_time: 1608787208, data: "最新消息2" }, { id: "3", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称3", update_time: 1608614408, data: "最新消息3" }, { id: "4", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称4", update_time: 1608355208, data: "最新消息4" }, { id: "5", avatar: "../../../static/image/iocn_1.jpeg", nick_name: "昵称5", update_time: 1605466608, data: "最新消息5" }] };}, filters: { formatTime: function formatTime(value) {return _wxTime.default.getTime(value);} }, onLoad: function onLoad() {} };exports.default = _default;
+var wxNavBar = function wxNavBar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-nav-bar */ "components/general-ui/wx-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-nav-bar.nvue */ 44));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxAvatar = function wxAvatar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-avatar */ "components/general-ui/wx-avatar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-avatar.nvue */ 59));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wxNavBar: wxNavBar, wxAvatar: wxAvatar }, data: function data() {return { list: [{ id: "0", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称0", update_time: 1608885572, data: "最新消息0" }, { id: "1", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称1", update_time: 1608873608, data: "最新消息1" }, { id: "2", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称2", update_time: 1608787208, data: "最新消息2" }, { id: "3", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称3", update_time: 1608614408, data: "最新消息3" }, { id: "4", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称4", update_time: 1608355208, data: "最新消息4" }, { id: "5", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称5", update_time: 1605466608, data: "最新消息5" }] };}, filters: { formatTime: function formatTime(value) {return _wxTime.default.getTime(value);} }, onLoad: function onLoad() {
+  } };exports.default = _default;
 
 /***/ }),
 /* 17 */,

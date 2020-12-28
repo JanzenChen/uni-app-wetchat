@@ -6,10 +6,9 @@
 		<block v-for="(item, index) in list" :key="item.id">
 			<view class="flex align-center">
 				<!-- 左边 -->
-				<view class="flex align-center p-3">
-					<!-- <wx-avatar :scr="item.avatar" size="92"></wx-avatar> -->
-					<image class="rounded" :src="item.avatar"
-						   mode="widthFix" style="height: 90rpx; width: 92rpx;"></image>
+				<view class="flex align-center" style="width: 145rpx;">
+					<!-- <wx-avatar :scr="item.avatar"></wx-avatar> -->
+					<image class="rounded" :src="item.avatar" mode="widthFix" style="height: 90rpx; width: 92rpx;"></image>
 				</view>
 				<!-- 中间 -->
 				<view class="flex flex-column border-bottom flex-1 py-3 pr-3 border-light-secondary">
@@ -71,7 +70,7 @@
 						data:"最新消息4"
 					},{	
 						id:"5",
-						avatar:"../../../static/image/iocn_1.jpeg",
+						avatar:"/static/image/iocn_1.jpeg",
 						nick_name:"昵称5",
 						update_time:1605466608,
 						data:"最新消息5"

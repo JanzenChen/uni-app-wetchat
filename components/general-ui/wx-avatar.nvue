@@ -1,5 +1,5 @@
 <template>
-	<image class="rounded" :src="src" mode="widthFix" style="getStyle" :class="type"></image>
+	<image class="rounded" :src="src" mode="widthFix" :style="getStyle" :class="type"></image>
 </template>
 
 <script>
@@ -20,7 +20,7 @@
 		},
 		computed: {
 			getStyle() {
-				return `width: ${this.size}rpx; height:${this.size}rpx;`
+				return `width: ${this.size}rpx; height: ${this.size}rpx;`
 			}
 		}
 	}
