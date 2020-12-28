@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "weixin-nav-bar": "/components/general-ui/wx-nav-bar",
-    "weixin-avatar": "/components/general-ui/wx-avatar"
+    "weixin-avatar": "/components/general-ui/wx-avatar",
+    "weixin-badge": "/components/general-ui/wx-badge"
   }
 }

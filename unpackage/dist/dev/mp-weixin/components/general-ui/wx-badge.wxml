@@ -1,0 +1,1 @@
+<block wx:if="{{badgeValue>0}}"><text class="{{['wx-badge bg-danger text-white rounded-circle font-samller data-v-e68e0948',badgeClass]}}" style="{{(badgeStyle)}}">{{getBadgeString}}</text></block>

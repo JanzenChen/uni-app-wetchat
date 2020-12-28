@@ -1,0 +1,39 @@
+<template>
+	<text v-if="badgeValue > 0" class="wx-badge bg-danger text-white rounded-circle font-samller"
+	      :class="badgeClass" :style="badgeStyle">{{getBadgeString}}</text>
+</template>
+
+<script>
+	export default {
+		props: {
+			badgeValue: {
+				type: Number,
+				default: 0
+			},
+			badgeClass: {
+				type: String,
+				default: ""
+			},
+			badgeStyle: {
+				type: String,
+				default: ""
+			}
+		},
+		computed: {
+			getBadgeString(){
+				if (this.badgeValue <= 0) return "0"
+				if (this.badgeValue > 99) return "99+"
+				return this.badgeValue
+			}
+		}
+	}
+</script>
+
+<style scoped>
+.wx-badge {
+	padding-left: 14rpx;
+	padding-right: 14rpx;
+	padding-top: 6rpx;
+	padding-bottom: 6rpx;
+}
+</style>
