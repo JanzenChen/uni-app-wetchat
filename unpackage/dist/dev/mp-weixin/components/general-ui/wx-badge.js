@@ -137,9 +137,10 @@ var _default =
 
   computed: {
     getBadgeString: function getBadgeString() {
-      if (this.badgeValue <= 0) return "0";
-      if (this.badgeValue > 99) return "99+";
-      return this.badgeValue;
+      // if (this.badgeValue <= 0) return "0"
+      // if (this.badgeValue > 99) return "99+"
+      // return this.badgeValue
+      return this.badgeValue <= 0 ? "0" : this.badgeValue < 99 ? String(this.badgeValue) : "99+";
     } } };exports.default = _default;
 
 /***/ }),

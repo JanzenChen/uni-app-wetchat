@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "weixin-avatar": "/components/general-ui/wx-avatar",
+    "weixin-badge": "/components/general-ui/wx-badge"
+  },
+  "component": true
+}

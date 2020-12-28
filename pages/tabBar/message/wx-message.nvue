@@ -1,41 +1,21 @@
 <template>
 	<view>
 		<!-- 导航栏 -->
-		<wx-nav-bar showTitle fixed>仿微信(10)</wx-nav-bar>
+		<wx-nav-bar showTitle fixed>仿微信({{list.length > 0 ? list.length : ""}})</wx-nav-bar>
 		<!-- 列表 -->
 		<block v-for="(item, index) in list" :key="item.id">
-			<view class="flex align-center">
-				<!-- 左边 -->
-				<view class="flex align-stretch pl-3 position-relative" style="width: 145rpx;">
-					<wx-avatar :src="item.avatar" class="bg-danger" size="90"></wx-avatar>
-					<wx-badge badgeClass="position-absolute" badgeStyle="top: -5rpx; right: 8rpx;" :badgeValue="item.badgeValue"></wx-badge>
-				</view>
-				<!-- 中间 -->
-				<view class="flex flex-column border-bottom flex-1 py-3 pr-3 border-light-secondary">
-					<view class="flex align-center justify-between mb-1">
-						<text class="font-normal">{{item.nick_name}}</text>
-						<text class="font-samll text-light-muted">{{item.update_time|formatTime}}</text>
-					</view>
-					<text class="font-normaler text-ellipsis text-light-muted">{{item.data}}</text>
-				</view>
-				<!-- 右边 -->
-				<view></view>
-			</view>
+			<wx-message-cell :item="item"></wx-message-cell>
 		</block>
-
 	</view>
 </template>
 
 <script>
-	import wxTimeUtil from '@/common/util/wx-time.js'
 	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
-	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
-	import wxBadge from '@/components/general-ui/wx-badge.nvue'
+	import wxMessageCell from '@/components/general-ui/wx-message-cell.nvue'
 	export default {
 		components: {
 			wxNavBar,
-			wxAvatar,
-			wxBadge
+			wxMessageCell,
 		},
 		data() {
 			return {
@@ -45,53 +25,47 @@
 						avatar:"/static/image/iocn_1.jpeg",
 						nick_name:"昵称0",
 						update_time:1608885572,
-						badgeValue: 0,
+						badge_value: 0,
 						data:"最新消息0"
 					},{	
 						id:"1",
 						avatar:"/static/image/iocn_1.jpeg",
 						nick_name:"昵称1",
 						update_time:1608873608,
-						badgeValue: 1,
+						badge_value: 1,
 						data:"最新消息1"
 					},{	
 						id:"2",
 						avatar:"/static/image/iocn_1.jpeg",
 						nick_name:"昵称2",
 						update_time:1608787208,
-						badgeValue: 3,
+						badge_value: 3,
 						data:"最新消息2"
 					},{	
 						id:"3",
 						avatar:"/static/image/iocn_1.jpeg",
 						nick_name:"昵称3",
 						update_time:1608614408,
-						badgeValue: 9,
+						badge_value: 9,
 						data:"最新消息3"
 					},{	
 						id:"4",
 						avatar:"/static/image/iocn_1.jpeg",
 						nick_name:"昵称4",
 						update_time:1608355208,
-						badgeValue: 88,
+						badge_value: 88,
 						data:"最新消息4"
 					},{	
 						id:"5",
 						avatar:"/static/image/iocn_1.jpeg",
 						nick_name:"昵称5",
 						update_time:1605466608,
-						badgeValue: 109,
+						badge_value: 109,
 						data:"最新消息5"
 					},
 				]
 			}
 		},
-		filters: {
-			formatTime(value) {
-				return wxTimeUtil.getTime(value)
-			}
-		}
-		 ,
 		 onLoad() {
 		}
 	}

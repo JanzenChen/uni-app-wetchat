@@ -1,0 +1,54 @@
+<template>
+	<view hover-class="bg-hover-light">
+		<!-- 使用view无法获取长按坐标, 使用div -->
+		<div v-if="item" class="flex align-center" @click="onClick" @longpress="onLongpress">
+			<!-- 左边 -->
+			<view class="flex align-stretch pl-3 position-relative" style="width: 145rpx;">
+				<wx-avatar :src="item.avatar" class="bg-danger" size="90"></wx-avatar>
+				<wx-badge badgeClass="position-absolute" badgeStyle="top: -5rpx; right: 8rpx;" :badgeValue="item.badge_value"></wx-badge>
+			</view>
+			<!-- 右边 -->
+			<view class="flex flex-column border-bottom flex-1 py-3 pr-3 border-light-secondary">
+				<view class="flex align-center justify-between mb-1">
+					<text class="font-normal">{{item.nick_name}}</text>
+					<text class="font-samll text-light-muted">{{item.update_time|formatTime}}</text>
+				</view>
+				<text class="font-normaler text-ellipsis text-light-muted">{{item.data}}</text>
+			</view>
+		</div>
+	</view>
+</template>
+
+<script>
+	import wxTimeUtil from '@/common/util/wx-time.js'
+	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
+	import wxBadge from '@/components/general-ui/wx-badge.nvue'
+	export default {
+		components: {
+			wxAvatar,
+			wxBadge
+		},
+		props: {
+			item: {
+				type: Object
+			},
+		},
+		filters: {
+			formatTime(value) {
+				return wxTimeUtil.getTime(value)
+			}
+		},
+		methods: {
+			onClick(e) {
+				console.log(e);
+			},
+			onLongpress(e) {
+				console.log(e);
+			}
+		}
+	}
+</script>
+
+<style>
+
+</style>

@@ -104,25 +104,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.list, function(item, index) {
-    var $orig = _vm.__get_orig(item)
-
-    var f0 = _vm._f("formatTime")(item.update_time)
-
-    return {
-      $orig: $orig,
-      f0: f0
-    }
-  })
-
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        l0: l0
-      }
-    }
-  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -154,7 +135,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wxNavBar = function wxNavBar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-nav-bar */ "components/general-ui/wx-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-nav-bar.nvue */ 73));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxMessageCell = function wxMessageCell() {Promise.all(/*! require.ensure | components/general-ui/wx-message-cell */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/general-ui/wx-message-cell")]).then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-message-cell.nvue */ 17));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -197,86 +178,60 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+{
+  components: {
+    wxNavBar: wxNavBar,
+    wxMessageCell: wxMessageCell },
+
+  data: function data() {
+    return {
+      list: [
+      {
+        id: "0",
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称0",
+        update_time: 1608885572,
+        badge_value: 0,
+        data: "最新消息0" },
+      {
+        id: "1",
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称1",
+        update_time: 1608873608,
+        badge_value: 1,
+        data: "最新消息1" },
+      {
+        id: "2",
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称2",
+        update_time: 1608787208,
+        badge_value: 3,
+        data: "最新消息2" },
+      {
+        id: "3",
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称3",
+        update_time: 1608614408,
+        badge_value: 9,
+        data: "最新消息3" },
+      {
+        id: "4",
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称4",
+        update_time: 1608355208,
+        badge_value: 88,
+        data: "最新消息4" },
+      {
+        id: "5",
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称5",
+        update_time: 1605466608,
+        badge_value: 109,
+        data: "最新消息5" }] };
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-var _wxTime = _interopRequireDefault(__webpack_require__(/*! @/common/util/wx-time.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var wxNavBar = function wxNavBar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-nav-bar */ "components/general-ui/wx-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-nav-bar.nvue */ 44));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxAvatar = function wxAvatar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-avatar */ "components/general-ui/wx-avatar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-avatar.nvue */ 59));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxBadge = function wxBadge() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-badge */ "components/general-ui/wx-badge").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-badge.nvue */ 64));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wxNavBar: wxNavBar, wxAvatar: wxAvatar, wxBadge: wxBadge }, data: function data() {return { list: [{ id: "0", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称0", update_time: 1608885572, badgeValue: 0, data: "最新消息0" }, { id: "1", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称1", update_time: 1608873608, badgeValue: 1, data: "最新消息1" }, { id: "2", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称2", update_time: 1608787208, badgeValue: 3, data: "最新消息2" }, { id: "3", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称3", update_time: 1608614408, badgeValue: 9, data: "最新消息3" }, { id: "4", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称4", update_time: 1608355208, badgeValue: 88, data: "最新消息4" }, { id: "5", avatar: "/static/image/iocn_1.jpeg", nick_name: "昵称5", update_time: 1605466608, badgeValue: 109, data: "最新消息5" }] };
   },
-  filters: {
-    formatTime: function formatTime(value) {
-      return _wxTime.default.getTime(value);
-    } },
-
-
   onLoad: function onLoad() {
   } };exports.default = _default;
 
