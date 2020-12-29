@@ -143,7 +143,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxTime = _interopRequireDefault(__webpack_require__(/*! @/common/util/wx-time.js */ 72));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+var _wxBase = _interopRequireDefault(__webpack_require__(/*! @/common/wx-base.js */ 72));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -164,9 +164,18 @@ var _wxTime = _interopRequireDefault(__webpack_require__(/*! @/common/util/wx-ti
 //
 //
 //
-var wxAvatar = function wxAvatar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-avatar */ "components/general-ui/wx-avatar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-avatar.nvue */ 59));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxBadge = function wxBadge() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-badge */ "components/general-ui/wx-badge").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-badge.nvue */ 64));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { wxAvatar: wxAvatar, wxBadge: wxBadge }, props: { item: { type: Object } }, filters: { formatTime: function formatTime(value) {return _wxTime.default.getTime(value);} }, methods: { onClick: function onClick(e) {console.log(e);},
-    onLongpress: function onLongpress(e) {
-      console.log(e);
+var wxAvatar = function wxAvatar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-avatar */ "components/general-ui/wx-avatar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-avatar.nvue */ 59));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxBadge = function wxBadge() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-badge */ "components/general-ui/wx-badge").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-badge.nvue */ 64));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { mixins: [_wxBase.default], components: { wxAvatar: wxAvatar, wxBadge: wxBadge }, props: { item: { type: Object } }, methods: { onClick: function onClick(e) {console.log(e);}, onLongpress: function onLongpress(e) {var x = 0;var y = 0;
+
+
+
+
+
+
+
+      x = e.detail.x;
+      y = e.detail.y;
+
+      this.$emit('onLongpress', { x: x, y: y, id: this.item.id });
     } } };exports.default = _default;
 
 /***/ })

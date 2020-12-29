@@ -8025,6 +8025,23 @@ module.exports = g;
 /***/ }),
 
 /***/ 72:
+/*!***************************************************************************************!*\
+  !*** /Users/chenjiajiang/Documents/HBuilderProjects/wechat-imitate/common/wx-base.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _wxTime = _interopRequireDefault(__webpack_require__(/*! @/common/util/wx-time.js */ 77));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+{
+  filters: {
+    formatTime: function formatTime(value) {
+      return _wxTime.default.getTime(value);
+    } } };exports.default = _default;
+
+/***/ }),
+
+/***/ 77:
 /*!********************************************************************************************!*\
   !*** /Users/chenjiajiang/Documents/HBuilderProjects/wechat-imitate/common/util/wx-time.js ***!
   \********************************************************************************************/

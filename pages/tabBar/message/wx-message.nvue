@@ -4,69 +4,233 @@
 		<wx-nav-bar showTitle fixed>仿微信({{list.length > 0 ? list.length : ""}})</wx-nav-bar>
 		<!-- 列表 -->
 		<block v-for="(item, index) in list" :key="item.id">
-			<wx-message-cell :item="item"></wx-message-cell>
+			<wx-message-cell :item="item" @onLongpress="onLongpressAction"></wx-message-cell>
 		</block>
+
+		<!-- 弹出层 -->
+		<wx-popup class="border" ref="extend" :fixedBottom="false" :contentWidth="240" :contentHeight="100 * menus.length">
+			<view v-for="(menuItem,index) in menus" :key="index" class="flex flex-column" style="width: 240rpx; height: 100rpx;"
+			 @click="clickHandle(menuItem)">
+				<view class="flex-1 flex align-center">
+					<text class="font-normal pl-3">{{menuItem.title}}</text>
+				</view>
+			</view>
+		</wx-popup>
+
 	</view>
 </template>
 
 <script>
 	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
 	import wxMessageCell from '@/components/general-ui/wx-message-cell.nvue'
+	import wxPopup from '@/common/wx-popup.nvue'
 	export default {
 		components: {
 			wxNavBar,
 			wxMessageCell,
+			wxPopup,
 		},
 		data() {
 			return {
-				list: [
-					{	
-						id:"0",
-						avatar:"/static/image/iocn_1.jpeg",
-						nick_name:"昵称0",
-						update_time:1608885572,
-						badge_value: 0,
-						data:"最新消息0"
-					},{	
-						id:"1",
-						avatar:"/static/image/iocn_1.jpeg",
-						nick_name:"昵称1",
-						update_time:1608873608,
-						badge_value: 1,
-						data:"最新消息1"
-					},{	
-						id:"2",
-						avatar:"/static/image/iocn_1.jpeg",
-						nick_name:"昵称2",
-						update_time:1608787208,
-						badge_value: 3,
-						data:"最新消息2"
-					},{	
-						id:"3",
-						avatar:"/static/image/iocn_1.jpeg",
-						nick_name:"昵称3",
-						update_time:1608614408,
-						badge_value: 9,
-						data:"最新消息3"
-					},{	
-						id:"4",
-						avatar:"/static/image/iocn_1.jpeg",
-						nick_name:"昵称4",
-						update_time:1608355208,
-						badge_value: 88,
-						data:"最新消息4"
-					},{	
-						id:"5",
-						avatar:"/static/image/iocn_1.jpeg",
-						nick_name:"昵称5",
-						update_time:1605466608,
-						badge_value: 109,
-						data:"最新消息5"
+				menus: [{
+						"msgId": "-1",
+						"title": "设为置顶",
+						"event": "setTop",
 					},
-				]
+					{
+						"msgId": "-1",
+						"title": "删除该聊天",
+						"event": "delChat",
+					},
+				],
+				sortList: [],
+				list: [{
+					id: "0",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称0",
+					update_time: 1608885572,
+					badge_value: 0,
+					data: "最新消息0"
+				}, {
+					id: "1",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称1",
+					update_time: 1608873608,
+					badge_value: 1,
+					data: "最新消息1"
+				}, {
+					id: "2",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称2",
+					update_time: 1608787208,
+					badge_value: 3,
+					data: "最新消息2"
+				}, {
+					id: "3",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称3",
+					update_time: 1608614408,
+					badge_value: 9,
+					data: "最新消息3"
+				}, {
+					id: "4",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称4",
+					update_time: 1608355208,
+					badge_value: 88,
+					data: "最新消息4"
+				}, {
+					id: "5",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称5",
+					update_time: 1605466608,
+					badge_value: 109,
+					data: "最新消息5"
+				}, {
+					id: "6",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称6",
+					update_time: 1608885572,
+					badge_value: 0,
+					data: "最新消息7"
+				}, {
+					id: "7",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称7",
+					update_time: 1608873608,
+					badge_value: 1,
+					data: "最新消息7"
+				}, {
+					id: "8",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称8",
+					update_time: 1608787208,
+					badge_value: 3,
+					data: "最新消息8"
+				}, {
+					id: "9",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称9",
+					update_time: 1608614408,
+					badge_value: 9,
+					data: "最新消息9"
+				}, {
+					id: "10",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称10",
+					update_time: 1608355208,
+					badge_value: 88,
+					data: "最新消息10"
+				}, {
+					id: "11",
+					settop_time: 0,
+					avatar: "/static/image/iocn_1.jpeg",
+					nick_name: "昵称11",
+					update_time: 1605466608,
+					badge_value: 109,
+					data: "最新消息11"
+				}, ]
 			}
 		},
-		 onLoad() {
+		onLoad() {
+			this.sortChatList()
+		},
+		mounted() {},
+		methods: {
+			sortChatList() {
+				this.list.sort((a, b) => {
+					return a.settop_time < b.settop_time
+				})
+			},
+			onLongpressAction({
+				x,
+				y,
+				id,
+			}) {
+				/// 更新弹窗所绑定的消息ID
+				this.menus.forEach((item, index) => {
+					item.msgId = id
+					if (0 == index) {
+						// 获取会话id在list中的索引
+						let index = this.list.findIndex((item, index, list) => {
+							return item.id === id
+						})
+						
+						if (index >= 0 && index < this.list.length) {
+							// 修改取消置顶与置顶菜单
+							item.title =  this.list[index].settop_time <= 0 ? "设为置顶" : "取消置顶"
+							item.event = this.list[index].settop_time <= 0 ? "setTop" : "unsetTop"
+						}
+					}
+				})
+				// 展示弹窗
+				this.$refs.extend.show(x, y, id)
+			},
+			// 菜单事件分发
+			clickHandle(item) {
+				if (item.msgId.length === 0 || item.msgId < 0) {
+					return
+				}
+				switch (item.event) {
+					case "setTop":
+						this.setTop(true, item.msgId)
+						break;
+					case "unsetTop":
+						this.setTop(false, item.msgId)
+						break;
+					case "delChat":
+						this.deleteChat(item.msgId)
+						break;
+				}
+			},
+			// 设置或取消置顶
+			setTop(isTop, id) {
+				// 获取会话id在list中的索引
+				let index = this.list.findIndex((item, index, list) => {
+					return item.id === id
+				})
+				
+				if (index < 0) {
+					return
+				}
+				
+				// 修改置顶时间
+				if (isTop === true) {
+					this.list[index].settop_time = new Date().getTime()
+				} else {
+					this.list[index].settop_time = 0
+				}
+				
+				// 隐藏弹窗
+				this.$refs.extend.hide()
+				// 更新置顶
+				this.sortChatList()
+			},
+			// 删除某个ID的会话
+			deleteChat(id) {
+				// 获取会话id在list中的索引
+				let index = this.list.findIndex((item, index, list) => {
+					return item.id === id
+				})
+
+				if (index >= 0) {
+					// 隐藏弹窗
+					this.$refs.extend.hide()
+					// 删除列表中的会话并更新list
+					this.list.splice(index, 1)
+				}
+			}
 		}
 	}
 </script>

@@ -1,0 +1,162 @@
+<template>
+	<div v-if="status" class="overflow-hidden" style="z-index: 9999;">
+		<!-- 蒙版 -->
+		<div v-if="mask" class="position-fixed top-0 left-0 right-0 bottom-0" :style="getMaskColor" @click="hide"></div>
+		<!-- 弹窗内容 -->
+		<div ref="popup" :class="['position-fixed','popup-animate', fixedBottom ? 'fixedBottom' : 'rounded']" :style="getBodyStyle">
+			<slot></slot>
+		</div>
+	</div>
+</template>
+
+<script>
+	// #ifdef APP-PLUS-NVUE
+	const animation = weex.requireModule('animation')
+	// #endif
+	export default {
+		props: {
+			// 是否开启蒙版
+			mask: {
+				type: Boolean,
+				default: true
+			},
+			//蒙版是否开启颜色
+			maskColor: {
+				type: Boolean,
+				default: false
+			},
+			fixedBottom: {
+				type: Boolean,
+				default: true
+			},
+			// 弹出层内容宽度
+			contentWidth: {
+				type: Number,
+				default: 0
+			},
+			// 弹窗内容高度
+			contentHeight: {
+				type: Number,
+				default: 0
+			},
+			//背景色
+			contentBgColor: {
+				type: String,
+				default: "bg-white"
+			}
+		},
+		data() {
+			return {
+				status: false,
+				x: -1,
+				y: -1,
+				maxX: 0,
+				maxY: 0,
+				transformOrigin: '',
+			}
+		},
+		mounted() {
+			try {
+				const res = uni.getSystemInfoSync()
+				this.maxX = res.windowWidth - uni.upx2px(this.contentWidth) - 10
+				this.maxY = res.windowHeight - uni.upx2px(this.contentHeight) - 10
+			} catch (e) {}
+		},
+		computed: {
+			getMaskColor() {
+				let a = this.maskColor ? 0.5 : 0;
+				return `background-color: rgba(0,0,0,${a});`
+			},
+			getBodyStyle() {
+				let left = this.x > -1 ? `left:${this.x}px;` : '';
+				let top = this.y > -1 ? `top:${this.y}px;` : '';
+				let bgColor = `background-color: ${this.contentBgColor};`
+				return top + left + bgColor
+			},
+		},
+		methods: {
+			show(x = -1, y = -1) {
+				console.log(x, y)
+				this.x = x > this.maxX ? this.maxX : x;
+				this.y = y > this.maxY ? this.maxY : y;
+				this.status = true;
+
+
+				var transformOriginH = ''
+				var transformOriginV = ''
+				
+				if (this.x < this.maxX * 0.3) {
+					transformOriginH = 'left'
+				} else if (this.x > this.maxX * 0.7) {
+					transformOriginH = 'right'
+				}
+				
+				if (this.y < this.maxY * 0.7) {
+					transformOriginV = 'top'
+				} else {
+					transformOriginV = 'bottom'
+				}
+				
+				 this.transformOrigin = transformOriginH + transformOriginV
+				
+				// #ifdef APP-NVUE
+				// 等待加载完成在执行
+				this.$nextTick(() => {
+					animation.transition(this.$refs.popup, {
+						styles: {
+							transform: 'scale(1,1)',
+							transformOrigin: this.transformOrigin,
+							opacity: 1,
+						},
+						duration: 100, //ms
+						timingFunction: 'ease',
+						needLayout: false,
+						delay: 0 //ms
+					}, () => {
+						console.log('动画执行完毕')
+					})
+				})
+				// #endif
+			},
+			hide() {
+				// #ifdef APP-PLUS-NVUE
+
+				// 等待加载完成在执行
+				animation.transition(this.$refs.popup, {
+					styles: {
+						transform: 'scale(0,0)',
+						transformOrigin: this.transformOrigin,
+						opacity: 0,
+					},
+					duration: 100, //ms
+					timingFunction: 'ease',
+					needLayout: false,
+					delay: 0 //ms
+				}, () => {
+					this.status = false;
+					console.log('动画执行完毕')
+				})
+				// #endif
+
+				// #ifndef APP-PLUS-NVUE
+				this.status = false
+				// #endif
+			}
+		}
+	}
+</script>
+
+<style scoped>
+	.fixedBottom {
+		left: 0rpx;
+		right: 0rpx;
+		bottom: 0rpx;
+	}
+
+	.popup-animate {
+		/* #ifdef APP-PLUS-NVUE */
+		transform: scale(0, 0);
+		opacity: 0;
+		/* #endif */
+	}
+</style>

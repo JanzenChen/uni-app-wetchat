@@ -1,10 +1,10 @@
 <template>
-	<view hover-class="bg-hover-light">
+	<view v-if="item" :class="{'bg-hover-light' : item.settop_time > 0}" hover-class="bg-hover-light">
 		<!-- 使用view无法获取长按坐标, 使用div -->
-		<div v-if="item" class="flex align-center" @click="onClick" @longpress="onLongpress">
+		<div class="flex align-center" @click="onClick" @longpress="onLongpress">
 			<!-- 左边 -->
 			<view class="flex align-stretch pl-3 position-relative" style="width: 145rpx;">
-				<wx-avatar :src="item.avatar" class="bg-danger" size="90"></wx-avatar>
+				<wx-avatar :src="item.avatar" size="90"></wx-avatar>
 				<wx-badge badgeClass="position-absolute" badgeStyle="top: -5rpx; right: 8rpx;" :badgeValue="item.badge_value"></wx-badge>
 			</view>
 			<!-- 右边 -->
@@ -20,10 +20,11 @@
 </template>
 
 <script>
-	import wxTimeUtil from '@/common/util/wx-time.js'
+	import wxBase from '@/common/wx-base.js'
 	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
 	import wxBadge from '@/components/general-ui/wx-badge.nvue'
 	export default {
+		mixins:[wxBase],
 		components: {
 			wxAvatar,
 			wxBadge
@@ -33,17 +34,25 @@
 				type: Object
 			},
 		},
-		filters: {
-			formatTime(value) {
-				return wxTimeUtil.getTime(value)
-			}
-		},
 		methods: {
 			onClick(e) {
-				console.log(e);
+				console.log(e)
 			},
 			onLongpress(e) {
-				console.log(e);
+				let x = 0
+				let y = 0
+				// #ifdef APP-PLUS-NVUE
+				if (Array.isArray(e.changedTouches) && e.changedTouches.length > 0) {
+					x = e.changedTouches[0].screenX
+					y = e.changedTouches[0].screenY
+				}
+				// #endif
+				
+				// #ifdef MP
+				x = e.detail.x
+				y = e.detail.y
+				// #endif
+				this.$emit('onLongpress', {x:x, y:y, id:this.item.id})
 			}
 		}
 	}

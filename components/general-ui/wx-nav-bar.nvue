@@ -11,19 +11,30 @@
 				</view>
 				<!-- 右边 -->
 				<view class="flex align-center">
-					<wx-icon-button @click_action='click_action'><text class="iconfont font-normal">&#xe6e3;</text></wx-icon-button>
-					<wx-icon-button><text class="iconfont font-normal">&#xe682;</text></wx-icon-button>
+					<wx-icon-button ref="search_button" @click_action='search'><text class="iconfont font-normal">&#xe6e3;</text></wx-icon-button>
+					<wx-icon-button ref="extend_button" @click_action='openExtend'><text class="iconfont font-normal">&#xe682;</text></wx-icon-button>
 				</view>
 			</view>
 		</view>
 		<!-- 占位 -->
 		<view v-if="fixed" :style="fixedNavBarStyle"></view>
+		
+		<!-- 弹窗 -->
+		<wx-popup class="border" ref="extend" :fixedBottom="false" :contentWidth="320" :contentHeight="100 * extendLists.length">
+			<view v-for="(extendItem,index) in extendLists" :key="index" class="flex flex-column" style="width: 320rpx; height: 100rpx;" @click="clickHandle(extendItem.event)">
+				<view :class="['flex-1', 'flex', 'align-center', 'bg-dark', 0 == index ? 'rounded-top' : '', extendLists.length == (index + 1) ? 'rounded-bottom' : '']" hover-class="bg-hover-dark">
+					<text class="iconfont font-normal  pl-3  pr-2 text-white">{{extendItem.icon}}</text>
+					<text class="font-normal text-white">{{extendItem.title}}</text>
+				</view>
+			</view>
+		</wx-popup>
 	</view>
 
 </template>
 
 <script>
 	import wxIconButton from './wx-icon-button.nvue'
+	import wxPopup from '@/common/wx-popup.nvue'
 	export default {
 		props: {
 			showTitle: {
@@ -36,12 +47,38 @@
 			}
 		},
 		components: {
-			wxIconButton
+			wxIconButton,
+			wxPopup,
 		},
 		data() {
 			return {
 				statusBarHeight: 0,
 				navBarHeight: 0,
+				extendLists: [{
+						"title": "发起群聊",
+						"icon": "\ue633",
+						"event": "creatChatRoom",
+					},
+					{
+						"title": "添加好友",
+						"icon": "\ue65d",
+						"event": "addFriend",
+					},
+					{
+						"title": "扫一扫",
+						"icon": "\ue614",
+						"event": "scanQRCode",
+					},
+					{
+						"title": "收付款",
+						"icon": "\ue66c",
+						"event": "payment",
+					},
+					{
+						"title": "帮助与反馈",
+						"icon": "\ue64e",
+						"event": "help",
+					}]
 			}
 		},
 		mounted() {
@@ -63,8 +100,27 @@
 			getFixedStyle(height) {
 				return `height:${height}px`
 			},
-			click_action() {
-				console.log("-----")
+			search() {
+				
+			},
+			openExtend() {
+				this.$refs.extend.show(265, this.navBarHeight + 10)
+			},
+			// 菜单事件分发
+			clickHandle(event) {
+				console.log(event)
+				switch (event) {
+					case "creatChatRoom": 
+						break;
+					case "addFriend":
+						break;
+					case "scanQRCode":
+						break;
+					case "payment":
+						break;
+					case "help":
+						break;
+				}
 			}
 		},
 	}

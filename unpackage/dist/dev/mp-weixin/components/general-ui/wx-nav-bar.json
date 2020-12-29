@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "weixin-icon-button": "/components/general-ui/wx-icon-button",
+    "weixin-popup": "/common/wx-popup"
+  }
+}

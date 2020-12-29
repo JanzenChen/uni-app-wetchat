@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "weixin-nav-bar": "/components/general-ui/wx-nav-bar",
-    "weixin-message-cell": "/components/general-ui/wx-message-cell"
-  }
-}

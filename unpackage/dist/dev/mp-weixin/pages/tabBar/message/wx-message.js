@@ -135,7 +135,19 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wxNavBar = function wxNavBar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-nav-bar */ "components/general-ui/wx-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-nav-bar.nvue */ 73));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxMessageCell = function wxMessageCell() {Promise.all(/*! require.ensure | components/general-ui/wx-message-cell */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/general-ui/wx-message-cell")]).then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-message-cell.nvue */ 17));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wxNavBar = function wxNavBar() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-nav-bar */ "components/general-ui/wx-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-nav-bar.nvue */ 73));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxMessageCell = function wxMessageCell() {Promise.all(/*! require.ensure | components/general-ui/wx-message-cell */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/general-ui/wx-message-cell")]).then((function () {return resolve(__webpack_require__(/*! @/components/general-ui/wx-message-cell.nvue */ 17));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxPopup = function wxPopup() {__webpack_require__.e(/*! require.ensure | common/wx-popup */ "common/wx-popup").then((function () {return resolve(__webpack_require__(/*! @/common/wx-popup.nvue */ 78));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -181,13 +193,26 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 {
   components: {
     wxNavBar: wxNavBar,
-    wxMessageCell: wxMessageCell },
+    wxMessageCell: wxMessageCell,
+    wxPopup: wxPopup },
 
   data: function data() {
     return {
-      list: [
+      menus: [{
+        "msgId": "-1",
+        "title": "设为置顶",
+        "event": "setTop" },
+
       {
+        "msgId": "-1",
+        "title": "删除该聊天",
+        "event": "delChat" }],
+
+
+      sortList: [],
+      list: [{
         id: "0",
+        settop_time: 0,
         avatar: "/static/image/iocn_1.jpeg",
         nick_name: "昵称0",
         update_time: 1608885572,
@@ -195,6 +220,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         data: "最新消息0" },
       {
         id: "1",
+        settop_time: 0,
         avatar: "/static/image/iocn_1.jpeg",
         nick_name: "昵称1",
         update_time: 1608873608,
@@ -202,6 +228,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         data: "最新消息1" },
       {
         id: "2",
+        settop_time: 0,
         avatar: "/static/image/iocn_1.jpeg",
         nick_name: "昵称2",
         update_time: 1608787208,
@@ -209,6 +236,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         data: "最新消息2" },
       {
         id: "3",
+        settop_time: 0,
         avatar: "/static/image/iocn_1.jpeg",
         nick_name: "昵称3",
         update_time: 1608614408,
@@ -216,6 +244,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         data: "最新消息3" },
       {
         id: "4",
+        settop_time: 0,
         avatar: "/static/image/iocn_1.jpeg",
         nick_name: "昵称4",
         update_time: 1608355208,
@@ -223,17 +252,151 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
         data: "最新消息4" },
       {
         id: "5",
+        settop_time: 0,
         avatar: "/static/image/iocn_1.jpeg",
         nick_name: "昵称5",
         update_time: 1605466608,
         badge_value: 109,
-        data: "最新消息5" }] };
-
+        data: "最新消息5" },
+      {
+        id: "6",
+        settop_time: 0,
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称6",
+        update_time: 1608885572,
+        badge_value: 0,
+        data: "最新消息7" },
+      {
+        id: "7",
+        settop_time: 0,
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称7",
+        update_time: 1608873608,
+        badge_value: 1,
+        data: "最新消息7" },
+      {
+        id: "8",
+        settop_time: 0,
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称8",
+        update_time: 1608787208,
+        badge_value: 3,
+        data: "最新消息8" },
+      {
+        id: "9",
+        settop_time: 0,
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称9",
+        update_time: 1608614408,
+        badge_value: 9,
+        data: "最新消息9" },
+      {
+        id: "10",
+        settop_time: 0,
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称10",
+        update_time: 1608355208,
+        badge_value: 88,
+        data: "最新消息10" },
+      {
+        id: "11",
+        settop_time: 0,
+        avatar: "/static/image/iocn_1.jpeg",
+        nick_name: "昵称11",
+        update_time: 1605466608,
+        badge_value: 109,
+        data: "最新消息11" }] };
 
 
   },
   onLoad: function onLoad() {
-  } };exports.default = _default;
+    this.sortChatList();
+  },
+  mounted: function mounted() {},
+  methods: {
+    sortChatList: function sortChatList() {
+      this.list.sort(function (a, b) {
+        return a.settop_time < b.settop_time;
+      });
+    },
+    onLongpressAction: function onLongpressAction(_ref)
+
+
+
+    {var _this = this;var x = _ref.x,y = _ref.y,id = _ref.id;
+      /// 更新弹窗所绑定的消息ID
+      this.menus.forEach(function (item, index) {
+        item.msgId = id;
+        if (0 == index) {
+          // 获取会话id在list中的索引
+          var _index = _this.list.findIndex(function (item, index, list) {
+            return item.id === id;
+          });
+
+          if (_index >= 0 && _index < _this.list.length) {
+            // 修改取消置顶与置顶菜单
+            item.title = _this.list[_index].settop_time <= 0 ? "设为置顶" : "取消置顶";
+            item.event = _this.list[_index].settop_time <= 0 ? "setTop" : "unsetTop";
+          }
+        }
+      });
+      // 展示弹窗
+      this.$refs.extend.show(x, y, id);
+    },
+    // 菜单事件分发
+    clickHandle: function clickHandle(item) {
+      if (item.msgId.length === 0 || item.msgId < 0) {
+        return;
+      }
+      switch (item.event) {
+        case "setTop":
+          this.setTop(true, item.msgId);
+          break;
+        case "unsetTop":
+          this.setTop(false, item.msgId);
+          break;
+        case "delChat":
+          this.deleteChat(item.msgId);
+          break;}
+
+    },
+    // 设置或取消置顶
+    setTop: function setTop(isTop, id) {
+      // 获取会话id在list中的索引
+      var index = this.list.findIndex(function (item, index, list) {
+        return item.id === id;
+      });
+
+      if (index < 0) {
+        return;
+      }
+
+      // 修改置顶时间
+      if (isTop === true) {
+        this.list[index].settop_time = new Date().getTime();
+      } else {
+        this.list[index].settop_time = 0;
+      }
+
+      // 隐藏弹窗
+      this.$refs.extend.hide();
+      // 更新置顶
+      this.sortChatList();
+    },
+    // 删除某个ID的会话
+    deleteChat: function deleteChat(id) {
+      // 获取会话id在list中的索引
+      var index = this.list.findIndex(function (item, index, list) {
+        return item.id === id;
+      });
+
+      if (index >= 0) {
+        // 隐藏弹窗
+        this.$refs.extend.hide();
+        // 删除列表中的会话并更新list
+        this.list.splice(index, 1);
+      }
+    } } };exports.default = _default;
 
 /***/ }),
 /* 17 */,

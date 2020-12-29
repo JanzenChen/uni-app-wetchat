@@ -8,7 +8,18 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wxIconButton = function wxIconButton() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-icon-button */ "components/general-ui/wx-icon-button").then((function () {return resolve(__webpack_require__(/*! ./wx-icon-button.nvue */ 49));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var wxIconButton = function wxIconButton() {__webpack_require__.e(/*! require.ensure | components/general-ui/wx-icon-button */ "components/general-ui/wx-icon-button").then((function () {return resolve(__webpack_require__(/*! ./wx-icon-button.nvue */ 49));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var wxPopup = function wxPopup() {__webpack_require__.e(/*! require.ensure | common/wx-popup */ "common/wx-popup").then((function () {return resolve(__webpack_require__(/*! @/common/wx-popup.nvue */ 78));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -46,12 +57,38 @@
 
 
   components: {
-    wxIconButton: wxIconButton },
+    wxIconButton: wxIconButton,
+    wxPopup: wxPopup },
 
   data: function data() {
     return {
       statusBarHeight: 0,
-      navBarHeight: 0 };
+      navBarHeight: 0,
+      extendLists: [{
+        "title": "发起群聊",
+        "icon": "\uE633",
+        "event": "creatChatRoom" },
+
+      {
+        "title": "添加好友",
+        "icon": "\uE65D",
+        "event": "addFriend" },
+
+      {
+        "title": "扫一扫",
+        "icon": "\uE614",
+        "event": "scanQRCode" },
+
+      {
+        "title": "收付款",
+        "icon": "\uE66C",
+        "event": "payment" },
+
+      {
+        "title": "帮助与反馈",
+        "icon": "\uE64E",
+        "event": "help" }] };
+
 
   },
   mounted: function mounted() {
@@ -73,8 +110,27 @@
     getFixedStyle: function getFixedStyle(height) {
       return "height:".concat(height, "px");
     },
-    click_action: function click_action() {
-      console.log("-----");
+    search: function search() {
+
+    },
+    openExtend: function openExtend() {
+      this.$refs.extend.show(265, this.navBarHeight + 10);
+    },
+    // 菜单事件分发
+    clickHandle: function clickHandle(event) {
+      console.log(event);
+      switch (event) {
+        case "creatChatRoom":
+          break;
+        case "addFriend":
+          break;
+        case "scanQRCode":
+          break;
+        case "payment":
+          break;
+        case "help":
+          break;}
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
