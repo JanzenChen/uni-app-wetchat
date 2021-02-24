@@ -1,15 +1,57 @@
 <template>
-	<div>
+	<div class="page">
+		<!-- 导航栏 -->
+		<wx-nav-bar flex bgColor='bg-white' >
+			<wx-icon-button class="pr-2" slot="right"><text class="iconfont font-normal">&#xe6ed;</text></wx-icon-button>
+		</wx-nav-bar>
 		
+		<wx-list-item cover="/static/image/iocn_1.jpeg" coverSize="120" showRight>
+			<view slot="title" class="flex flex-column">
+				<text class="text-dark font-large font-weight-bold">辰轩</text>
+				<text class="text-light-muted font-normal mt-1">仿微信号: Janzen</text>
+			</view>
+			<view slot="right">
+				<text class="iconfont font-normal text-light-muted">&#xe614;</text>
+			</view>
+		</wx-list-item>
+		
+		<wx-devider></wx-devider>
+		<wx-list-item title="支付" showRight>
+			<text slot="icon" class="iconfont font-large py-1">&#xe66c;</text>
+		</wx-list-item>
+		
+		<wx-devider></wx-devider>
+		<wx-list-item title="收藏" showRight>
+			<text slot="icon" class="iconfont font-large py-1">&#xea2d;</text>
+		</wx-list-item>
+		<wx-list-item title="相册" showRight>
+			<text slot="icon" class="iconfont font-large py-1">&#xe608;</text>
+		</wx-list-item>
+		<wx-list-item title="表情" showRight>
+			<text slot="icon" class="iconfont font-large py-1">&#xe605;</text>
+		</wx-list-item>
+		
+		<wx-devider></wx-devider>
+		<wx-list-item title="设置" showRight>
+			<text slot="icon" class="iconfont font-large py-1">&#xe612;</text>
+		</wx-list-item>
 	</div>
 </template>
 
 <script>
+	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
+	import wxListItem from '@/components/general-ui/wx-list-item.vue'
+	import wxDevider from '@/components/general-ui/wx-devider.vue'
+	
 	export default {
-		
+		components: {
+			wxNavBar,
+			wxListItem,
+			wxDevider,
+		},		
 	}
 </script>
-
+	
 <style>
 
 </style>

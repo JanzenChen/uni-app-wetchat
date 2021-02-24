@@ -1,12 +1,80 @@
 <template>
-	<div>
-		
+	<div class="page">
+			<!-- 导航栏 -->
+			<wx-nav-bar showTitle fixed>朋友圈</wx-nav-bar>
+			
+			<wx-list-item title="朋友圈" showRight>
+				<text slot="icon" class="iconfont font-large py-1">&#xe667;</text>
+				<view slot="right" class="position-relative p-1">
+					<wx-avatar src="/static/image/iocn_1.jpeg" size="55"></wx-avatar>
+					<text class="rounded-circle bg-danger position-absolute" style="width: 20rpx; height: 20rpx; top: 0; right: 0;"></text>
+				</view>
+			</wx-list-item>
+			<wx-devider></wx-devider>
+			
+			<wx-list-item title="看一看" showRight>
+				<text slot="icon" class="iconfont font-large py-1">&#xe667;</text>
+				<view slot="right" class="position-relative p-1">
+					<wx-avatar src="/static/image/iocn_1.jpeg" size="55"></wx-avatar>
+					<text class="rounded-circle bg-danger position-absolute" style="width: 20rpx; height: 20rpx; top: 0; right: 0;"></text>
+				</view>
+			</wx-list-item>
+			<wx-list-item title="扫一扫" showRight>
+				<text slot="icon" class="iconfont font-large py-1">&#xe667;</text>
+				<view slot="right" class="position-relative p-1">
+					<wx-avatar src="/static/image/iocn_1.jpeg" size="55"></wx-avatar>
+					<text class="rounded-circle bg-danger position-absolute" style="width: 20rpx; height: 20rpx; top: 0; right: 0;"></text>
+				</view>
+			</wx-list-item>
+			<wx-devider></wx-devider>
+			
+			<wx-list-item title="视频号" showRight>
+				<text slot="icon" class="iconfont font-large py-1">&#xe667;</text>
+				
+				<view slot="right" class="position-relative p-1">
+					<wx-avatar src="/static/image/iocn_1.jpeg" size="55"></wx-avatar>
+					<text class="rounded-circle bg-danger position-absolute" style="width: 20rpx; height: 20rpx; top: 0; right: 0;"></text>
+				</view>
+			</wx-list-item>
+			
+			<wx-list-item title="直播和附近" showRight>
+				<text slot="icon" class="iconfont font-large py-1">&#xe667;</text>
+				<view slot="right" class="position-relative p-1">
+					<wx-avatar src="/static/image/iocn_1.jpeg" size="55"></wx-avatar>
+					<text class="rounded-circle bg-danger position-absolute" style="width: 20rpx; height: 20rpx; top: 0; right: 0;"></text>
+				</view>
+			</wx-list-item>
+			<wx-list-item title="游戏" showRight>
+				<text slot="icon" class="iconfont font-large py-1">&#xe667;</text>
+				<view slot="right" class="position-relative p-1">
+					<wx-avatar src="/static/image/iocn_1.jpeg" size="55"></wx-avatar>
+					<text class="rounded-circle bg-danger position-absolute" style="width: 20rpx; height: 20rpx; top: 0; right: 0;"></text>
+				</view>
+			</wx-list-item>
+			<wx-list-item title="小程序" showRight>
+				<text slot="icon" class="iconfont font-large py-1">&#xe667;</text>
+				<view slot="right" class="position-relative p-1">
+					<wx-avatar src="/static/image/iocn_1.jpeg" size="55"></wx-avatar>
+					<text class="rounded-circle bg-danger position-absolute" style="width: 20rpx; height: 20rpx; top: 0; right: 0;"></text>
+				</view>
+			</wx-list-item>
 	</div>
 </template>
 
 <script>
+	
+	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
+	import wxListItem from '@/components/general-ui/wx-list-item.vue'
+	import wxAvatar from "@/components/general-ui/wx-avatar.nvue"
+	import wxDevider from "@/components/general-ui/wx-devider.vue"
+	
 	export default {
-		
+			components: {
+				wxNavBar,
+				wxListItem,
+				wxAvatar,
+				wxDevider,
+			},
 	}
 </script>
 
