@@ -1,0 +1,35 @@
+<template>
+	<div class="page">
+		<!-- 导航栏 -->
+		<wx-nav-bar showBack title="聊天对象名" fixed></wx-nav-bar>
+		
+		<!-- 底部输入框 -->
+		<view class="position-fixed left-0 right-0 bottom-0 border-top flex align-center"
+			  style="background-color: #F7F7F7;">
+			  <view class="my-1 flex-1 flex-row align-center">
+				<wx-icon-button class="mx-1" :icon="'\ue606'" size="50"></wx-icon-button>
+				<view class="flex-1">
+					<textarea fixed class="bg-white rounded p-2 font-normal" style="height: 80rpx;"></textarea>
+				</view>
+				
+				<wx-icon-button class="mx-1" :icon="'\ue605'" size="50"></wx-icon-button>
+				<wx-icon-button class="mr-1" :icon="'\ue603'" size="50"></wx-icon-button>  
+			  </view>
+		</view>
+	</div>
+</template>
+
+<script>
+	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
+	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
+	export default {
+		components: {
+			wxNavBar,
+			wxIconButton,
+		}
+	}
+</script>
+
+<style>
+
+</style>

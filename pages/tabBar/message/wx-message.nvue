@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 导航栏 -->
-		<wx-nav-bar showTitle fixed>仿微信({{list.length > 0 ? list.length : ""}})</wx-nav-bar>
+		<wx-nav-bar title="仿微信" :unReadNumber="list.length" fixed></wx-nav-bar>
 		<!-- 列表 -->
 		<block v-for="(item, index) in list" :key="item.id">
 			<wx-message-cell :item="item" @onLongpress="onLongpressAction"></wx-message-cell>

@@ -6,8 +6,11 @@
 			<!-- 导航栏 -->
 			<view class="w-100 flex align-center justify-between" style="height: 90rpx;">
 				<!-- 左边 -->
-				<view class="flex align-center">
-					<text v-if="showTitle" class="font-normal ml-3"><slot></slot></text>
+				<view class="flex align-center ml-2">
+					<!-- 返回按钮 -->
+					<wx-icon-button v-if="showBack" @click_action='back' :icon="'\ue60d'" size="50"></wx-icon-button>
+					<!-- 标题 -->
+					<text v-if="title" class="font-large">{{getTitle}}</text>
 				</view>
 				<!-- 右边 -->
 				<view class="flex align-center">
@@ -35,13 +38,21 @@
 </template>
 
 <script>
-	import wxIconButton from './wx-icon-button.nvue'
+	import wxIconButton from './wx-icon-button.vue'
 	import wxPopup from '@/components/general-ui/wx-popup.nvue'
 	export default {
 		props: {
-			showTitle: {
+			showBack: {
 				type: Boolean,
 				default: false 
+			},
+			title: {
+				type: String,
+				default: null 
+			},
+			unReadNumber: {
+				type: Number,
+				default: 0
 			},
 			fixed: {
 				type: Boolean,
@@ -101,6 +112,10 @@
 			fixedNavBarStyle() {
 				return this.getFixedStyle(this.navBarHeight)
 			},
+			getTitle() {
+				let unreadNum = this.unReadNumber > 0 ? '(' + this.unReadNumber + ')' : ''
+				return this.title + unreadNum
+			},
 			getClass() {
 				let fixed = this.fixed?'fixed-top':''
 				return `${fixed} ${this.bgColor}`
@@ -112,6 +127,11 @@
 			},
 			search() {
 				
+			},
+			back(){
+				uni.navigateBack({
+					delta: 1,
+				})
 			},
 			openExtend() {
 				this.$refs.extend.show(265, this.navBarHeight)

@@ -15,6 +15,10 @@
 		{
 			"path": "pages/tabBar/mine/wx-mine",
 			"style": {}
+		},
+		{
+			"path": "pages/chat/chat",
+			"style": {}
 		}
 	],
 	"globalStyle": {

@@ -1,7 +1,7 @@
 <template>
 	<div class="page">
 			<!-- 导航栏 -->
-			<wx-nav-bar showTitle fixed>朋友圈</wx-nav-bar>
+			<wx-nav-bar title="发现" fixed></wx-nav-bar>
 			
 			<wx-list-item title="朋友圈" showRight>
 				<text slot="icon" class="iconfont font-large py-1">&#xe667;</text>
