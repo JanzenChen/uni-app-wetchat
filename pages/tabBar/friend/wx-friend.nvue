@@ -6,8 +6,8 @@
 		<!-- 通讯录列表 -->
 		<view v-for="(group, index) in groups" :key="group.id">
 			<view  v-if="group.list.length > 0">
-				<view class="py-2 px-3 bg-light">
-					<text class="font-normal text-dark">{{group.sort}}</text>
+				<view class="py-1 px-3 bg-light">
+					<text class="font-normal text-dark pb-1">{{group.sort}}</text>
 					<wx-list-item v-for="(item, index) in group.list"
 								  :key="item.id"
 								  :cover="item.cover"
