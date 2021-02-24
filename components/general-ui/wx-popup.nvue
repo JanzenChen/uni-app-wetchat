@@ -76,7 +76,7 @@
 		},
 		methods: {
 			show(x = -1, y = -1) {
-				console.log(x, y)
+				console.log(x, y, this.maxX, this.maxY)
 				this.x = x > this.maxX ? this.maxX : x;
 				this.y = y > this.maxY ? this.maxY : y;
 				this.status = true;
@@ -85,13 +85,15 @@
 				var transformOriginH = ''
 				var transformOriginV = ''
 				
-				if (this.x < this.maxX * 0.3) {
+				if (this.x < this.maxX * 0.5) {
+					console.log("--- left")
 					transformOriginH = 'left'
-				} else if (this.x > this.maxX * 0.7) {
+				} else if (this.x > this.maxX * 0.5) {
+					console.log("--- right")
 					transformOriginH = 'right'
 				}
 				
-				if (this.y < this.maxY * 0.7) {
+				if (this.y < this.maxY * 0.5) {
 					transformOriginV = 'top'
 				} else {
 					transformOriginV = 'bottom'
@@ -110,8 +112,8 @@
 						},
 						duration: 100, //ms
 						timingFunction: 'ease',
-						needLayout: false,
-						delay: 0 //ms
+						needLayout: true,
+						delay: 0.5 //ms
 					}, () => {
 						console.log('动画执行完毕')
 					})

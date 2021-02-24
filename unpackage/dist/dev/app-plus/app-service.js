@@ -1108,7 +1108,8 @@ module.exports = {
   },
   "main-text-color": {
     "color": "#08C060"
-  }
+  },
+  "@VERSION": 2
 }
 
 /***/ }),

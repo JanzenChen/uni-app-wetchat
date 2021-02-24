@@ -73,7 +73,7 @@
 	/* #endif */
 	flex-direction: row;
 }
-.flex-row { flex-direction: row!important; }
+.flex-row { flex-direction: row; }
 .flex-column { flex-direction: column; }
 .flex-nowarp { flex-wrap: nowrap;}
 

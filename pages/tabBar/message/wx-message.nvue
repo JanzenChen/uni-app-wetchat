@@ -23,7 +23,7 @@
 <script>
 	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
 	import wxMessageCell from '@/components/general-ui/wx-message-cell.nvue'
-	import wxPopup from '@/common/wx-popup.nvue'
+	import wxPopup from '@/components/general-ui/wx-popup.nvue'
 	export default {
 		components: {
 			wxNavBar,

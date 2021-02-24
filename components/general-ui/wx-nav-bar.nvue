@@ -34,7 +34,7 @@
 
 <script>
 	import wxIconButton from './wx-icon-button.nvue'
-	import wxPopup from '@/common/wx-popup.nvue'
+	import wxPopup from '@/components/general-ui/wx-popup.nvue'
 	export default {
 		props: {
 			showTitle: {
@@ -104,7 +104,7 @@
 				
 			},
 			openExtend() {
-				this.$refs.extend.show(265, this.navBarHeight + 10)
+				this.$refs.extend.show(265, this.navBarHeight)
 			},
 			// 菜单事件分发
 			clickHandle(event) {
