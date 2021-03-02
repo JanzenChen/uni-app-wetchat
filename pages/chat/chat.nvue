@@ -3,6 +3,28 @@
 		<!-- 导航栏 -->
 		<wx-nav-bar showBack title="聊天对象名" fixed></wx-nav-bar>
 		
+		<!-- 聊天内容区域 -->
+		<scroll-view scroll-y class="bg-light position-fixed left-0 right-0 px-3" style="bottom: 100rpx;" :style="'top:'+navBarHeight+'px'">
+			<!-- 聊天消息列表组件 -->
+			<!-- 左边 -->
+			<view class="flex align-start justify-start position-relative">
+				<wx-avatar size="70" src="/static/image/iocn_1.jpeg"></wx-avatar>
+				<text class="iconfont text-white font-normal position-absolute chat-left-icon">&#xe609;</text>
+				<div class="bg-white py-2 px-2 rounded ml-3" style="max-width:500rpx">
+					<text class="font-normal ">你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好</text>
+				</div>
+			</view>
+			<!-- 右边 -->
+			<view class="flex align-start justify-end mt-1 position-relative">
+				<div class="bg-chat-item py-2 px-2 rounded mr-3" style="max-width:500rpx">
+					<text class="font-normal ">好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹</text>
+				</div>
+				<text class="iconfont text-chat-item font-normal position-absolute chat-right-icon">&#xe640;</text>
+				<wx-avatar size="70" src="/static/image/iocn_1.jpeg"></wx-avatar>
+			</view>
+			
+		</scroll-view>
+		
 		<!-- 底部输入框 -->
 		<view class="position-fixed left-0 right-0 bottom-0 border-top flex align-center"
 			  style="background-color: #F7F7F7;">
@@ -22,14 +44,35 @@
 <script>
 	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
 	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
+	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
 	export default {
 		components: {
 			wxNavBar,
+			wxAvatar,
 			wxIconButton,
-		}
+		},
+		data() {
+			return {
+				navBarHeight: 0
+			}
+		},
+		mounted() {
+			// #ifdef APP-PLUS-NVUE
+			var statusBarHeight = plus.navigator.getStatusbarHeight()
+			// #endif
+			// upx转rpx
+			 this.navBarHeight = statusBarHeight + uni.upx2px(90)
+		},
 	}
 </script>
 
 <style>
+.chat-left-icon {
+	left: 80rpx; top:20rpx;
+}
+
+.chat-right-icon {
+	right: 80rpx; top:20rpx;
+}
 
 </style>

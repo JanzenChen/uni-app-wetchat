@@ -21,3 +21,13 @@
 .main-text-color {
 	color: #08C060;
 }
+
+/* 聊天气泡颜色 */
+.bg-chat-item {
+	background-color: #6BEE68;
+}
+
+/* 聊天气泡颜色 */
+.text-chat-item {
+	color: #6BEE68;
+}
