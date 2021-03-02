@@ -34,7 +34,7 @@ export default {
 	},
 
 	// 获取聊天时间 (相差360秒内的信息不会显示时间)
-	getChatTime(timeCur, timeOld, diffTime = 360) {
+	getChatTime(timeCur, timeOld, diffTime = 300) {
 		timeCur = timeCur.toString().length < 13 ? timeCur * 1000 : timeCur;
 		timeOld = timeOld.toString().length < 13 ? timeOld * 1000 : timeOld;
 		if (((parseInt(timeCur) - parseInt(timeOld)) / 1000) > diffTime) {
