@@ -4,8 +4,12 @@
 		<view v-if="showTime" class="flex align-center justify-center pb-1 pt-2">
 			<text class="font-samll text-light-muted">{{showTime}}</text>
 		</view>
+		<!-- 消息撤回 -->
+		<view v-if="item.isRemove" class="flex align-center justify-center pb-1 pt-2">
+			<text class="font-samll text-light-muted">你撤回了一条消息</text>
+		</view>
 		<!-- 聊天气泡 -->
-		<view class="flex align-start my-1 position-relative" :class="isSelf ? 'justify-end' : 'justify-start' " @longpress="onLongpress">
+		<view v-if="!item.isRemove" class="flex align-start my-1 position-relative" :class="isSelf ? 'justify-end' : 'justify-start' " @longpress="onLongpress">
 			<!-- 左边 - 好友 -->
 			<template v-if="!isSelf">
 				<wx-avatar size="70" :src="item.avatar"></wx-avatar>

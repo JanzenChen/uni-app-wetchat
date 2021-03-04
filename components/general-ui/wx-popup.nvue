@@ -86,15 +86,12 @@
 				this.y = y > this.maxY ? this.maxY : y;
 				this.status = true;
 
-
 				var transformOriginH = ''
 				var transformOriginV = ''
 				
 				if (this.x < this.maxX * 0.5) {
-					console.log("--- left")
 					transformOriginH = 'left'
 				} else if (this.x > this.maxX * 0.5) {
-					console.log("--- right")
 					transformOriginH = 'right'
 				}
 				
@@ -138,7 +135,7 @@
 					duration: 100, //ms
 					timingFunction: 'ease',
 					needLayout: false,
-					delay: 0 //ms
+					delay: 0.5 //ms
 				}, () => {
 					this.status = false;
 					console.log('动画执行完毕')

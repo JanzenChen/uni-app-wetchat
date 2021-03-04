@@ -32,15 +32,20 @@ export default {
 			"seconds": seconds
 		}
 	},
-
+	
+	// 获取距离当前的时间差 (秒)
+	getDiffNow(timestamp) {
+		timestamp = timestamp.toString().length < 13 ? timestamp * 1000 : timestamp;
+		let curTimestamp = parseInt(new Date().getTime()); //当前时间戳
+		return ((curTimestamp - parseInt(timestamp))/1000)
+	},
 	// 获取聊天时间 (相差360秒内的信息不会显示时间)
 	getChatTime(timeCur, timeOld, diffTime = 300) {
 		timeCur = timeCur.toString().length < 13 ? timeCur * 1000 : timeCur;
 		timeOld = timeOld.toString().length < 13 ? timeOld * 1000 : timeOld;
 		
-		let curTimestamp = parseInt(new Date().getTime()); //当前时间戳
 		let curDifTime = ((parseInt(timeCur) - parseInt(timeOld)) / 1000)
-		if (curDifTime < 1 * 24 * 60 * 60 && (curTimestamp - parseInt(timeCur)/1000) > 1 * 24 * 60 * 60) { // 
+		if (curDifTime < 1 * 24 * 60 * 60 && this.getDiffNow(timeCur) > 1 * 24 * 60 * 60) { // 
 			//不超出一天. 同一天, 不处理
 		} else if (curDifTime > diffTime) {
 			return this.getTime(timeCur)

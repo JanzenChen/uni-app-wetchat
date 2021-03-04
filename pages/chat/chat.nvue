@@ -82,7 +82,7 @@
 					{
 						"chatItemId": "-1",
 						"title": "撤回",
-						"event": "",
+						"event": "removeChatItem",
 					},
 				],
 				navBarHeight: 0,
@@ -94,6 +94,7 @@
 					data:"你好123你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好",
 					nickName: "昵称-你好",
 					created_time:1613671908,
+					isRemove: false,
 				},
 				{
 					chatItemId: "1",
@@ -103,6 +104,7 @@
 					data:"好你妹321好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹",
 					nickName: "昵称-好你妹",
 					created_time:1614271908,
+					isRemove: false,
 				},
 				{
 					chatItemId: "2",
@@ -112,6 +114,7 @@
 					data:"好你妹321好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹",
 					nickName: "昵称-好你妹",
 					created_time:1614631908,
+					isRemove: false,
 				},
 				{
 					chatItemId: "3",
@@ -121,6 +124,7 @@
 					data:"好你妹321好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹",
 					nickName: "昵称-好你妹",
 					created_time:1614661908,
+					isRemove: false,
 				},
 				{
 					chatItemId: "4",
@@ -130,6 +134,37 @@
 					data:"好你妹321好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹",
 					nickName: "昵称-你好",
 					created_time:1614671908,
+					isRemove: false,
+				},
+				{
+					chatItemId: "5",
+					avatar:"/static/image/iocn_1.jpeg",
+					user_id: 1, // 用户ID
+					type:"text", //消息内容类型 image, audio,video,file, share
+					data:"好你妹321好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹",
+					nickName: "昵称-你好",
+					created_time:1614843126,
+					isRemove: false,
+				},
+				{
+					chatItemId: "6",
+					avatar:"/static/image/iocn_1.jpeg",
+					user_id: 1, // 用户ID
+					type:"text", //消息内容类型 image, audio,video,file, share
+					data:"好你妹321好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹",
+					nickName: "昵称-你好",
+					created_time:1614843226,
+					isRemove: false,
+				},
+				{
+					chatItemId: "7",
+					avatar:"/static/image/iocn_1.jpeg",
+					user_id: 2, // 用户ID
+					type:"text", //消息内容类型 image, audio,video,file, share
+					data:"好你妹321好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹",
+					nickName: "昵称-你好",
+					created_time:1614844126,
+					isRemove: false,
 				},
 				]
 			}
@@ -137,7 +172,7 @@
 		computed: {
 			menuLists() {
 				return this.menus.filter(m=>{
-					return !(!this.isPopupSelf && m.title === "撤回")
+					return !(!this.isPopupSelf && m.title === "撤回") && m.created_time
 				})
 			},
 		},
@@ -153,7 +188,14 @@
 				//获取本人的id
 				let myId = 1
 				return user_id === myId	 
-			},	
+			},
+			popupShow(x, y) {
+				console.log(x , y)
+				this.$refs.extend.show(x, y)
+			},
+			popupHidden() {
+				this.$refs.extend.hide()
+			},
 			// 长按
 			onLongpress({
 				x,
@@ -162,29 +204,39 @@
 			}) {
 				this.isPopupSelf = this.isSelf(item.user_id)
 				// 更新弹窗所绑定的消息ID
-				this.menuLists.forEach((item, index) => {
-					item.chatItemId = item.id
+				this.menuLists.forEach((m, index) => {
+					m.chatItemId = item.chatItemId
 				})	
 				// 展示弹窗
-				this.$refs.extend.show(x, y)
+				this.popupShow(x, y)
 			},
 			// 菜单事件分发
 			clickHandle(item) {
-				if (item.msgId.length === 0 || item.msgId < 0) {
+				console.log(item)
+				if (item.chatItemId.length === 0 || item.chatItemId < 0) {
 					return
 				}
 				switch (item.event) {
 					case "setTop":
-						this.setTop(true, item.msgId)
 						break;
 					case "unsetTop":
-						this.setTop(false, item.msgId)
 						break;
-					case "delChat":
-						this.deleteChat(item.msgId)
+					case "removeChatItem":
+						this.removeChatItem(item)
 						break;
 				}
 			},
+			removeChatItem(item) {
+				this.popupHidden()
+				/// 查找id匹配的的消息
+				let chatItem = this.lists.find(function(v, i, l){
+					return v.chatItemId === item.chatItemId
+				})
+				/// 标记消息为撤回
+				if (chatItem != undefined) {
+					chatItem.isRemove = true
+				}
+			}
 		},
 	}
 </script>
