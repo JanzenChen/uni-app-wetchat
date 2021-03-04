@@ -4,7 +4,7 @@
 		<wx-nav-bar showBack title="聊天对象名" fixed></wx-nav-bar>
 		
 		<!-- 聊天内容区域 -->
-		<scroll-view scroll-y class="bg-light position-fixed left-0 right-0 px-3" style="bottom: 110rpx;" :style="'top:'+navBarHeight+'px'">
+		<scroll-view scroll-y class="bg-light position-fixed left-0 right-0 px-3" :style="chatBodyBottom">
 			<!-- 聊天消息列表组件 -->
 			<block v-for="(item, index) in lists" :key="index">
 				<wx-chat-item :item="item" :index="index" :pretime="index > 0 ? lists[index-1].created_time : 0"  @onLongpress="onLongpress"></wx-chat-item>
@@ -13,12 +13,12 @@
 		</scroll-view>
 		
 		<!-- 底部输入框 -->
-		<view class="position-fixed left-0 right-0 bottom-0 border-top flex align-center"
-			  style="background-color: #F7F7F7;">
+		<view class="position-fixed left-0 right-0 border-top flex align-center"
+			  style="background-color: #F7F7F7;" :style="'bottom:'+keyboardHeight+'px'">
 			  <view class="my-1 flex-1 flex-row align-center">
 				<wx-icon-button class="mx-1" :icon="'\ue606'" size="50"></wx-icon-button>
 				<view class="flex-1">
-					<textarea fixed class="bg-white rounded p-2 font-normal" style="height: 80rpx;"></textarea>
+					<textarea adjust-position="false" fixed class="bg-white rounded p-2 font-normal" style="height: 80rpx;"></textarea>
 				</view>
 				
 				<wx-icon-button class="mx-1" :icon="'\ue605'" size="50"></wx-icon-button>
@@ -56,6 +56,8 @@
 			return {
 				isPopupSelf: false,
 				isNewChatItem: false,
+				bottomBarH: 0,
+				keyboardHeight: 0,
 				menus: [{
 						"chatItemId": "-1",
 						"title": "复制",
@@ -172,6 +174,7 @@
 			}
 		},
 		computed: {
+			// 弹窗菜单
 			menuLists() {
 				return this.menus.filter(m=>{
 					// 是 撤回 && 最新的消息 && 自己的消息
@@ -182,13 +185,28 @@
 					}
 				})
 			},
+			//聊天区域bottom
+			chatBodyBottom() {
+				return `top:${this.navBarHeight}px; bottom:${uni.upx2px(110) + this.keyboardHeight}px;`
+			},
 		},
 		mounted() {
+			try {
+				const res = uni.getSystemInfoSync()
+				this.bottomBarH = res.screenHeight - res.windowHeight
+			} catch (e) {}
+			
 			// #ifdef APP-PLUS-NVUE
 			var statusBarHeight = plus.navigator.getStatusbarHeight()
 			// #endif
 			// upx转rpx
 			 this.navBarHeight = statusBarHeight + uni.upx2px(90)
+			 
+			//监听键盘高度变化
+			uni.onKeyboardHeightChange(res => {
+				let h = res.height - this.bottomBarH
+				this.keyboardHeight = Math.max(h, 0)
+			})
 		},
 		methods: {
 			isSelf(user_id) {
