@@ -4,10 +4,10 @@
 		<wx-nav-bar showBack title="聊天对象名" fixed></wx-nav-bar>
 		
 		<!-- 聊天内容区域 -->
-		<scroll-view scroll-y class="bg-light position-fixed left-0 right-0 px-3" :style="chatBodyBottom">
+		<scroll-view scroll-y :scroll-into-view="scrollIntoId" class="bg-light position-fixed left-0 right-0 px-3" :style="chatBodyBottom">
 			<!-- 聊天消息列表组件 -->
 			<block v-for="(item, index) in lists" :key="index">
-				<wx-chat-item :item="item" :index="index" :pretime="index > 0 ? lists[index-1].created_time : 0"  @onLongpress="onLongpress"></wx-chat-item>
+				<wx-chat-item :id="item.chatItemId" :item="item" :index="index" :pretime="index > 0 ? lists[index-1].created_time : 0"  @onLongpress="onLongpress"></wx-chat-item>
 			</block>
 
 		</scroll-view>
@@ -58,6 +58,7 @@
 				isNewChatItem: false,
 				bottomBarH: 0,
 				keyboardHeight: 0,
+				scrollIntoId: "",
 				menus: [{
 						"chatItemId": "-1",
 						"title": "复制",
@@ -206,6 +207,8 @@
 			uni.onKeyboardHeightChange(res => {
 				let h = res.height - this.bottomBarH
 				this.keyboardHeight = Math.max(h, 0)
+				
+				this.scrollIntoId = res.height === 0 ? "" : this.lists[this.lists.length-1].chatItemId
 			})
 		},
 		methods: {
