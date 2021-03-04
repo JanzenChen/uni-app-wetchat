@@ -5,7 +5,7 @@
 			<text class="font-samll text-light-muted">{{showTime}}</text>
 		</view>
 		<!-- 消息撤回 -->
-		<view v-if="item.isRemove" class="flex align-center justify-center pb-1 pt-2">
+		<view v-if="item.isRemove" ref="isRemove" class="flex align-center justify-center pb-1 pt-2" :class="item.isRemove ? '' : 'chat-remove' ">
 			<text class="font-samll text-light-muted">你撤回了一条消息</text>
 		</view>
 		<!-- 聊天气泡 -->
@@ -32,6 +32,9 @@
 	import wxBase from '@/common/wx-base.js'
 	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
 	import wxTimeUtil from '@/common/util/wx-time.js'
+	// #ifdef APP-PLUS-NVUE
+	const animation = weex.requireModule('animation')
+	// #endif
 	export default {
 		mixins:[wxBase],
 		components: {
@@ -52,6 +55,31 @@
 			showTime() {
 				return wxTimeUtil.getChatTime(this.item.created_time, this.pretime)
 			}
+		},
+		mounted() { // 监听是否撤回
+			this.$watch('item.isRemove', (newV, oldV)=>{
+				
+					console.log("0000")
+				if (newV) {
+					console.log("1111")
+					// #ifdef APP-NVUE
+					// 等待加载完成在执行
+					this.$nextTick(() => {
+						animation.transition(this.$refs.isRemove, {
+							styles: {
+								opacity: 1,
+							},
+							duration: 100, //ms
+							timingFunction: 'ease',
+							needLayout: false,
+							delay: 0.2 //ms
+						}, () => {
+							console.log('动画执行完毕')
+						})
+					})
+					// #endif
+				}
+			})
 		},
 		methods: {
 			onLongpress(e) {
@@ -74,7 +102,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .chat-left-icon {
 	left: 80rpx; top:20rpx;
 }
@@ -82,4 +110,11 @@
 .chat-right-icon {
 	right: 80rpx; top:20rpx;
 }
+
+.chat-remove {
+	/* #ifdef APP-NVUE */
+	opacity: 0;
+	/* #endif */
+}
+
 </style>

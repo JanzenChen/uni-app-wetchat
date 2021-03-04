@@ -37,7 +37,7 @@ export default {
 	getDiffNow(timestamp) {
 		timestamp = timestamp.toString().length < 13 ? timestamp * 1000 : timestamp;
 		let curTimestamp = parseInt(new Date().getTime()); //当前时间戳
-		return ((curTimestamp - parseInt(timestamp))/1000)
+		return parseInt((curTimestamp - parseInt(timestamp))/1000)
 	},
 	// 获取聊天时间 (相差360秒内的信息不会显示时间)
 	getChatTime(timeCur, timeOld, diffTime = 300) {

@@ -81,11 +81,11 @@
 		},
 		methods: {
 			show(x = -1, y = -1) {
-				console.log(x, y, this.maxX, this.maxY)
+				// console.log(x, y, this.maxX, this.maxY)
 				this.x = x > this.maxX ? this.maxX : x;
 				this.y = y > this.maxY ? this.maxY : y;
 				this.status = true;
-
+				
 				var transformOriginH = ''
 				var transformOriginV = ''
 				
@@ -160,7 +160,7 @@
 	.popup-animate {
 		/* #ifdef APP-PLUS-NVUE */
 		transform: scale(0, 0);
-		opacity: 0;
+		opacity: 1;
 		/* #endif */
 	}
 </style>
