@@ -36,7 +36,6 @@
 		},
 		methods: {
 			onClick(e) {
-				console.log('1231')
 				uni.navigateTo({
 					url: '/pages/chat/chat',
 				})

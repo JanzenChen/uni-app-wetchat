@@ -175,7 +175,7 @@
 					}
 				})
 				// 展示弹窗
-				this.$refs.extend.show(x, y, id)
+				this.$refs.extend.show(x, y)
 			},
 			// 菜单事件分发
 			clickHandle(item) {

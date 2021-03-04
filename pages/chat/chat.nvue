@@ -7,7 +7,7 @@
 		<scroll-view scroll-y class="bg-light position-fixed left-0 right-0 px-3" style="bottom: 110rpx;" :style="'top:'+navBarHeight+'px'">
 			<!-- 聊天消息列表组件 -->
 			<block v-for="(item, index) in lists" :key="index">
-				<wx-chat-item :item="item" :index="index" :pretime="index > 0 ? lists[index-1].created_time : 0"></wx-chat-item>
+				<wx-chat-item :item="item" :index="index" :pretime="index > 0 ? lists[index-1].created_time : 0"  @onLongpress="onLongpress"></wx-chat-item>
 			</block>
 
 		</scroll-view>
@@ -25,6 +25,17 @@
 				<wx-icon-button class="mr-1" :icon="'\ue603'" size="50"></wx-icon-button>  
 			  </view>
 		</view>
+		
+		<!-- 弹出层 -->
+		<wx-popup class="border" ref="extend" :fixedBottom="false" :contentWidth="240" :contentHeight="100 * menus.length" :tabbarHeight="110">
+			<view v-for="(menuItem,index) in menuLists" :key="index" class="flex flex-column" style="width: 240rpx; height: 100rpx;"
+			 @click="clickHandle(menuItem)">
+				<view class="flex-1 flex align-center">
+					<text class="font-normal pl-3">{{menuItem.title}}</text>
+				</view>
+			</view>
+		</wx-popup>
+		
 	</div>
 </template>
 
@@ -32,16 +43,51 @@
 	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
 	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
 	import wxChatItem from '@/components/general-ui/wx-chat-item.vue'
+	import wxPopup from '@/components/general-ui/wx-popup.nvue'
 	export default {
 		components: {
 			wxNavBar,
 			wxChatItem,
 			wxIconButton,
+			wxPopup,
 		},
 		data() {
 			return {
+				isPopupSelf: false,
+				menus: [{
+						"chatItemId": "-1",
+						"title": "复制",
+						"event": "copy",
+					},
+					{
+						"chatItemId": "-1",
+						"title": "发送给朋友",
+						"event": "",
+					},
+					{
+						"chatItemId": "-1",
+						"title": "收藏",
+						"event": "",
+					},
+					{
+						"chatItemId": "-1",
+						"title": "删除",
+						"event": "",
+					},
+					{
+						"chatItemId": "-1",
+						"title": "多选",
+						"event": "",
+					},
+					{
+						"chatItemId": "-1",
+						"title": "撤回",
+						"event": "",
+					},
+				],
 				navBarHeight: 0,
 				lists:[{
+					chatItemId: "0",
 					avatar:"/static/image/iocn_1.jpeg",
 					user_id: 2, // 用户ID
 					type:"text", //消息内容类型 image, audio,video,file, share
@@ -50,6 +96,7 @@
 					created_time:1613671908,
 				},
 				{
+					chatItemId: "1",
 					avatar:"/static/image/iocn_1.jpeg",
 					user_id: 1, // 用户ID
 					type:"text", //消息内容类型 image, audio,video,file, share
@@ -58,6 +105,7 @@
 					created_time:1614271908,
 				},
 				{
+					chatItemId: "2",
 					avatar:"/static/image/iocn_1.jpeg",
 					user_id: 2, // 用户ID
 					type:"text", //消息内容类型 image, audio,video,file, share
@@ -66,6 +114,7 @@
 					created_time:1614631908,
 				},
 				{
+					chatItemId: "3",
 					avatar:"/static/image/iocn_1.jpeg",
 					user_id: 2, // 用户ID
 					type:"text", //消息内容类型 image, audio,video,file, share
@@ -74,6 +123,7 @@
 					created_time:1614661908,
 				},
 				{
+					chatItemId: "4",
 					avatar:"/static/image/iocn_1.jpeg",
 					user_id: 1, // 用户ID
 					type:"text", //消息内容类型 image, audio,video,file, share
@@ -84,12 +134,57 @@
 				]
 			}
 		},
+		computed: {
+			menuLists() {
+				return this.menus.filter(m=>{
+					return !(!this.isPopupSelf && m.title === "撤回")
+				})
+			},
+		},
 		mounted() {
 			// #ifdef APP-PLUS-NVUE
 			var statusBarHeight = plus.navigator.getStatusbarHeight()
 			// #endif
 			// upx转rpx
 			 this.navBarHeight = statusBarHeight + uni.upx2px(90)
+		},
+		methods: {
+			isSelf(user_id) {
+				//获取本人的id
+				let myId = 1
+				return user_id === myId	 
+			},	
+			// 长按
+			onLongpress({
+				x,
+				y,
+				item,
+			}) {
+				this.isPopupSelf = this.isSelf(item.user_id)
+				// 更新弹窗所绑定的消息ID
+				this.menuLists.forEach((item, index) => {
+					item.chatItemId = item.id
+				})	
+				// 展示弹窗
+				this.$refs.extend.show(x, y)
+			},
+			// 菜单事件分发
+			clickHandle(item) {
+				if (item.msgId.length === 0 || item.msgId < 0) {
+					return
+				}
+				switch (item.event) {
+					case "setTop":
+						this.setTop(true, item.msgId)
+						break;
+					case "unsetTop":
+						this.setTop(false, item.msgId)
+						break;
+					case "delChat":
+						this.deleteChat(item.msgId)
+						break;
+				}
+			},
 		},
 	}
 </script>

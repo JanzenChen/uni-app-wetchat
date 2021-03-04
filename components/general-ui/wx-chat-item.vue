@@ -5,7 +5,7 @@
 			<text class="font-samll text-light-muted">{{showTime}}</text>
 		</view>
 		<!-- 聊天气泡 -->
-		<view class="flex align-start my-1 position-relative" :class="isSelf ? 'justify-end' : 'justify-start' ">
+		<view class="flex align-start my-1 position-relative" :class="isSelf ? 'justify-end' : 'justify-start' " @longpress="onLongpress">
 			<!-- 左边 - 好友 -->
 			<template v-if="!isSelf">
 				<wx-avatar size="70" :src="item.avatar"></wx-avatar>
@@ -37,19 +37,36 @@
 			item: {
 				type: Object,
 			},
-			index: Number,
 			pretime: [Number, String],
 		},
 		computed: {
 			isSelf() {
 				//获取本人的id
-				let id = 1
-				return this.item.user_id === id	 
+				let myId = 1
+				return this.item.user_id === myId	 
 			},
 			showTime() {
 				return wxTimeUtil.getChatTime(this.item.created_time, this.pretime)
 			}
 		},
+		methods: {
+			onLongpress(e) {
+				let x = 0
+				let y = 0
+				// #ifdef APP-PLUS-NVUE
+				if (Array.isArray(e.changedTouches) && e.changedTouches.length > 0) {
+					x = e.changedTouches[0].screenX
+					y = e.changedTouches[0].screenY
+				}
+				// #endif
+				
+				// #ifdef MP
+				x = e.detail.x
+				y = e.detail.y
+				// #endif
+				this.$emit('onLongpress', {x:x, y:y, item:this.item})
+			}
+		}
 	}
 </script>
 

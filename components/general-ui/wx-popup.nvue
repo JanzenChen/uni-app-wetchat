@@ -39,6 +39,11 @@
 				type: Number,
 				default: 0
 			},
+			// 底部高度
+			tabbarHeight: {
+				type: Number,
+				default: 0
+			},
 			//背景色
 			contentBgColor: {
 				type: String,
@@ -59,7 +64,7 @@
 			try {
 				const res = uni.getSystemInfoSync()
 				this.maxX = res.windowWidth - uni.upx2px(this.contentWidth) - 10
-				this.maxY = res.windowHeight - uni.upx2px(this.contentHeight) - 10
+				this.maxY = res.windowHeight - uni.upx2px(this.contentHeight) - uni.upx2px(this.tabbarHeight) - 10
 			} catch (e) {}
 		},
 		computed: {

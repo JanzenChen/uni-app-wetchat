@@ -37,7 +37,12 @@ export default {
 	getChatTime(timeCur, timeOld, diffTime = 300) {
 		timeCur = timeCur.toString().length < 13 ? timeCur * 1000 : timeCur;
 		timeOld = timeOld.toString().length < 13 ? timeOld * 1000 : timeOld;
-		if (((parseInt(timeCur) - parseInt(timeOld)) / 1000) > diffTime) {
+		
+		let curTimestamp = parseInt(new Date().getTime()); //当前时间戳
+		let curDifTime = ((parseInt(timeCur) - parseInt(timeOld)) / 1000)
+		if (curDifTime < 1 * 24 * 60 * 60 && (curTimestamp - parseInt(timeCur)/1000) > 1 * 24 * 60 * 60) { // 
+			//不超出一天. 同一天, 不处理
+		} else if (curDifTime > diffTime) {
 			return this.getTime(timeCur)
 		}
 	},
@@ -72,7 +77,7 @@ export default {
 		} else if (timestampDiff < 1800) { // 30分钟之内
 			return Math.floor(timestampDiff / 60) + "分钟前";
 		} else if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == m && this.getWeekNum(curDate) == w && curDate.getDate() ==
-			d) {
+			d) { // 当天
 			return this.getQuantumInDay(timestamp) + this.getTimeInDay(timestamp);
 		} else if (curDate.getFullYear() == Y && curDate.getMonth() + 1 == m && this.getWeekNum(curDate) == w && curDate.getDate() ==
 			(d + 1)) {
