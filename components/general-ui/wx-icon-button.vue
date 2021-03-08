@@ -2,7 +2,7 @@
 	<view class="flex align-center justify-start"
 	      hover-class="bg-hover-light"
 		  :style="getStyle"
-		  @click="$emit('click_action')">
+		  @click="$emit('click')">
 			  <text class="iconfont font-normal">{{icon}}</text>
 	</view>
 </template>

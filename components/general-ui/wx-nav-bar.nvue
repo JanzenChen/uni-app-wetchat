@@ -8,15 +8,15 @@
 				<!-- 左边 -->
 				<view class="flex align-center ml-2">
 					<!-- 返回按钮 -->
-					<wx-icon-button v-if="showBack" @click_action='back' :icon="'\ue60d'" size="50"></wx-icon-button>
+					<wx-icon-button v-if="showBack" @click='back' :icon="'\ue60d'" size="50"></wx-icon-button>
 					<!-- 标题 -->
 					<text v-if="title" class="font-large">{{getTitle}}</text>
 				</view>
 				<!-- 右边 -->
 				<view class="flex align-center">
 					<slot name="right">
-						<wx-icon-button ref="search_button" @click_action='search'><text class="iconfont font-normal">&#xe6e3;</text></wx-icon-button>
-						<wx-icon-button ref="extend_button" @click_action='openExtend'><text class="iconfont font-normal">&#xe682;</text></wx-icon-button>
+						<wx-icon-button ref="search_button" @click='search'><text class="iconfont font-normal">&#xe6e3;</text></wx-icon-button>
+						<wx-icon-button ref="extend_button" @click='openExtend'><text class="iconfont font-normal">&#xe682;</text></wx-icon-button>
 					</slot>
 				</view>
 			</view>

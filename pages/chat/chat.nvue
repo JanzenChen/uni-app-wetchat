@@ -4,7 +4,10 @@
 		<wx-nav-bar showBack title="聊天对象名" fixed></wx-nav-bar>
 		
 		<!-- 聊天内容区域 -->
-		<scroll-view scroll-y :scroll-into-view="scrollIntoId" class="bg-light position-fixed left-0 right-0 px-3" :style="chatBodyBottom">
+		<scroll-view scroll-y :scroll-into-view="scrollIntoId"
+					 @scrolltolower="scrollIntoIdRemove"
+					 class="bg-light position-fixed left-0 right-0 px-3"
+					 :style="chatBodyBottom">
 			<!-- 聊天消息列表组件 -->
 			<block v-for="(item, index) in lists" :key="index">
 				<wx-chat-item :id="item.chatItemId" :item="item" :index="index" :pretime="index > 0 ? lists[index-1].created_time : 0"  @onLongpress="onLongpress"></wx-chat-item>
@@ -18,13 +21,42 @@
 			  <view class="my-1 flex-1 flex-row align-center">
 				<wx-icon-button class="mx-1" :icon="'\ue606'" size="50"></wx-icon-button>
 				<view class="flex-1">
-					<textarea adjust-position="false" fixed class="bg-white rounded p-2 font-normal" style="height: 80rpx;"></textarea>
+					<textarea v-model="text" adjust-position="false" fixed class="bg-white rounded p-2 font-normal" style="height: 80rpx;"></textarea>
 				</view>
 				
-				<wx-icon-button class="mx-1" :icon="'\ue605'" size="50"></wx-icon-button>
-				<wx-icon-button class="mr-1" :icon="'\ue603'" size="50"></wx-icon-button>  
+				<!-- 拓展菜单 -->
+				<template v-if="text.length === 0">
+					<!-- 表情 -->
+					<wx-icon-button class="mx-1" :icon="'\ue605'" size="50"></wx-icon-button>
+					<!-- 拓展菜单 -->
+					<wx-icon-button class="mr-1" :icon="'\ue603'" size="50" @click="openActions"></wx-icon-button>
+				</template>
+				<template v-else>
+					<!-- 发送按钮 -->
+					<view class="main-bg-color rounded mx-2 px-2 py-1" @click="sendMessage('text')">
+						<text class="text-white font-samll">发送</text>
+					</view>
+				</template>
 			  </view>
 		</view>
+		<!-- 拓展菜单 -->
+		<wx-popup ref="actions" fixedBottom transformOrigin="center bottom"
+				  class="border-top border-light-secondary bg-light"
+				  @popHidden='closeActions'>
+			<view style="height: 580rpx;" class="bg-light">
+				<swiper :indicator-dots="true" :duration="1000" style="height: 510rpx;">
+					<swiper-item class="row" v-for="(items, index) in actionList" :key="index">
+						<view class="col-3 flex flex-column align-center justify-center"
+							  style="height: 250rpx;"
+							  v-for="(item, idx) in items"  :key="idx"
+							  @click="actionEvent(item)">
+							<image :src="item.icon" mode="widthFix" style="width: 100rpx;height: 100rpx;"></image>
+							<text class="font-samll text-light-muted my-2">{{item.name}}</text>
+						</view>
+					</swiper-item>
+				</swiper>
+			</view>
+		</wx-popup>
 		
 		<!-- 弹出层 -->
 		<wx-popup class="border" ref="extend" :fixedBottom="false" :contentWidth="240" :contentHeight="100 * menus.length" :tabbarHeight="110">
@@ -59,6 +91,7 @@
 				bottomBarH: 0,
 				keyboardHeight: 0,
 				scrollIntoId: "",
+				text: "",
 				menus: [{
 						"chatItemId": "-1",
 						"title": "复制",
@@ -89,6 +122,38 @@
 						"title": "撤回",
 						"event": "removeChatItem",
 					},
+				],
+				actionList: [
+					[{
+						name:"相册",
+						icon: "/static/image/extends/pic.png",
+						event: "uploadImage",
+					},
+					{
+						name:"拍摄",
+						icon: "/static/image/extends/video.png",
+						event: "",
+					},
+					{
+						name:"收藏",
+						icon: "/static/image/extends/shoucan.png",
+						event: "",
+					},
+					{
+						name:"名片",
+						icon: "/static/image/extends/man.png",
+						event: "",
+					},
+					{
+						name:"语音通话",
+						icon: "/static/image/extends/phone.png",
+						event: "",
+					},
+					{
+						name:"位置",
+						icon: "/static/image/extends/path.png",
+						event: "",
+					}]
 				],
 				navBarHeight: 0,
 				lists:[{
@@ -207,11 +272,36 @@
 			uni.onKeyboardHeightChange(res => {
 				let h = res.height - this.bottomBarH
 				this.keyboardHeight = Math.max(h, 0)
-				
-				this.scrollIntoId = res.height === 0 ? "" : this.lists[this.lists.length-1].chatItemId
+				console.log(keyboardHeight)
+				if (this.lists.length > 0) {
+					if (res.height === 0) {
+						this.scrollIntoId = ""
+					} else {
+						this.scrollToBottom()
+					}
+				}
 			})
 		},
 		methods: {
+			scrollToTop() {
+				this.$nextTick(() => {
+					if (this.lists.length > 0) {
+						this.scrollIntoId = this.lists[0].chatItemId
+					}
+				})
+			},
+			scrollToBottom() {
+				this.$nextTick(() => {
+					if (this.lists.length > 0) {
+						this.scrollIntoId = this.lists[this.lists.length - 1].chatItemId
+					}
+				})
+			},
+			scrollIntoIdRemove() {
+				this.$nextTick(() => {
+					this.scrollIntoId = ""
+				})
+			},
 			isSelf(user_id) {
 				//获取本人的id
 				let myId = 1
@@ -219,10 +309,14 @@
 			},
 			popupShow(x, y) {
 				console.log(x, y)
-				this.$refs.extend.show(x, y)
+				this.$nextTick(() => {
+					this.$refs.extend.show(x, y)
+				})
 			},
 			popupHidden() {
-				this.$refs.extend.hide()
+				this.$nextTick(() => {
+					this.$refs.extend.hide()
+				})
 			},
 			// 长按
 			onLongpress({x, y, item}) {
@@ -265,6 +359,58 @@
 				if (chatItem != undefined) {
 					chatItem.isRemove = true
 				}
+			},
+			// 打开拓展菜单
+			openActions() {
+				this.$nextTick(() => {
+					this.keyboardHeight = uni.upx2px(580)
+					this.$refs.actions.show()
+				})
+			},
+			// 关闭拓展菜单
+			closeActions() {
+				console.log("keyboardHeight = 0")
+				this.$nextTick(() => {
+					this.keyboardHeight = 0
+				})
+			},
+			// 键盘更多时间分发
+			actionEvent(item) {
+				if (item.event.length === 0) {
+					return
+				}
+				switch (item.event) {
+					case "uploadImage":
+						break;
+				}
+			},
+			sendMessage(type) {
+				let curTimestamp = parseInt(new Date().getTime()/1000); //当前时间戳
+				console.log(curTimestamp)
+				var chatItemId = "0"
+				if (this.lists.length > 0) {
+					chatItemId = (parseInt(this.lists[this.lists.length - 1].chatItemId) + 1).toString()
+				}
+				let msgItem = {
+					chatItemId: chatItemId,
+					avatar:"/static/image/iocn_1.jpeg",
+					user_id: 1, // 用户ID
+					type:type, //消息内容类型 image, audio,video,file, share
+					data:"",
+					nickName: "我的昵称",
+					created_time:curTimestamp,
+					isRemove: false,
+				}
+				
+				switch(type) {
+					case 'text':
+					msgItem.data = this.text
+					this.text = ""
+					break;
+				}
+				
+				this.lists.push(msgItem)
+				this.scrollToBottom()
 			}
 		},
 	}
