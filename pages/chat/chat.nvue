@@ -16,7 +16,7 @@
 		</scroll-view>
 		
 		<!-- 内容蒙版 -->
-		<div class="position-fixed full" @click="clickContent"></div>
+		<div v-if="mode === 'action'" class="position-fixed top-0 left-0 right-0" :style="maskBottom"  @click="clickContent"></div>
 		
 		<!-- 底部输入框 -->
 		<view class="position-fixed left-0 right-0 border-top flex align-center"
@@ -267,6 +267,11 @@
 			//聊天区域bottom
 			chatBodyBottom() {
 				return `top:${this.navBarHeight}px; bottom:${uni.upx2px(110) + this.keyboardHeight}px;`
+			},
+			
+			//拓展蒙版
+			maskBottom(){
+				return `bottom:${uni.upx2px(110) + this.keyboardHeight}px;`
 			},
 		},
 		mounted() {
