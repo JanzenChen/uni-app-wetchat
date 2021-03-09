@@ -421,6 +421,8 @@
 .left-0 { left: 0rpx; }
 .right-0 { right: 0rpx; }
 
+.full {top: 0rpx; bottom: 0rpx; left: 0rpx; right: 0rpx;}
+
 /* 阴影 */
  /* #ifndef APP-PLUS-NVUE */
 .shadow { box-shadow: 0 2upx 12upx rgba(0, 0, 0, 0.15); }

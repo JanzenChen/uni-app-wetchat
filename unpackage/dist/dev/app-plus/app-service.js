@@ -1099,6 +1099,12 @@ module.exports = {
   "right-0": {
     "right": "0rpx"
   },
+  "full": {
+    "top": "0rpx",
+    "bottom": "0rpx",
+    "left": "0rpx",
+    "right": "0rpx"
+  },
   "page": {
     "backgroundColor": "#EDEDED",
     "flex": 1

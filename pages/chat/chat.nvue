@@ -15,13 +15,21 @@
 
 		</scroll-view>
 		
+		<!-- 内容蒙版 -->
+		<div class="position-fixed full" @click="clickContent"></div>
+		
 		<!-- 底部输入框 -->
 		<view class="position-fixed left-0 right-0 border-top flex align-center"
 			  style="background-color: #F7F7F7;" :style="'bottom:'+keyboardHeight+'px'">
 			  <view class="my-1 flex-1 flex-row align-center">
 				<wx-icon-button class="mx-1" :icon="'\ue606'" size="50"></wx-icon-button>
 				<view class="flex-1">
-					<textarea v-model="text" adjust-position="false" fixed class="bg-white rounded p-2 font-normal" style="height: 80rpx;"></textarea>
+					<textarea v-model="text"
+							  adjust-position="false"
+							  fixed class="bg-white rounded p-2 font-normal"
+							  style="height: 80rpx;"
+							  @focus="onInputFocus"
+							  @blur="onInputBlur"></textarea>
 				</view>
 				
 				<!-- 拓展菜单 -->
@@ -40,9 +48,8 @@
 			  </view>
 		</view>
 		<!-- 拓展菜单 -->
-		<wx-popup ref="actions" fixedBottom transformOrigin="center bottom"
-				  class="border-top border-light-secondary bg-light"
-				  @popHidden='closeActions'>
+		<wx-popup ref="actions" fixedBottom :mask="false" transformOrigin="center bottom"
+				  class="border-top border-light-secondary bg-light">
 			<view style="height: 580rpx;" class="bg-light">
 				<swiper :indicator-dots="true" :duration="1000" style="height: 510rpx;">
 					<swiper-item class="row" v-for="(items, index) in actionList" :key="index">
@@ -90,8 +97,12 @@
 				isNewChatItem: false,
 				bottomBarH: 0,
 				keyboardHeight: 0,
+				textKeyboardHeight: 0,
 				scrollIntoId: "",
+				// 模式
+				mode: "text", 
 				text: "",
+				// 消息长按弹窗菜单
 				menus: [{
 						"chatItemId": "-1",
 						"title": "复制",
@@ -123,6 +134,7 @@
 						"event": "removeChatItem",
 					},
 				],
+				//输入模式拓展菜单
 				actionList: [
 					[{
 						name:"相册",
@@ -156,6 +168,7 @@
 					}]
 				],
 				navBarHeight: 0,
+				//消息列表
 				lists:[{
 					chatItemId: "0",
 					avatar:"/static/image/iocn_1.jpeg",
@@ -267,12 +280,17 @@
 			// #endif
 			// upx转rpx
 			 this.navBarHeight = statusBarHeight + uni.upx2px(90)
-			 
+			
 			//监听键盘高度变化
 			uni.onKeyboardHeightChange(res => {
-				let h = res.height - this.bottomBarH
+				this.textKeyboardHeight = res.height
+				var h = this.textKeyboardHeight - this.bottomBarH
+				if (this.mode === "action") {
+					h = uni.upx2px(580)
+				}
+				
 				this.keyboardHeight = Math.max(h, 0)
-				console.log(keyboardHeight)
+				
 				if (this.lists.length > 0) {
 					if (res.height === 0) {
 						this.scrollIntoId = ""
@@ -282,7 +300,39 @@
 				}
 			})
 		},
+		watch: {
+			mode(newV, oldV) {
+				if (newV !== "text" && oldV === "text") {
+					uni.hideKeyboard()
+				} else if (newV !== "action" && oldV === "action") {
+					this.closeActions()
+				}
+				
+				// 因为键盘弹起的回调发生在输入框获取到焦点回调之前, 所以这里需要多一次处理
+				if (newV === "text") {
+					let h = this.textKeyboardHeight - this.bottomBarH
+					this.keyboardHeight = Math.max(h, 0)
+				}
+			}
+		},
 		methods: {
+			//输入框开始输入
+			onInputFocus() {
+				if (this.mode !== "text") {
+					this.switchInputMode("text")
+				}
+			},
+			onInputBlur() {
+				if (this.mode === "text") {
+					this.switchInputMode("")
+				}
+			},
+			clickContent() {
+				this.switchInputMode("")
+			},
+			switchInputMode(mode) {
+				this.mode = mode
+			},
 			scrollToTop() {
 				this.$nextTick(() => {
 					if (this.lists.length > 0) {
@@ -308,7 +358,6 @@
 				return user_id === myId	 
 			},
 			popupShow(x, y) {
-				console.log(x, y)
 				this.$nextTick(() => {
 					this.$refs.extend.show(x, y)
 				})
@@ -323,14 +372,10 @@
 				this.isPopupSelf = this.isSelf(item.user_id)
 				this.isNewChatItem = (wxTimeUtil.getDiffNow(item.created_time) < 30)
 				
-				console.log(wxTimeUtil.getDiffNow(item.created_time))
-				console.log(this.isNewChatItem)
 				// 更新弹窗所绑定的消息ID
 				this.menuLists.forEach((m, index) => {
 					m.chatItemId = item.chatItemId
 				})	
-				
-				console.log(this.menuLists)
 				// 展示弹窗
 				this.popupShow(x, y)
 			},
@@ -362,17 +407,18 @@
 			},
 			// 打开拓展菜单
 			openActions() {
-				this.$nextTick(() => {
+				if (this.mode === "action") {
+					this.switchInputMode("")
+				} else {
+					this.switchInputMode("action")
 					this.keyboardHeight = uni.upx2px(580)
 					this.$refs.actions.show()
-				})
+				}
 			},
 			// 关闭拓展菜单
 			closeActions() {
-				console.log("keyboardHeight = 0")
-				this.$nextTick(() => {
-					this.keyboardHeight = 0
-				})
+				this.keyboardHeight = 0
+				this.$refs.actions.hide()
 			},
 			// 键盘更多时间分发
 			actionEvent(item) {
@@ -386,7 +432,7 @@
 			},
 			sendMessage(type) {
 				let curTimestamp = parseInt(new Date().getTime()/1000); //当前时间戳
-				console.log(curTimestamp)
+				
 				var chatItemId = "0"
 				if (this.lists.length > 0) {
 					chatItemId = (parseInt(this.lists[this.lists.length - 1].chatItemId) + 1).toString()
