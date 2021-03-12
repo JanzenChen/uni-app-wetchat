@@ -10,7 +10,12 @@
 					 :style="chatBodyBottom">
 			<!-- 聊天消息列表组件 -->
 			<block v-for="(item, index) in lists" :key="index">
-				<wx-chat-item :id="item.chatItemId" :item="item" :index="index" :pretime="index > 0 ? lists[index-1].created_time : 0"  @onLongpress="onLongpress"></wx-chat-item>
+				<wx-chat-item :id="item.chatItemId"
+							  :item="item"
+							  :index="index"
+							  :pretime="index > 0 ? lists[index-1].created_time : 0"
+							  @onLongpress="onLongpress"
+							  @preview="previewImage"></wx-chat-item>
 			</block>
 
 		</scroll-view>
@@ -413,6 +418,21 @@
 				// 展示弹窗
 				this.popupShow(x, y)
 			},
+			// 预览图片
+			previewImage(url){
+				let arr = []
+				this.lists
+					.filter((item)=>((item.type === "emoticon" || item.type === "image") && item.data.length > 0))
+					.forEach((item)=>{ arr.push(item.data) })	
+					
+				if (arr.length  === 0) { arr.push(url) }
+				if (arr.findIndex((data)=>data===url) == -1) { arr.push(url) }
+				
+				uni.previewImage({
+					current:url,
+					urls:arr,
+				})
+			},
 			// 菜单事件分发
 			clickHandle(item) {
 				if (item.chatItemId.length === 0 || item.chatItemId < 0) {
@@ -462,9 +482,18 @@
 				
 				switch (item.event) {
 					case "uploadImage":
+					uni.chooseImage({
+						count:9,
+						success: (res) => {
+							// 渲染页面
+							res.tempFilePaths.forEach((item)=>{
+								this.sendMessage('image', item)
+							})
+						}
+					})
 						break;
 					case "sendEmoticon":
-						this.sendMessage('Emoticon', item.icon)
+						this.sendMessage('emoticon', item.icon)
 						break;
 				}
 			},

@@ -18,7 +18,12 @@
 			<!-- 中间内容 -->
 			<div class="py-2 px-2 rounded" style="max-width:500rpx" :class="[isSelf ? 'mr-3' : 'ml-3', paopaoBgColor]">
 				<text v-if="item.type === 'text'" class="font-normal ">{{item.data}}</text>
-				<image v-if="item.type === 'Emoticon'" class="p-2" :src="item.data" lazy-load mode="widthFix" style="height: 250rpx; width: 250rpx;"></image>
+				<image v-if="item.type === 'emoticon' || item.type === 'image'"
+						:class="item.type === 'image' ? 'rounded':''"
+						class="p-2" :src="item.data"
+						lazy-load mode="widthFix"
+						style="height: 250rpx; width: 250rpx;"
+						@click="preview(item.data)"></image>
 			</div>
 			<!-- 右边 - 本人 -->
 			<template v-if="isSelf">
@@ -70,10 +75,7 @@
 		},
 		mounted() { // 监听是否撤回
 			this.$watch('item.isRemove', (newV, oldV)=>{
-				
-					console.log("0000")
 				if (newV) {
-					console.log("1111")
 					// #ifdef APP-NVUE
 					// 等待加载完成在执行
 					this.$nextTick(() => {
@@ -94,6 +96,10 @@
 			})
 		},
 		methods: {
+			//预览图片
+			preview(url) {
+				this.$emit('preview', url)
+			},
 			onLongpress(e) {
 				let x = 0
 				let y = 0
