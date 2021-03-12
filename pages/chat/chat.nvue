@@ -50,7 +50,7 @@
 		<wx-popup ref="actions" fixedBottom :mask="false" transformOrigin="center bottom"
 				  class="border-top border-light-secondary bg-light">
 			<view style="height: 580rpx;" class="bg-light">
-				<swiper :indicator-dots="true" :duration="1000" style="height: 510rpx;">
+				<swiper :indicator-dots="emoticonOrActionList.length > 1" :duration="1000" style="height: 510rpx;">
 					<swiper-item class="row" v-for="(items, index) in emoticonOrActionList" :key="index">
 						<view class="col-3 flex flex-column align-center justify-center"
 							  style="height: 250rpx;"
@@ -276,6 +276,7 @@
 			emoticonOrActionList() {
 				if (this.mode === "action") { return this.actionList }
 				if (this.mode === "emoticon") { return this.emoticonList }
+				return []
 			}
 		},
 		mounted() {
@@ -458,12 +459,16 @@
 				if (item.event.length === 0) {
 					return
 				}
+				
 				switch (item.event) {
 					case "uploadImage":
 						break;
+					case "sendEmoticon":
+						this.sendMessage('Emoticon', item.icon)
+						break;
 				}
 			},
-			sendMessage(type) {
+			sendMessage(type, data="") {
 				let curTimestamp = parseInt(new Date().getTime()/1000); //当前时间戳
 				
 				var chatItemId = "0"
@@ -474,7 +479,7 @@
 					chatItemId: chatItemId,
 					avatar:"/static/image/iocn_1.jpeg",
 					user_id: 1, // 用户ID
-					type:type, //消息内容类型 image, audio,video,file, share
+					type:type, //消息内容类型 image, audio,video,file, share, emoticon
 					data:"",
 					nickName: "我的昵称",
 					created_time:curTimestamp,
@@ -483,9 +488,12 @@
 				
 				switch(type) {
 					case 'text':
-					msgItem.data = this.text
-					this.text = ""
-					break;
+						msgItem.data = this.text
+						this.text = ""
+						break;
+					default: 
+						msgItem.data = data
+						break;
 				}
 				
 				this.lists.push(msgItem)

@@ -13,15 +13,16 @@
 			<!-- 左边 - 好友 -->
 			<template v-if="!isSelf">
 				<wx-avatar size="70" :src="item.avatar"></wx-avatar>
-				<text class="iconfont text-white font-normal position-absolute chat-left-icon">&#xe609;</text>
+				<text v-if="isNeedPaopao" class="iconfont font-normal position-absolute chat-left-icon" :class="paopaoTextColor">&#xe609;</text>
 			</template>
 			<!-- 中间内容 -->
-			<div class="py-2 px-2 rounded" style="max-width:500rpx" :class="isSelf ? 'bg-chat-item mr-3' : 'bg-white ml-3'">
-				<text class="font-normal ">{{item.data}}</text>
+			<div class="py-2 px-2 rounded" style="max-width:500rpx" :class="[isSelf ? 'mr-3' : 'ml-3', paopaoBgColor]">
+				<text v-if="item.type === 'text'" class="font-normal ">{{item.data}}</text>
+				<image v-if="item.type === 'Emoticon'" class="p-2" :src="item.data" lazy-load mode="widthFix" style="height: 250rpx; width: 250rpx;"></image>
 			</div>
 			<!-- 右边 - 本人 -->
 			<template v-if="isSelf">
-				<text class="iconfont text-chat-item font-normal position-absolute chat-right-icon">&#xe640;</text>
+				<text v-if="isNeedPaopao" class="iconfont font-normal position-absolute chat-right-icon" :class="paopaoTextColor">&#xe640;</text>
 				<wx-avatar size="70" :src="item.avatar"></wx-avatar>
 			</template>
 		</view>	
@@ -51,6 +52,17 @@
 				//获取本人的id
 				let myId = 1
 				return this.item.user_id === myId	 
+			},
+			isNeedPaopao() {
+				return ["text", "audio"].findIndex((type)=>this.item.type === type) != -1
+			},
+			paopaoBgColor() {
+				let bgColor = this.isSelf ? 'bg-chat-item' : 'bg-white'
+				return this.isNeedPaopao ? bgColor : ''
+			},
+			paopaoTextColor() { // 尖角颜色
+				let textColor = this.isSelf ? 'text-chat-item' : 'text-white'
+				return this.isNeedPaopao ? textColor : ''
 			},
 			showTime() {
 				return wxTimeUtil.getChatTime(this.item.created_time, this.pretime)
