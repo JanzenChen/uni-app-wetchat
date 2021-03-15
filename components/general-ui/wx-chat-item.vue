@@ -22,8 +22,9 @@
 						:class="item.type === 'image' ? 'rounded':''"
 						class="p-2" :src="item.data"
 						lazy-load mode="widthFix"
-						style="height: 250rpx; width: 250rpx;"
-						@click="preview(item.data)"></image>
+						:style="'width:' + w + 'rpx;'"
+						@click="preview(item.data)"
+						@load="loadImage"></image>
 			</div>
 			<!-- 右边 - 本人 -->
 			<template v-if="isSelf">
@@ -51,6 +52,12 @@
 				type: Object,
 			},
 			pretime: [Number, String],
+		},
+		data() {
+			return {
+				w: 250,
+				h: 250,
+			}
 		},
 		computed: {
 			isSelf() {
@@ -96,6 +103,30 @@
 			})
 		},
 		methods: {
+			// 加载图片
+			loadImage(e){
+				let w = e.detail.width
+				let h = e.detail.height
+				
+				let maxW = uni.upx2px(500) //最大宽度250
+				let maxH = uni.upx2px(800) // 最大高度
+				
+				if (w === h) {
+					w = MAth.min(maxW, w)
+					h = MAth.min(maxH, h)
+				} else if (w > h && w > maxW) {
+					w =  maxW
+					h = maxW/w * h
+				} else  if (h > w && h > maxH) {
+					console.log(w, h, maxH/h)
+					w = maxH/h * w
+					h =  maxH
+					console.log(w, h)
+				}
+				
+				this.w = w
+				this.h = h
+			},
 			//预览图片
 			preview(url) {
 				this.$emit('preview', url)
