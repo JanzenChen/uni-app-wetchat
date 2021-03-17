@@ -18,13 +18,19 @@
 			<!-- 中间内容 -->
 			<div class="py-2 px-2 rounded" style="max-width:500rpx" :class="[isSelf ? 'mr-3' : 'ml-3', paopaoBgColor]">
 				<text v-if="item.type === 'text'" class="font-normal ">{{item.data}}</text>
-				<image v-if="item.type === 'emoticon' || item.type === 'image'"
-						:class="item.type === 'image' ? 'rounded':''"
-						class="p-2" :src="item.data"
-						lazy-load mode="widthFix"
-						:style="'width:' + w + 'rpx;'"
-						@click="preview(item.data)"
-						@load="loadImage"></image>
+				<!-- 图片 | 表情 -->
+				<wx-image v-if="item.type === 'emoticon' || item.type === 'image'"
+						:imageClass="item.type === 'image' ? 'rounded p-2':'p-2'"
+						:src="item.data"
+						:maxWidth="500" :maxHeight="800"
+						@click="preview(item.data)"></wx-image>
+				<!-- 音频 -->
+				<view v-if="item.type === 'audio'"
+					  class="flex align-center"
+					  @click="openAudio">
+					  <text class="font">4'</text>
+				</view>
+						
 			</div>
 			<!-- 右边 - 本人 -->
 			<template v-if="isSelf">
@@ -39,6 +45,9 @@
 	import wxBase from '@/common/wx-base.js'
 	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
 	import wxTimeUtil from '@/common/util/wx-time.js'
+	import wxImage from '@/components/general-ui/wx-image.vue'
+	import { mapState, mapActions } from 'vuex'
+	
 	// #ifdef APP-PLUS-NVUE
 	const animation = weex.requireModule('animation')
 	// #endif
@@ -46,6 +55,7 @@
 		mixins:[wxBase],
 		components: {
 			wxAvatar,
+			wxImage,
 		},
 		props: {
 			item: {
@@ -55,11 +65,26 @@
 		},
 		data() {
 			return {
-				w: 250,
-				h: 250,
+				innerAudioContext: null
+			}
+		},
+		destroyed() {
+			if (this.item.type !== "audio") {
+				return
+			}
+			console.log("destroyed-"+this.item.chatItemId)
+			this.$off(this.onPlayAudio)
+			// 停止音频播放, 销毁音频
+			if (this.innerAudioContext) {
+				this.innerAudioContext.stop()
+				this.innerAudioContext.destroy()
+				this.innerAudioContext = null
 			}
 		},
 		computed: {
+			...mapState({
+				audioStyle: state=>state.audio.audioStyle
+			}),
 			isSelf() {
 				//获取本人的id
 				let myId = 1
@@ -80,7 +105,12 @@
 				return wxTimeUtil.getChatTime(this.item.created_time, this.pretime)
 			}
 		},
-		mounted() { // 监听是否撤回
+		mounted() { 
+			if (this.item.type === "audio") {
+				console.log(this.item.chatItemId)
+				this.$on(this.onPlayAudio) // 注册播放事件
+			}
+			// 监听是否撤回
 			this.$watch('item.isRemove', (newV, oldV)=>{
 				if (newV) {
 					// #ifdef APP-NVUE
@@ -103,29 +133,31 @@
 			})
 		},
 		methods: {
-			// 加载图片
-			loadImage(e){
-				let w = e.detail.width
-				let h = e.detail.height
+			...mapActions(['$on', '$emit', '$off']),
+			
+			onPlayAudio(res) {
+				console.log(res)
+			},
+			//播放音频
+			openAudio() {
+				this.$emit(this.item.chatItemId)
+				return;
 				
-				let maxW = uni.upx2px(500) //最大宽度250
-				let maxH = uni.upx2px(800) // 最大高度
-				
-				if (w === h) {
-					w = MAth.min(maxW, w)
-					h = MAth.min(maxH, h)
-				} else if (w > h && w > maxW) {
-					w =  maxW
-					h = maxW/w * h
-				} else  if (h > w && h > maxH) {
-					console.log(w, h, maxH/h)
-					w = maxH/h * w
-					h =  maxH
-					console.log(w, h)
+				if (this.item.type === 'audio' && this.item.data.length > 0) {
+					if (this.innerAudioContext === null) {
+						this.innerAudioContext = uni.createInnerAudioContext()
+						this.innerAudioContext.src = this.item.data
+						this.innerAudioContext.play()
+					} else {
+						this.innerAudioContext.stop()
+						
+						// if (this.item.data !== this.innerAudioContext.src) {
+						// 	this.innerAudioContext.src = this.item.data
+						// 	this.innerAudioContext.startTime = 0
+						// 	this.innerAudioContext.play()
+						// }
+					}
 				}
-				
-				this.w = w
-				this.h = h
 			},
 			//预览图片
 			preview(url) {

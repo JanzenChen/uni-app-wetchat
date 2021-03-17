@@ -44,20 +44,20 @@
 				"pagePath":"pages/tabBar/message/wx-message"
 			},
 			{
-				"iconPath":"static/tabbar/friend_n.png",
-				"selectedIconPath":"static/tabbar/friend_s.png",
+				"iconPath":"static/tabbar/friend-n.png",
+				"selectedIconPath":"static/tabbar/friend-s.png",
 				"text":"通讯录",
 				"pagePath":"pages/tabBar/friend/wx-friend"
 			},
 			{
-				"iconPath":"static/tabbar/find_n.png",
-				"selectedIconPath":"static/tabbar/find_s.png",
+				"iconPath":"static/tabbar/find-n.png",
+				"selectedIconPath":"static/tabbar/find-s.png",
 				"text":"发现",
 				"pagePath":"pages/tabBar/find/wx-find"
 			},
 			{
-				"iconPath":"static/tabbar/mine_n.png",
-				"selectedIconPath":"static/tabbar/mine_s.png",
+				"iconPath":"static/tabbar/mine-n.png",
+				"selectedIconPath":"static/tabbar/mine-s.png",
 				"text":"我",
 				"pagePath":"pages/tabBar/mine/wx-mine"
 			}
