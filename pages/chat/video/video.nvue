@@ -1,0 +1,34 @@
+<template>
+	<view>
+		<video :src="url" controls autoplay style="width: 750rpx;" :style="'height' + this.windowH + 'rpx;'"></video>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				url: "",
+				windowH: 750,
+			}
+		},
+		onLoad(e) {
+			if (e.url === '') {
+				return uni.showToast({
+					title: '非法视频',
+					icon: 'none'
+				});
+			}
+			
+			this.url = e.url
+			let res = uni.getSystemInfo()
+			this.windowH = res.windowHeight
+		},
+		methods: {
+		},
+	}
+</script>
+
+<style>
+
+</style>

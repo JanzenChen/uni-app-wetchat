@@ -17,7 +17,11 @@
 			"style": {}
 		},
 		{
-			"path": "pages/chat/chat",
+			"path": "pages/chat/chat/chat",
+			"style": {}
+		},
+		{
+			"path": "pages/chat/video/video",
 			"style": {}
 		}
 	],

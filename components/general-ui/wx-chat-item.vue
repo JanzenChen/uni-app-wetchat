@@ -5,15 +5,22 @@
 			<text class="font-samll text-light-muted">{{showTime}}</text>
 		</view>
 		<!-- 消息撤回 -->
-		<view v-if="item.isRemove" ref="isRemove" class="flex align-center justify-center pb-1 pt-2" :class="item.isRemove ? '' : 'chat-remove' ">
+		<view v-if="item.isRemove" ref="isRemove"
+			  class="flex align-center justify-center pb-1 pt-2"
+			  :class="item.isRemove ? '' : 'chat-remove' ">
 			<text class="font-samll text-light-muted">你撤回了一条消息</text>
 		</view>
 		<!-- 聊天气泡 -->
-		<view v-if="!item.isRemove" class="flex align-start my-1 position-relative" :class="isSelf ? 'justify-end' : 'justify-start' " @longpress="onLongpress">
+		<view v-if="!item.isRemove"
+			  class="flex align-start my-1 position-relative" 
+			  :class="isSelf ? 'justify-end' : 'justify-start' "
+			  @longpress="onLongpress">
 			<!-- 左边 - 好友 -->
 			<template v-if="!isSelf">
 				<wx-avatar size="70" :src="item.avatar"></wx-avatar>
-				<text v-if="isNeedPaopao" class="iconfont font-normal position-absolute chat-left-icon" :class="paopaoTextColor">&#xe609;</text>
+				<text v-if="isNeedPaopao"
+				 class="iconfont font-normal position-absolute chat-left-icon"
+				 :class="paopaoTextColor">&#xe609;</text>
 			</template>
 			<!-- 中间内容 -->
 			<div class="py-2 px-2 rounded" style="max-width:500rpx" :class="[isSelf ? 'mr-3' : 'ml-3', paopaoBgColor]">
@@ -24,13 +31,28 @@
 						:src="item.data"
 						:maxWidth="500" :maxHeight="800"
 						@click="preview(item.data)"></wx-image>
+						
 				<!-- 音频 -->
 				<view v-if="item.type === 'audio'"
 					  class="flex align-center"
 					  @click="openAudio">
-					  <text class="font">4'</text>
+					  <text v-if="isSelf" class="font ml-3">5'</text>
+					  <image :src="audioPlay ? '/static/audio/play.gif': '/static/audio/audio3.png'"
+							 style="width: 50rpx; height: 50rpx;"
+							 class="mx-1"></image>
+					  <text v-if="!isSelf" class="font mr-3">4'</text>
 				</view>
-						
+				
+				<!-- 视频 -->
+				<view v-if="item.type === 'video'"
+					  class="position-relative rounded  justify-center align-center"
+					  @click="openVideo">
+					<wx-image :imageClass="item.type === 'video' ? 'rounded p-2':'p-2'"
+							:src="item.options.cover"
+							:maxWidth="500" :maxHeight="800"
+							@click="preview(item.data)"></wx-image>
+					<text class="iconfont text-white position-absolute" style="font-size: 80rpx; vertical-align: middle;">&#xe737</text>
+				</view>
 			</div>
 			<!-- 右边 - 本人 -->
 			<template v-if="isSelf">
@@ -65,15 +87,16 @@
 		},
 		data() {
 			return {
-				innerAudioContext: null
+				innerAudioContext: null,
+				audioPlay: false
 			}
 		},
 		destroyed() {
 			if (this.item.type !== "audio") {
 				return
 			}
-			console.log("destroyed-"+this.item.chatItemId)
-			this.$off(this.onPlayAudio)
+			
+			this.audioOff(this.onPlayAudio)
 			// 停止音频播放, 销毁音频
 			if (this.innerAudioContext) {
 				this.innerAudioContext.stop()
@@ -108,7 +131,7 @@
 		mounted() { 
 			if (this.item.type === "audio") {
 				console.log(this.item.chatItemId)
-				this.$on(this.onPlayAudio) // 注册播放事件
+				this.audioOn(this.onPlayAudio) // 注册播放事件
 			}
 			// 监听是否撤回
 			this.$watch('item.isRemove', (newV, oldV)=>{
@@ -133,29 +156,51 @@
 			})
 		},
 		methods: {
-			...mapActions(['$on', '$emit', '$off']),
-			
+			...mapActions(['audioOn', 'audioEmit', 'audioOff']),
+			// 打开视频
+			openVideo() {
+				uni.navigateTo({
+					url: '/pages/chat/video/video?url='+this.item.data,
+				})	
+			},
+			// 全局语音播放事件
 			onPlayAudio(res) {
-				console.log(res)
+				if (this.item.type !== 'audio') { return; }
+				if (res === this.item.chatItemId) { return; }
+				if (this.innerAudioContext !== null) {
+					this.innerAudioContext.stop()
+					this.innerAudioContext = null
+				}
 			},
 			//播放音频
 			openAudio() {
-				this.$emit(this.item.chatItemId)
-				return;
 				
 				if (this.item.type === 'audio' && this.item.data.length > 0) {
 					if (this.innerAudioContext === null) {
 						this.innerAudioContext = uni.createInnerAudioContext()
 						this.innerAudioContext.src = this.item.data
 						this.innerAudioContext.play()
+						this.audioEmit(this.item.chatItemId)
+						
+						// 监听播放
+						this.innerAudioContext.onPlay(()=> {
+							this.audioPlay = true
+						})
+						// 监听暂停
+						this.innerAudioContext.onPause(()=> {
+							this.audioPlay = false
+						})
+						// 监听停止
+						this.innerAudioContext.onStop(()=> {
+							this.audioPlay = false
+						})
+						// 监听错误
+						this.innerAudioContext.onError(()=> {
+							this.audioPlay = false
+						})
 					} else {
 						this.innerAudioContext.stop()
-						
-						// if (this.item.data !== this.innerAudioContext.src) {
-						// 	this.innerAudioContext.src = this.item.data
-						// 	this.innerAudioContext.startTime = 0
-						// 	this.innerAudioContext.play()
-						// }
+						this.innerAudioContext = null
 					}
 				}
 			},

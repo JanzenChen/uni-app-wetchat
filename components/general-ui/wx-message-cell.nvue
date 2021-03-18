@@ -37,7 +37,7 @@
 		methods: {
 			onClick(e) {
 				uni.navigateTo({
-					url: '/pages/chat/chat',
+					url: '/pages/chat/chat/chat',
 				})
 			},
 			onLongpress(e) {

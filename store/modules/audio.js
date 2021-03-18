@@ -25,14 +25,14 @@ export default {
 	},
 	actions: {
 		// 分发全局注册事件
-		$on({commit}, event) {
+		audioOn({commit}, event) {
 			commit("regEvent", event)
 		},
 		// 分发全局执行事件
-		$emit({commit}, event) {
+		audioEmit({commit}, event) {
 			commit("runEvent", event)
 		},
-		$off({commit}, event) {
+		audioOff({commit}, event) {
 			commit("removeEvent", event)
 		}
 	}

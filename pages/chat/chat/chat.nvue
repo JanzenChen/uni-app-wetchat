@@ -6,7 +6,7 @@
 		<!-- 聊天内容区域 -->
 		<scroll-view scroll-y :scroll-into-view="scrollIntoId"
 					 @scrolltolower="scrollIntoIdRemove"
-					 class="bg-light position-fixed left-0 right-0 px-3"
+					 class="bg-light-s position-fixed left-0 right-0 px-3"
 					 :style="chatBodyBottom">
 			<!-- 聊天消息列表组件 -->
 			<block v-for="(item, index) in lists" :key="index">
@@ -28,10 +28,10 @@
 			  style="background-color: #F7F7F7;" :style="'bottom:'+keyboardHeight+'px'">
 			  <view class="my-1 flex-1 flex-row align-center">
 				<wx-icon-button class="mx-1" :icon="'\ue606'" size="50"></wx-icon-button>
-				<view class="flex-1">
+				<view class="flex-1 bg-light-s rounded">
 					<textarea v-model="text"
 							  adjust-position="false"
-							  fixed class="bg-white rounded p-2 font-normal"
+							  fixed class="bg-light-s rounded p-2 font-normal border rounded"
 							  style="height: 80rpx;"
 							  @focus="onInputFocus"
 							  @blur="onInputBlur"></textarea>
@@ -217,9 +217,12 @@
 				{
 					chatItemId: "4",
 					avatar:"/static/image/iocn_1.jpeg",
-					user_id: 1, // 用户ID
-					type:"text", //消息内容类型 image, audio,video,file, share
-					data:"好你妹321好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹",
+					user_id: 2, // 用户ID
+					type:"video", //消息内容类型 image, audio,video,file, share
+					data:"/static/video/demo.mp4",
+					options: {
+						cover:"/static/video/demo.jpg",
+					},
 					nickName: "昵称-你好",
 					created_time:1614671908,
 					isRemove: false,
@@ -228,8 +231,11 @@
 					chatItemId: "5",
 					avatar:"/static/image/iocn_1.jpeg",
 					user_id: 1, // 用户ID
-					type:"text", //消息内容类型 image, audio,video,file, share
-					data:"好你妹321好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹好你妹",
+					type:"video", //消息内容类型 image, audio,video,file, share
+					data:"/static/video/demo.mp4",
+					options: {
+						cover:"/static/video/demo.jpg",
+					},
 					nickName: "昵称-你好",
 					created_time:1614843126,
 					isRemove: false,
