@@ -34,7 +34,7 @@
 		},
 		computed: {
 			imageStyle() {
-				return `width:${this.w}rpx;` // 
+				return `width:${this.w}rpx; height:${this.h}rpx;` // 
 			}
 		},
 		methods: {
@@ -50,8 +50,8 @@
 					w = Math.min(maxW, w)
 					h = Math.min(maxH, h)
 				} else if (w > h && w > maxW) {
-					w =  maxW
 					h = maxW/w * h
+					w =  maxW
 				} else  if (h > w && h > maxH) {
 					w = maxH/h * w
 					h =  maxH
@@ -59,6 +59,8 @@
 				
 				this.w = w
 				this.h = h
+				
+				this.$emit('imageSize',{w:this.w, h: this.h})
 			},
 		},
 		

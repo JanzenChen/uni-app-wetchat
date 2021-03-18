@@ -45,13 +45,16 @@
 				
 				<!-- 视频 -->
 				<view v-if="item.type === 'video'"
-					  class="position-relative rounded  justify-center align-center"
+					  class="position-relative rounded"
 					  @click="openVideo">
 					<wx-image :imageClass="item.type === 'video' ? 'rounded p-2':'p-2'"
 							:src="item.options.cover"
 							:maxWidth="500" :maxHeight="800"
-							@click="preview(item.data)"></wx-image>
-					<text class="iconfont text-white position-absolute" style="font-size: 80rpx; vertical-align: middle;">&#xe737</text>
+							@click="preview(item.data)"
+							@imageSize="imageSize"></wx-image>
+					<text class="iconfont text-white position-absolute"
+					style="font-size: 80rpx;"
+					:style="playIconStyle">&#xe737</text>
 				</view>
 			</div>
 			<!-- 右边 - 本人 -->
@@ -88,7 +91,11 @@
 		data() {
 			return {
 				innerAudioContext: null,
-				audioPlay: false
+				audioPlay: false,
+				coverSize: {
+					width: 250,
+					height: 250,
+				},
 			}
 		},
 		destroyed() {
@@ -126,6 +133,9 @@
 			},
 			showTime() {
 				return wxTimeUtil.getChatTime(this.item.created_time, this.pretime)
+			},
+			playIconStyle() {
+				return `left:${(this.coverSize.width - 80) * 0.5}rpx; top:${(this.coverSize.height - 80) * 0.5}rpx;` 
 			}
 		},
 		mounted() { 
@@ -162,6 +172,11 @@
 				uni.navigateTo({
 					url: '/pages/chat/video/video?url='+this.item.data,
 				})	
+			},
+			imageSize(e) {
+				console.log(e)
+				this.coverSize.width = e.w
+				this.coverSize.height = e.h
 			},
 			// 全局语音播放事件
 			onPlayAudio(res) {
