@@ -106,12 +106,12 @@
 </template>
 
 <script>
-	const Recorder = uni.getRecorderManager()
 	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
 	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
 	import wxChatItem from '@/components/general-ui/wx-chat-item.vue'
 	import wxPopup from '@/components/general-ui/wx-popup.nvue'
 	import wxTimeUtil from '@/common/util/wx-time.js'
+	import { mapState, mapMutations } from 'vuex'
 	export default {
 		components: {
 			wxNavBar,
@@ -178,7 +178,7 @@
 					{
 						name:"拍摄",
 						icon: "/static/image/extends/video.png",
-						event: "",
+						event: "uploadVideo",
 					},
 					{
 						name:"收藏",
@@ -299,6 +299,9 @@
 			}
 		},
 		computed: {
+			...mapState({
+				Recorder: state=>state.audio.Recorder,
+			}),
 			// 弹窗菜单
 			menuLists() {
 				return this.menus.filter(m=>{
@@ -356,8 +359,13 @@
 				}
 			})
 			
+			// 监听录音开始
+			this.regRecorderStart(()=>{
+				this.recordStartTime = parseInt(new Date().getTime()); //当前时间戳
+			})
+			
 			// 监听录音结束
-			Recorder.onStop((e)=> {
+			this.regRecorderStop((e)=>{
 				if (this.unrecording === true) {return;} // 取消发送
 				let time = wxTimeUtil.getDiffNow(this.recordStartTime)
 				if (time <= 1) {  // 录音小于等于1秒, 不发送
@@ -370,6 +378,7 @@
 				
 				this.sendMessage('audio', e.tempFilePath, {duration: time})
 			})
+			
 		},
 		watch: {
 			mode(newV, oldV) {
@@ -392,6 +401,7 @@
 			this.__init()
 		},
 		methods: {
+			...mapMutations(['regRecorderStart', 'regRecorderStop']),
 			__init() {
 				let total = 20
 				let page = Math.ceil(total/8)
@@ -415,22 +425,19 @@
 				this.isrecording = true
 				this.unrecording = false
 				this.recordingY = e.changedTouches[0].screenY
-				this.recordStartTime = parseInt(new Date().getTime()); //当前时间戳
 				
-				Recorder.start({
+				this.Recorder.start({
 					duration:60000, // 毫秒
 					format: 'mp3',
 				})
 			},
 			voiceTouchEnd() {
 				this.isrecording = false
-				this.unrecording = false
-				Recorder.stop()
+				this.Recorder.stop()
 			},
 			voiceTouchCancel() {
 				this.isrecording = false
-				this.unrecording = false
-				Recorder.stop()
+				this.Recorder.stop()
 			},
 			voiceTouchMove(e) {
 				let disY = Math.abs(e.changedTouches[0].screenY - this.recordingY)
@@ -578,16 +585,30 @@
 				
 				switch (item.event) {
 					case "uploadImage":
-					uni.chooseImage({
-						count:9,
-						success: (res) => {
-							// 渲染页面
-							res.tempFilePaths.forEach((url)=>{
-								console.log(url)
-								this.sendMessage('image', url)
-							})
-						}
-					})
+						uni.chooseImage({
+							count:9,
+							success: (res) => {
+								// 渲染页面
+								res.tempFilePaths.forEach((url)=>{
+									console.log(url)
+									this.sendMessage('image', url)
+								})
+							}
+						})
+						break;
+					case 'uploadVideo': 
+						uni.chooseVideo({
+							maxDuration:15,
+							success: (res) => {
+								// 渲染页面
+								this.sendMessage('video', res.tempFilePath, { cover:  '/static/video/demo.jpg'})
+								// 发送给服务端
+								//修改本地发送状态
+							},
+							fail: (err) => {
+								
+							}
+						})
 						break;
 					case "sendEmoticon":
 						this.sendMessage('emoticon', item.icon)

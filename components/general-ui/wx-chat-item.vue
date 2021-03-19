@@ -220,6 +220,12 @@
 						this.innerAudioContext.onStop(()=> {
 							this.audioPlay = false
 						})
+						// 监听播放完毕
+						this.innerAudioContext.onEnded(()=> {
+							this.innerAudioContext.stop()
+							this.innerAudioContext = null
+							this.audioPlay = false
+						})
 						// 监听错误
 						this.innerAudioContext.onError(()=> {
 							this.audioPlay = false
