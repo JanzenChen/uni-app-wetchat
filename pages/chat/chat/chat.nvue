@@ -27,11 +27,19 @@
 		<view class="position-fixed left-0 right-0 border-top flex align-center"
 			  style="background-color: #F7F7F7;" :style="'bottom:'+keyboardHeight+'px'">
 			  <view class="my-1 flex-1 flex-row align-center">
-				<wx-icon-button class="mx-1" :icon="'\ue606'" size="50"></wx-icon-button>
+				<wx-icon-button class="mx-1"
+								:icon="curInputMode === 'audio' ? '\ue607': '\ue606'"
+								size="50"
+								@click="changeVoiceOrtext">
+				</wx-icon-button>
 				<view class="flex-1 bg-light-s rounded">
-					<textarea v-model="text"
+					<view v-if="curInputMode === 'audio'" class="bg-light-s rounded p-2 font-normal border align-center">
+						<text class="font-normal">按住说话</text>
+					</view>
+					<textarea v-if="curInputMode === 'text'"
+							  v-model="text"
 							  adjust-position="false"
-							  fixed class="bg-light-s rounded p-2 font-normal border rounded"
+							  fixed class="bg-light-s rounded p-2 font-normal border"
 							  style="height: 80rpx;"
 							  @focus="onInputFocus"
 							  @blur="onInputBlur"></textarea>
@@ -104,7 +112,8 @@
 				textKeyboardHeight: 0,
 				scrollIntoId: "",
 				// 模式
-				mode: "text", 
+				mode: "text", //text, emoticon, action, audio
+				curInputMode: "text", //text or audio
 				text: "",
 				// 消息长按弹窗菜单
 				menus: [{
@@ -367,6 +376,17 @@
 				}
 				this.emoticonList = arr
 			},
+			changeVoiceOrtext() {
+				let mode = ""
+				if (this.mode == "text") {
+					mode = "audio"
+				} else if (this.mode == "audio") {
+					mode = "text"
+				} else {
+					mode = this.curInputMode
+				}
+				this.switchInputMode(mode)
+			},
 			//输入框开始输入
 			onInputFocus() {
 				if (this.mode !== "text") {
@@ -383,6 +403,9 @@
 			},
 			switchInputMode(mode) {
 				this.mode = mode
+				if (this.mode === 'text' || this.mode === 'audio') {
+					this.curInputMode = this.mode
+				}
 			},
 			scrollToTop() {
 				this.$nextTick(() => {
