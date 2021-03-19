@@ -153,7 +153,6 @@
 		},
 		mounted() { 
 			if (this.item.type === "audio") {
-				console.log(this.item.chatItemId)
 				this.audioOn(this.onPlayAudio) // 注册播放事件
 			}
 			// 监听是否撤回

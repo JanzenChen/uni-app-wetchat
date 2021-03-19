@@ -33,8 +33,14 @@
 								@click="changeVoiceOrtext">
 				</wx-icon-button>
 				<view class="flex-1 bg-light-s rounded">
-					<view v-if="curInputMode === 'audio'" class="bg-light-s rounded p-2 font-normal border align-center">
-						<text class="font-normal">按住说话</text>
+					<view v-if="curInputMode === 'audio'"
+						  class="rounded p-2 font-normal border align-center"
+						  :class="isrecording ? 'bg-hover-light' : 'bg-light-s'"
+						  @touchstart="voiceTouchStart"
+						  @touchend="voiceTouchEnd"
+						  @touchcancel="voiceTouchCancel"
+						  @touchmove="voiceTouchMove">
+						<text class="font-normal">{{isrecording ? '松开 结束' : '按住 说话'}}</text>
 					</view>
 					<textarea v-if="curInputMode === 'text'"
 							  v-model="text"
@@ -87,10 +93,20 @@
 			</view>
 		</wx-popup>
 		
+		<!-- 录音提示 -->
+		<view  v-if="isrecording === true" class="position-fixed top-0 left-0 right-0 flex align-center justify-center" :style="'bottom:'+keyboardHeight+'px'">
+			<view style="width: 360rpx; height: 360rpx; background-color: rgba(0,0,0,0.5);"
+				  class="rounded flex flex-column align-center justify-center">
+				<image src="@/static/audio/recording.gif" style="width: 150rpx; height: 150rpx;"></image>
+				<text class="font-normal text-white mt-3">{{unrecording ? "手指松开, 取消发送" : "手指上滑, 取消发送"}}</text>
+			</view>
+		</view>
+		
 	</div>
 </template>
 
 <script>
+	const Recorder = uni.getRecorderManager()
 	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
 	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
 	import wxChatItem from '@/components/general-ui/wx-chat-item.vue'
@@ -114,6 +130,10 @@
 				// 模式
 				mode: "text", //text, emoticon, action, audio
 				curInputMode: "text", //text or audio
+				isrecording: false, // 是否在录制音频
+				recordingY: 0,
+				unrecording: false, // 是否想要取消发送
+				recordStartTime: 0, // 录音开始时间
 				text: "",
 				// 消息长按弹窗菜单
 				menus: [{
@@ -335,6 +355,21 @@
 					}
 				}
 			})
+			
+			// 监听录音结束
+			Recorder.onStop((e)=> {
+				if (this.unrecording === true) {return;} // 取消发送
+				let time = wxTimeUtil.getDiffNow(this.recordStartTime)
+				if (time <= 1) {  // 录音小于等于1秒, 不发送
+					return uni.showToast({
+						title: '录音时间太短了',
+						icon: 'none'
+					});
+					return;
+				} 
+				
+				this.sendMessage('audio', e.tempFilePath, {duration: time})
+			})
 		},
 		watch: {
 			mode(newV, oldV) {
@@ -375,6 +410,32 @@
 					}
 				}
 				this.emoticonList = arr
+			},
+			voiceTouchStart(e) {
+				this.isrecording = true
+				this.unrecording = false
+				this.recordingY = e.changedTouches[0].screenY
+				this.recordStartTime = parseInt(new Date().getTime()); //当前时间戳
+				
+				Recorder.start({
+					duration:60000, // 毫秒
+					format: 'mp3',
+				})
+			},
+			voiceTouchEnd() {
+				this.isrecording = false
+				this.unrecording = false
+				Recorder.stop()
+			},
+			voiceTouchCancel() {
+				this.isrecording = false
+				this.unrecording = false
+				Recorder.stop()
+			},
+			voiceTouchMove(e) {
+				let disY = Math.abs(e.changedTouches[0].screenY - this.recordingY)
+				
+				this.unrecording = (disY >= 50)
 			},
 			changeVoiceOrtext() {
 				let mode = ""
@@ -533,7 +594,8 @@
 						break;
 				}
 			},
-			sendMessage(type, data="") {
+			sendMessage(type, data="", options={}) {
+				console.log('sendMessage' + data , options)
 				let curTimestamp = parseInt(new Date().getTime()/1000); //当前时间戳
 				
 				var chatItemId = "0"
@@ -545,20 +607,16 @@
 					avatar:"/static/image/iocn_1.jpeg",
 					user_id: 1, // 用户ID
 					type:type, //消息内容类型 image, audio,video,file, share, emoticon
-					data:"",
+					data: data,
+					options: options,
 					nickName: "我的昵称",
 					created_time:curTimestamp,
 					isRemove: false,
 				}
 				
-				switch(type) {
-					case 'text':
-						msgItem.data = this.text
-						this.text = ""
-						break;
-					default: 
-						msgItem.data = data
-						break;
+				if (type === 'text') {
+					msgItem.data = this.text
+					this.text = ""	
 				}
 				
 				this.lists.push(msgItem)
