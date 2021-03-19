@@ -601,7 +601,7 @@
 							maxDuration:15,
 							success: (res) => {
 								// 渲染页面
-								this.sendMessage('video', res.tempFilePath, { cover:  '/static/video/demo.jpg'})
+								this.sendMessage('video', res.tempFilePath, { cover:  ''})
 								// 发送给服务端
 								//修改本地发送状态
 							},

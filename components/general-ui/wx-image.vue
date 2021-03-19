@@ -1,5 +1,6 @@
 <template>
-	<image :class="imageClass" :src="src"
+	<image class="bg-hover-light"
+			:class="imageClass" :src="src"
 			lazy-load mode="widthFix"
 			:style="imageStyle"
 			@click="$emit('click')"
