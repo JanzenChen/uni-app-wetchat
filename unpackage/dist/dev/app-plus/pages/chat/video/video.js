@@ -92,7 +92,96 @@
 /* 3 */,
 /* 4 */,
 /* 5 */,
-/* 6 */,
+/* 6 */
+/*!*********************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/lib/format-log.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.log = log;exports.default = formatLog;function typof(v) {
+  var s = Object.prototype.toString.call(v);
+  return s.substring(8, s.length - 1);
+}
+
+function isDebugMode() {
+  /* eslint-disable no-undef */
+  return typeof __channelId__ === 'string' && __channelId__;
+}
+
+function jsonStringifyReplacer(k, p) {
+  switch (typof(p)) {
+    case 'Function':
+      return 'function() { [native code] }';
+    default:
+      return p;}
+
+}
+
+function log(type) {
+  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+  console[type].apply(console, args);
+}
+
+function formatLog() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var type = args.shift();
+  if (isDebugMode()) {
+    args.push(args.pop().replace('at ', 'uni-app:///'));
+    return console[type].apply(console, args);
+  }
+
+  var msgs = args.map(function (v) {
+    var type = Object.prototype.toString.call(v).toLowerCase();
+
+    if (type === '[object object]' || type === '[object array]') {
+      try {
+        v = '---BEGIN:JSON---' + JSON.stringify(v, jsonStringifyReplacer) + '---END:JSON---';
+      } catch (e) {
+        v = type;
+      }
+    } else {
+      if (v === null) {
+        v = '---NULL---';
+      } else if (v === undefined) {
+        v = '---UNDEFINED---';
+      } else {
+        var vType = typof(v).toUpperCase();
+
+        if (vType === 'NUMBER' || vType === 'BOOLEAN') {
+          v = '---BEGIN:' + vType + '---' + v + '---END:' + vType + '---';
+        } else {
+          v = String(v);
+        }
+      }
+    }
+
+    return v;
+  });
+  var msg = '';
+
+  if (msgs.length > 1) {
+    var lastMsg = msgs.pop();
+    msg = msgs.join('---COMMA---');
+
+    if (lastMsg.indexOf(' at ') === 0) {
+      msg += lastMsg;
+    } else {
+      msg += '---COMMA---' + lastMsg;
+    }
+  } else {
+    msg = msgs[0];
+  }
+
+  console[type](msg);
+}
+
+/***/ }),
 /* 7 */,
 /* 8 */,
 /* 9 */
@@ -1204,12 +1293,39 @@ var render = function() {
     [
       _c(
         "view",
+        { staticClass: ["position-relative"] },
         [
           _c("u-video", {
-            staticStyle: { width: "750rpx" },
-            style: "height" + this.windowH + "rpx;",
+            style:
+              "width:" + _vm.windowW + "px;" + "height:" + _vm.windowH + "px;",
             attrs: { src: _vm.url, controls: true, autoplay: true }
-          })
+          }),
+          _c(
+            "view",
+            {
+              staticClass: [
+                "position-absolute",
+                "flex",
+                "rounded",
+                "align-center",
+                "justify-center",
+                "p-1"
+              ],
+              staticStyle: {
+                top: "75rpx",
+                left: "40rpx",
+                backgroundColor: "rgba(255,255,255, 0.4)"
+              },
+              on: { click: _vm.back }
+            },
+            [
+              _c(
+                "u-text",
+                { staticClass: ["iconfont", "text-white", "font-large"] },
+                [_vm._v("")]
+              )
+            ]
+          )
         ],
         1
       )
@@ -1242,7 +1358,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _App
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0; //\n//\n//\n//\n//\n//\nvar _default =\n{\n  data: function data() {\n    return {\n      url: \"\",\n      windowH: 750 };\n\n  },\n  onLoad: function onLoad(e) {\n    if (e.url === '') {\n      return uni.showToast({\n        title: '非法视频',\n        icon: 'none' });\n\n    }\n\n    this.url = e.url;\n    var res = uni.getSystemInfo();\n    this.windowH = res.windowHeight;\n  },\n  methods: {} };exports.default = _default;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vcGFnZXMvY2hhdC92aWRlby92aWRlby5udnVlIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFPQTtBQUNBLE1BREEsa0JBQ0E7QUFDQTtBQUNBLGFBREE7QUFFQSxrQkFGQTs7QUFJQSxHQU5BO0FBT0EsUUFQQSxrQkFPQSxDQVBBLEVBT0E7QUFDQTtBQUNBO0FBQ0EscUJBREE7QUFFQSxvQkFGQTs7QUFJQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQSxHQWxCQTtBQW1CQSxhQW5CQSxFIiwiZmlsZSI6IjIxLmpzIiwic291cmNlc0NvbnRlbnQiOlsiPHRlbXBsYXRlPlxuXHQ8dmlldz5cblx0XHQ8dmlkZW8gOnNyYz1cInVybFwiIGNvbnRyb2xzIGF1dG9wbGF5IHN0eWxlPVwid2lkdGg6IDc1MHJweDtcIiA6c3R5bGU9XCInaGVpZ2h0JyArIHRoaXMud2luZG93SCArICdycHg7J1wiPjwvdmlkZW8+XG5cdDwvdmlldz5cbjwvdGVtcGxhdGU+XG5cbjxzY3JpcHQ+XG5cdGV4cG9ydCBkZWZhdWx0IHtcblx0XHRkYXRhKCkge1xuXHRcdFx0cmV0dXJuIHtcblx0XHRcdFx0dXJsOiBcIlwiLFxuXHRcdFx0XHR3aW5kb3dIOiA3NTAsXG5cdFx0XHR9XG5cdFx0fSxcblx0XHRvbkxvYWQoZSkge1xuXHRcdFx0aWYgKGUudXJsID09PSAnJykge1xuXHRcdFx0XHRyZXR1cm4gdW5pLnNob3dUb2FzdCh7XG5cdFx0XHRcdFx0dGl0bGU6ICfpnZ7ms5Xop4bpopEnLFxuXHRcdFx0XHRcdGljb246ICdub25lJ1xuXHRcdFx0XHR9KTtcblx0XHRcdH1cblx0XHRcdFxuXHRcdFx0dGhpcy51cmwgPSBlLnVybFxuXHRcdFx0bGV0IHJlcyA9IHVuaS5nZXRTeXN0ZW1JbmZvKClcblx0XHRcdHRoaXMud2luZG93SCA9IHJlcy53aW5kb3dIZWlnaHRcblx0XHR9LFxuXHRcdG1ldGhvZHM6IHtcblx0XHR9LFxuXHR9XG48L3NjcmlwdD5cblxuPHN0eWxlPlxuXG48L3N0eWxlPlxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///21\n");
+eval("/* WEBPACK VAR INJECTION */(function(__f__) {Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0; //\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\nvar _default =\n{\n  data: function data() {\n    return {\n      url: \"\",\n      windowW: 414,\n      windowH: 896 };\n\n  },\n  onLoad: function onLoad(e) {\n    if (e.url === '') {\n      this.back();\n      return uni.showToast({\n        title: '非法视频',\n        icon: 'none' });\n\n    }\n\n    this.url = e.url;\n    var res = uni.getSystemInfoSync();\n    __f__(\"log\", res, \" at pages/chat/video/video.nvue:35\");\n    this.windowW = res.windowWidth;\n    this.windowH = res.windowHeight;\n  },\n  methods: {\n    back: function back() {\n      uni.navigateBack();\n    } } };exports.default = _default;\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/lib/format-log.js */ 6)[\"default\"]))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vcGFnZXMvY2hhdC92aWRlby92aWRlby5udnVlIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQWVBO0FBQ0EsTUFEQSxrQkFDQTtBQUNBO0FBQ0EsYUFEQTtBQUVBLGtCQUZBO0FBR0Esa0JBSEE7O0FBS0EsR0FQQTtBQVFBLFFBUkEsa0JBUUEsQ0FSQSxFQVFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EscUJBREE7QUFFQSxvQkFGQTs7QUFJQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsR0F0QkE7QUF1QkE7QUFDQSxRQURBLGtCQUNBO0FBQ0E7QUFDQSxLQUhBLEVBdkJBLEUiLCJmaWxlIjoiMjEuanMiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XG5cdDx2aWV3IGNsYXNzPVwicG9zaXRpb24tcmVsYXRpdmVcIj5cblx0XHRcblx0XHQ8dmlkZW8gOnNyYz1cInVybFwiIGNvbnRyb2xzIGF1dG9wbGF5IDpzdHlsZT1cIid3aWR0aDonICsgd2luZG93VyAgKyAncHg7JyArICdoZWlnaHQ6JyArIHdpbmRvd0ggKyAncHg7J1wiPlxuXHRcdFx0XG5cdFx0PC92aWRlbz5cblx0XHQ8dmlldyBjbGFzcz1cInBvc2l0aW9uLWFic29sdXRlIGZsZXggcm91bmRlZCBhbGlnbi1jZW50ZXIganVzdGlmeS1jZW50ZXIgcC0xXCJcblx0XHRcdCAgc3R5bGU9XCJ0b3A6IDc1cnB4OyBsZWZ0OiA0MHJweDsgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgyNTUsMjU1LDI1NSwgMC40KTtcIlxuXHRcdFx0ICBAY2xpY2s9XCJiYWNrXCI+XG5cdFx0XHRcdDx0ZXh0IGNsYXNzPVwiaWNvbmZvbnQgdGV4dC13aGl0ZSBmb250LWxhcmdlXCI+JiN4ZTYyMDs8L3RleHQ+XG5cdFx0PC92aWV3PlxuXHQ8L3ZpZXc+XG48L3RlbXBsYXRlPlxuXG48c2NyaXB0PlxuXHRleHBvcnQgZGVmYXVsdCB7XG5cdFx0ZGF0YSgpIHtcblx0XHRcdHJldHVybiB7XG5cdFx0XHRcdHVybDogXCJcIixcblx0XHRcdFx0d2luZG93VzogNDE0LFxuXHRcdFx0XHR3aW5kb3dIOiA4OTYsXG5cdFx0XHR9XG5cdFx0fSxcblx0XHRvbkxvYWQoZSkge1xuXHRcdFx0aWYgKGUudXJsID09PSAnJykge1xuXHRcdFx0XHR0aGlzLmJhY2soKVxuXHRcdFx0XHRyZXR1cm4gdW5pLnNob3dUb2FzdCh7XG5cdFx0XHRcdFx0dGl0bGU6ICfpnZ7ms5Xop4bpopEnLFxuXHRcdFx0XHRcdGljb246ICdub25lJ1xuXHRcdFx0XHR9KTtcblx0XHRcdH1cblx0XHRcdFxuXHRcdFx0dGhpcy51cmwgPSBlLnVybFxuXHRcdFx0bGV0IHJlcyA9IHVuaS5nZXRTeXN0ZW1JbmZvU3luYygpXG5cdFx0XHRjb25zb2xlLmxvZyhyZXMpXG5cdFx0XHR0aGlzLndpbmRvd1cgPSByZXMud2luZG93V2lkdGhcblx0XHRcdHRoaXMud2luZG93SCA9IHJlcy53aW5kb3dIZWlnaHRcblx0XHR9LFxuXHRcdG1ldGhvZHM6IHtcblx0XHRcdGJhY2soKSB7XG5cdFx0XHRcdHVuaS5uYXZpZ2F0ZUJhY2soKVxuXHRcdFx0fSxcblx0XHR9LFxuXHR9XG48L3NjcmlwdD5cblxuPHN0eWxlPlxuXG48L3N0eWxlPlxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///21\n");
 
 /***/ })
 /******/ ]);

@@ -23,24 +23,25 @@
 				 :class="paopaoTextColor">&#xe609;</text>
 			</template>
 			<!-- 中间内容 -->
-			<div class="py-2 px-2 rounded" style="max-width:500rpx" :class="[isSelf ? 'mr-3' : 'ml-3', paopaoBgColor]">
+			<div class="py-2 px-2 rounded" :class="[isSelf ? 'mr-3' : 'ml-3', paopaoBgColor]"
+				  style="max-width:500rpx"  :style="durationStyle">
+				<!-- 文字 -->
 				<text v-if="item.type === 'text'" class="font-normal ">{{item.data}}</text>
 				<!-- 图片 | 表情 -->
 				<wx-image v-if="item.type === 'emoticon' || item.type === 'image'"
 						:imageClass="item.type === 'image' ? 'rounded p-2':'p-2'"
 						:src="item.data"
 						:maxWidth="500" :maxHeight="800"
-						@click="preview(item.data)"></wx-image>
+						@click="previewImage"></wx-image>
 						
 				<!-- 音频 -->
 				<view v-if="item.type === 'audio'"
-					  class="flex align-center"
+					  class="flex align-center justify-end"
 					  @click="openAudio">
-					  <text v-if="isSelf" class="font ml-3">5'</text>
+					  <text v-if="isSelf" class="font mr-2">{{ this.item.options.duration + "'"}}</text>
 					  <image :src="audioPlay ? '/static/audio/play.gif': '/static/audio/audio3.png'"
-							 style="width: 50rpx; height: 50rpx;"
-							 class="mx-1"></image>
-					  <text v-if="!isSelf" class="font mr-3">4'</text>
+							 style="width: 50rpx; height: 50rpx;"></image>
+					  <text v-if="!isSelf" class="font ml-2">{{ this.item.options.duration + "'"}}</text>
 				</view>
 				
 				<!-- 视频 -->
@@ -50,7 +51,6 @@
 					<wx-image :imageClass="item.type === 'video' ? 'rounded p-2':'p-2'"
 							:src="item.options.cover"
 							:maxWidth="500" :maxHeight="800"
-							@click="preview(item.data)"
 							@imageSize="imageSize"></wx-image>
 					<text class="iconfont text-white position-absolute"
 					style="font-size: 80rpx;"
@@ -136,6 +136,19 @@
 			},
 			playIconStyle() {
 				return `left:${(this.coverSize.width - 80) * 0.5}rpx; top:${(this.coverSize.height - 80) * 0.5}rpx;` 
+			},
+			durationStyle() {
+				if (this.item.type !== 'audio') { return `` }
+				
+				let duration = this.item.options.duration
+				if (duration < 0) { return `` }
+				
+				let width = 150
+				if (duration > 2) {
+					width = 150 + Math.ceil(duration / 10.0) * 40
+				}
+				
+				return `width:${width}rpx;` 
 			}
 		},
 		mounted() { 
@@ -169,12 +182,12 @@
 			...mapActions(['audioOn', 'audioEmit', 'audioOff']),
 			// 打开视频
 			openVideo() {
+				if (this.item.type !== 'video') { return; }
 				uni.navigateTo({
 					url: '/pages/chat/video/video?url='+this.item.data,
 				})	
 			},
 			imageSize(e) {
-				console.log(e)
 				this.coverSize.width = e.w
 				this.coverSize.height = e.h
 			},
@@ -189,7 +202,6 @@
 			},
 			//播放音频
 			openAudio() {
-				
 				if (this.item.type === 'audio' && this.item.data.length > 0) {
 					if (this.innerAudioContext === null) {
 						this.innerAudioContext = uni.createInnerAudioContext()
@@ -220,8 +232,9 @@
 				}
 			},
 			//预览图片
-			preview(url) {
-				this.$emit('preview', url)
+			previewImage() {
+				if (this.item.type !== 'image') { return; }
+				this.$emit('preview', this.item.data)
 			},
 			onLongpress(e) {
 				let x = 0

@@ -2,7 +2,7 @@
 	<image :class="imageClass" :src="src"
 			lazy-load mode="widthFix"
 			:style="imageStyle"
-			@click="preview(item.data)"
+			@click="$emit('click')"
 			@load="loadImage"></image>
 </template>
 

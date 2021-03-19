@@ -1,6 +1,14 @@
 <template>
-	<view>
-		<video :src="url" controls autoplay style="width: 750rpx;" :style="'height' + this.windowH + 'rpx;'"></video>
+	<view class="position-relative">
+		
+		<video :src="url" controls autoplay :style="'width:' + windowW  + 'px;' + 'height:' + windowH + 'px;'">
+			
+		</video>
+		<view class="position-absolute flex rounded align-center justify-center p-1"
+			  style="top: 75rpx; left: 40rpx; background-color: rgba(255,255,255, 0.4);"
+			  @click="back">
+				<text class="iconfont text-white font-large">&#xe620;</text>
+		</view>
 	</view>
 </template>
 
@@ -9,11 +17,13 @@
 		data() {
 			return {
 				url: "",
-				windowH: 750,
+				windowW: 414,
+				windowH: 896,
 			}
 		},
 		onLoad(e) {
 			if (e.url === '') {
+				this.back()
 				return uni.showToast({
 					title: '非法视频',
 					icon: 'none'
@@ -21,10 +31,15 @@
 			}
 			
 			this.url = e.url
-			let res = uni.getSystemInfo()
+			let res = uni.getSystemInfoSync()
+			console.log(res)
+			this.windowW = res.windowWidth
 			this.windowH = res.windowHeight
 		},
 		methods: {
+			back() {
+				uni.navigateBack()
+			},
 		},
 	}
 </script>
