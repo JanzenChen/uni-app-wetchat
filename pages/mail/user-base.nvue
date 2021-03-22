@@ -1,0 +1,93 @@
+<template>
+	<view class="scrollPage">
+		<!-- 导航栏 -->
+		<wx-nav-bar showBack title="" fixed>
+			<wx-icon-button slot="right" :icon="`\ue6fd`" @click="openAction"></wx-icon-button>
+		</wx-nav-bar>
+		
+		<view class="px-3 py-4 flex align-center bg-white" style="margin-top: 2rpx;">
+			<wx-avatar src="/static/image/iocn_1.jpeg" size="120"></wx-avatar>
+			<view class="flex flex-column ml-3">
+				<text class="font-large font-weight-bold">昵称: Janzen</text>
+				<text class="font-normaler text-light-muted">账号: Janzen</text>
+				<text class="font-normaler text-light-muted">地区: 广西北海市</text>
+			</view>
+		</view>
+		
+		<!-- 分割线 -->
+		<wx-devider height="5"></wx-devider>
+		<wx-list-item showRight :showLeftIcon="false" :showRightIcon="true">
+			<view slot="title" class="flex">
+				<text class="font-normal text-dark mr-3 flex">标签</text>
+				<view class="flex flex-warp align-start justify-start flex-1" style="width: 550rpx;">
+					<text v-for="i in 10" :key="i"  class="font-normaler text-light-muted mx-1 mb-1 bg-hover-info rounded px-2 py-1">哈哈</text>
+				</view>
+			</view>
+		</wx-list-item>
+		
+		<!-- 分割线 -->
+		<wx-devider></wx-devider>
+		<wx-list-item title="朋友圈" showRight :showLeftIcon="false" :showRightIcon="true">
+				<view slot="title" class="flex">
+					<text class="font-normal text-dark mr-3 flex">标签</text>
+					<view class="flex flex-warp align-start justify-start flex-1" style="width: 550rpx;">
+						<image v-for="i in 5" :key="i" src="/static/image/demo/cate_07.png" class="mr-2" style="width: 90rpx;height: 90rpx;"></image>
+					</view>
+				</view>
+		</wx-list-item>
+		<wx-list-item title="更多信息" showRight :showLeftIcon="false" :showRightIcon="true"></wx-list-item>
+		
+		<!-- 分割线 -->
+		<wx-devider></wx-devider>
+		<view class="py-3 flex align-center justify-center bg-white" hover-class="bg-hover-light">
+			<text class="iconfont font-normal text-primary font-weight-bold mr-1">&#xe64e;</text>
+			<text class="font-normal text-primary font-weight-bold">发消息</text>
+		</view>
+		
+		<!-- 拓展菜单 -->
+		<wx-popup ref="actions" fixedBottom maskColor transformOrigin="center bottom"
+				  class="border-top border-light-secondary bg-light">
+			<scroll-view scroll-y="true" style="height: 580rpx;" class="bg-white" :show-scrollbar="false">
+				<block v-for="i in 10" :key="i">
+					<wx-list-item title="扫一扫" showRight :bottomBoder="true" :showRight="false">
+						<text slot="icon" class="iconfont font-large py-1">&#xe667;</text>
+						<view slot="right" class="position-relative p-1">
+							<wx-avatar src="/static/image/iocn_1.jpeg" size="55"></wx-avatar>
+							<text class="rounded-circle bg-danger position-absolute" style="width: 20rpx; height: 20rpx; top: 0; right: 0;"></text>
+						</view>
+					</wx-list-item>	
+				</block>
+			</scroll-view>
+		</wx-popup>
+		
+	</view>
+</template>
+
+<script>
+	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
+	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
+	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
+	import wxDevider from '@/components/general-ui/wx-devider.vue'
+	import wxListItem from '@/components/general-ui/wx-list-item.vue'
+	import wxPopup from '@/components/general-ui/wx-popup.nvue'
+	
+	export default {
+		components: {
+			wxNavBar,
+			wxIconButton,
+			wxAvatar,
+			wxDevider,
+			wxListItem,
+			wxPopup
+		},
+		methods: {
+			openAction() {
+				this.$refs.actions.show()
+			}
+		},
+	}
+</script>
+
+<style>
+
+</style>

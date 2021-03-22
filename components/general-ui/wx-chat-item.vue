@@ -17,7 +17,7 @@
 			  @longpress="onLongpress">
 			<!-- 左边 - 好友 -->
 			<template v-if="!isSelf">
-				<wx-avatar size="70" :src="item.avatar"></wx-avatar>
+				<wx-avatar size="70" :src="item.avatar" clickType="navigate"></wx-avatar>
 				<text v-if="isNeedPaopao"
 				 class="iconfont font-normal position-absolute chat-left-icon"
 				 :class="paopaoTextColor">&#xe609;</text>
@@ -60,7 +60,7 @@
 			<!-- 右边 - 本人 -->
 			<template v-if="isSelf">
 				<text v-if="isNeedPaopao" class="iconfont font-normal position-absolute chat-right-icon" :class="paopaoTextColor">&#xe640;</text>
-				<wx-avatar size="70" :src="item.avatar"></wx-avatar>
+				<wx-avatar size="70" :src="item.avatar" clickType="navigate"></wx-avatar>
 			</template>
 		</view>	
 	</view>

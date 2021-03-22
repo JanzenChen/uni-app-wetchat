@@ -1113,7 +1113,8 @@ module.exports = {
     "flex": 1
   },
   "scrollPage": {
-    "backgroundColor": "#EDEDED"
+    "backgroundColor": "#EDEDED",
+    "flex": 0
   },
   "main-bg-color": {
     "backgroundColor": "#08C060"

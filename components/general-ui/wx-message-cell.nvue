@@ -1,5 +1,5 @@
 <template>
-	<view v-if="item" :class="{'bg-hover-light' : item.settop_time > 0}" hover-class="bg-hover-light">
+	<view v-if="item" class="bg-white" :class="{'bg-hover-light' : item.settop_time > 0}" hover-class="bg-hover-light">
 		<!-- 使用view无法获取长按坐标, 使用div -->
 		<div class="flex align-center" @click="onClick" @longpress="onLongpress">
 			<!-- 左边 -->

@@ -5,7 +5,7 @@
 			<!-- 成员列表 -->
 			<view class="bg-white flex flex-warp py-1" style="margin-top: 2rpx;">
 				<view v-for="i in 12" :key="i" class="flex flex-column align-center justify-center" style="width: 150rpx;">
-					<wx-avatar src="/static/image/iocn_1.jpeg" size="100"></wx-avatar>
+					<wx-avatar src="/static/image/iocn_1.jpeg" size="100" clickType="navigate"></wx-avatar>
 					<text class="font-normaler text-muted mt-1 pb-1">昵称{{i}}</text>
 				</view>
 				

@@ -1,5 +1,5 @@
 <template>
-	<image class="rounded" :src="src" mode="widthFix" :style="getStyle" :class="type"></image>
+	<image class="rounded" :src="src" mode="widthFix" :style="getStyle" :class="type" @click="avatarTap"></image>
 </template>
 
 <script>
@@ -16,13 +16,33 @@
 			type: {
 				type: String,
 				default: "rounded"
+			},
+			clickType: {
+				type: String,
+				default: "none"
 			}
 		},
 		computed: {
 			getStyle() {
 				return `width: ${this.size}rpx; height: ${this.size}rpx;`
 			}
-		}
+		},
+		methods: {
+			avatarTap() {
+				switch(this.clickType) {
+					case "navigate":
+						uni.navigateTo({
+							url:'/pages/mail/user-base',
+						})
+						break;
+					case "super":
+						this.$emit('click')
+						break;
+					default: 
+						break;
+				}
+			},
+		},
 	}
 </script>
 

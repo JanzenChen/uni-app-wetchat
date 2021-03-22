@@ -2,38 +2,58 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/tabBar/message/wx-message",
-			"style": {}
+            "style" : {
+				"backgroundColor": "#EDEDED"
+			}
 		},
 		{
 			"path": "pages/tabBar/friend/wx-friend",
-			"style": {}
+            "style" : {
+				"backgroundColor": "#EDEDED"
+			}
 		},
 		{
 			"path": "pages/tabBar/find/wx-find",
-			"style": {}
+            "style" : {
+				"backgroundColor": "#EDEDED"
+			}
 		},
 		{
 			"path": "pages/tabBar/mine/wx-mine",
-			"style": {}
+            "style" : {
+				"backgroundColor": "#EDEDED"
+			}
 		},
 		{
 			"path": "pages/chat/chat/chat",
-			"style": {}
+            "style" : {
+				"backgroundColor": "#EDEDED"
+			}
 		},
 		{
 			"path": "pages/chat/video/video",
-			"style": {}
+            "style" : {
+				"backgroundColor": "#EDEDED"
+			}
 		},
 		{
             "path" : "pages/chat/chat-set/chat-set",
-            "style" : {}
+            "style" : {
+				"backgroundColor": "#EDEDED"
+			}
+        },
+		{
+            "path" : "pages/mail/user-base",
+            "style" : {
+				"backgroundColor": "#EDEDED"
+			}
         }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "仿微信",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
+		"backgroundColor": "#EDEDED",
 		"app-plus": {
 			"titleNView":false,
 			"scrollIndicator":"none"
@@ -41,7 +61,7 @@
 	},
 	"tabBar": {
 		"borderStyle":"black",
-		"backgroundColor":"#F7F7F7",
+		"backgroundColor":"#EDEDED",
 		"color":"#000000",
 		"selectedColor":"#08C060",
 		"list": [

@@ -20,6 +20,10 @@
 	min-height: 100%;
 	height: auto;
 	/* #endif */
+	
+	/* #ifdef APP-PLUS-NVUE */
+	flex: 0;
+	/* #endif */
 }
 
 /* 主背景色 */

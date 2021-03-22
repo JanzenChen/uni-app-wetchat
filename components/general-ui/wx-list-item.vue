@@ -8,7 +8,7 @@
 			<image mode="widthFix" :style="coverStyle" :src="cover" v-if="cover"></image>
 		</view>
 		<!-- 内容 -->
-		<view class="flex-1 border-bottom flex align-center justify-between px-2 py-3">
+		<view class="flex-1 flex align-center justify-between px-2 py-3" :class="bottomBoder ? 'border-bottom' : '' ">
 			<slot name="title">
 				<text class="font-normal text-dark">{{title}}</text>
 			</slot>
@@ -35,6 +35,10 @@
 			title: { // 标题
 				type: String,
 				default: ""
+			},
+			bottomBoder: { // 是否显示左边图标
+				type: Boolean,
+				default: true
 			},
 			showLeftIcon: { // 是否显示左边图标
 				type: Boolean,

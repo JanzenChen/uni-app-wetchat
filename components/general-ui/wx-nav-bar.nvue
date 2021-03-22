@@ -15,8 +15,8 @@
 				<!-- 右边 -->
 				<view class="flex align-center" v-if="showRight">
 					<slot name="right">
-						<wx-icon-button ref="search_button" @click='search'><text class="iconfont font-normal">&#xe6e3;</text></wx-icon-button>
-						<wx-icon-button ref="extend_button" @click='openExtend'><text class="iconfont font-normal">&#xe682;</text></wx-icon-button>
+						<wx-icon-button ref="search_button" :icon="'\ue6e3'" @click='search'></wx-icon-button>
+						<wx-icon-button ref="extend_button" :icon="'\ue682'" @click='openExtend'></wx-icon-button>
 					</slot>
 				</view>
 			</view>
