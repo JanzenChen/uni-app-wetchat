@@ -13,7 +13,7 @@
 					<text v-if="title" class="font-large">{{getTitle}}</text>
 				</view>
 				<!-- 右边 -->
-				<view class="flex align-center">
+				<view class="flex align-center" v-if="showRight">
 					<slot name="right">
 						<wx-icon-button ref="search_button" @click='search'><text class="iconfont font-normal">&#xe6e3;</text></wx-icon-button>
 						<wx-icon-button ref="extend_button" @click='openExtend'><text class="iconfont font-normal">&#xe682;</text></wx-icon-button>
@@ -24,8 +24,8 @@
 		<!-- 占位 -->
 		<view v-if="fixed" :style="fixedNavBarStyle"></view>
 		
-		<!-- 弹窗 -->
-		<wx-popup class="border" ref="extend" :fixedBottom="false" :contentWidth="320" :contentHeight="100 * extendLists.length">
+		<!-- 拓展菜单弹窗 -->
+		<wx-popup v-if="showRight" class="border" ref="extend" :fixedBottom="false" :contentWidth="320" :contentHeight="100 * extendLists.length">
 			<view v-for="(extendItem,index) in extendLists" :key="index" class="flex flex-column" style="width: 320rpx; height: 100rpx;" @click="clickHandle(extendItem.event)">
 				<view :class="['flex-1', 'flex', 'align-center', 'bg-dark', 0 == index ? 'rounded-top' : '', extendLists.length == (index + 1) ? 'rounded-bottom' : '']" hover-class="bg-hover-dark">
 					<text class="iconfont font-normal  pl-3  pr-2 text-white">{{extendItem.icon}}</text>
@@ -61,6 +61,10 @@
 			bgColor: {
 				type: String,
 				default: 'bg-light'
+			},
+			showRight: {
+				type: Boolean,
+				default: true
 			},
 		},
 		components: {

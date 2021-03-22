@@ -138,7 +138,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _App
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("/* WEBPACK VAR INJECTION */(function(__f__) {Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0;var _default =\n{\n  onLaunch: function onLaunch() {\n\n    var domModule = weex.requireModule('dom');\n    domModule.addRule('fontFace', {\n      'fontFamily': \"iconfont\",\n      'src': \"url('https://at.alicdn.com/t/font_1365296_vumpzwvr0z.ttf')\" });\n\n\n    // 初始化录音管理器\n    this.$store.commit('initRecorder');\n\n    __f__(\"log\", 'App Launch', \" at App.vue:14\");\n  },\n  onShow: function onShow() {\n    __f__(\"log\", 'App Show', \" at App.vue:17\");\n  },\n  onHide: function onHide() {\n    __f__(\"log\", 'App Hide', \" at App.vue:20\");\n  } };exports.default = _default;\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/lib/format-log.js */ 6)[\"default\"]))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vQXBwLnZ1ZSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0EsOEJBREE7QUFFQSx5RUFGQTs7O0FBS0E7QUFDQTs7QUFFQTtBQUNBLEdBYkE7QUFjQTtBQUNBO0FBQ0EsR0FoQkE7QUFpQkE7QUFDQTtBQUNBLEdBbkJBLEUiLCJmaWxlIjoiNS5qcyIsInNvdXJjZXNDb250ZW50IjpbIjxzY3JpcHQ+XHJcblx0ZXhwb3J0IGRlZmF1bHQge1xyXG5cdFx0b25MYXVuY2g6IGZ1bmN0aW9uKCkge1xuXHRcdFx0Ly8gI2lmZGVmIEFQUC1QTFVTLU5WVUVcblx0XHRcdHZhciBkb21Nb2R1bGUgPSB3ZWV4LnJlcXVpcmVNb2R1bGUoJ2RvbScpO1xuXHRcdFx0ZG9tTW9kdWxlLmFkZFJ1bGUoJ2ZvbnRGYWNlJywge1xuXHRcdFx0XHQnZm9udEZhbWlseSc6IFwiaWNvbmZvbnRcIixcblx0XHRcdFx0J3NyYyc6IFwidXJsKCdodHRwczovL2F0LmFsaWNkbi5jb20vdC9mb250XzEzNjUyOTZfdnVtcHp3dnIwei50dGYnKVwiXG5cdFx0XHR9KVxuXHRcdFx0Ly8gI2VuZGlmXG5cdFx0XHQvLyDliJ3lp4vljJblvZXpn7PnrqHnkIblmahcblx0XHRcdHRoaXMuJHN0b3JlLmNvbW1pdCgnaW5pdFJlY29yZGVyJylcblx0XHRcdFxyXG5cdFx0XHRjb25zb2xlLmxvZygnQXBwIExhdW5jaCcpXHJcblx0XHR9LFxyXG5cdFx0b25TaG93OiBmdW5jdGlvbigpIHtcclxuXHRcdFx0Y29uc29sZS5sb2coJ0FwcCBTaG93JylcclxuXHRcdH0sXHJcblx0XHRvbkhpZGU6IGZ1bmN0aW9uKCkge1xyXG5cdFx0XHRjb25zb2xlLmxvZygnQXBwIEhpZGUnKVxyXG5cdFx0fVxyXG5cdH1cclxuPC9zY3JpcHQ+XHJcblxyXG48c3R5bGU+XHJcblx0Lyrmr4/kuKrpobXpnaLlhazlhbFjc3MgKi9cblx0QGltcG9ydCBcIi4vY29tbW9uL3d4LWZyZWUuY3NzXCI7XG5cdEBpbXBvcnQgXCIuL2NvbW1vbi93eC1jb21tb24uY3NzXCI7XG5cdC8qICNpZm5kZWYgQVBQLVBMVVMtTlZVRSAqL1xuXHRAaW1wb3J0IFwiLi9jb21tb24vd3gtaWNvbi5jc3NcIjtcblx0LyogI2VuZGlmICovXHJcbjwvc3R5bGU+XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///5\n");
+eval("/* WEBPACK VAR INJECTION */(function(__f__) {Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0;var _default =\n{\n  onLaunch: function onLaunch() {\n\n    var domModule = weex.requireModule('dom');\n    domModule.addRule('fontFace', {\n      'fontFamily': \"iconfont\",\n      'src': \"url('https://at.alicdn.com/t/font_1365296_2ijcbdrmsg.ttf')\" });\n\n\n    // 初始化录音管理器\n    this.$store.commit('initRecorder');\n\n    __f__(\"log\", 'App Launch', \" at App.vue:14\");\n  },\n  onShow: function onShow() {\n    __f__(\"log\", 'App Show', \" at App.vue:17\");\n  },\n  onHide: function onHide() {\n    __f__(\"log\", 'App Hide', \" at App.vue:20\");\n  } };exports.default = _default;\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/lib/format-log.js */ 6)[\"default\"]))//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vQXBwLnZ1ZSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0EsOEJBREE7QUFFQSx5RUFGQTs7O0FBS0E7QUFDQTs7QUFFQTtBQUNBLEdBYkE7QUFjQTtBQUNBO0FBQ0EsR0FoQkE7QUFpQkE7QUFDQTtBQUNBLEdBbkJBLEUiLCJmaWxlIjoiNS5qcyIsInNvdXJjZXNDb250ZW50IjpbIjxzY3JpcHQ+XHJcblx0ZXhwb3J0IGRlZmF1bHQge1xyXG5cdFx0b25MYXVuY2g6IGZ1bmN0aW9uKCkge1xuXHRcdFx0Ly8gI2lmZGVmIEFQUC1QTFVTLU5WVUVcblx0XHRcdHZhciBkb21Nb2R1bGUgPSB3ZWV4LnJlcXVpcmVNb2R1bGUoJ2RvbScpO1xuXHRcdFx0ZG9tTW9kdWxlLmFkZFJ1bGUoJ2ZvbnRGYWNlJywge1xuXHRcdFx0XHQnZm9udEZhbWlseSc6IFwiaWNvbmZvbnRcIixcblx0XHRcdFx0J3NyYyc6IFwidXJsKCdodHRwczovL2F0LmFsaWNkbi5jb20vdC9mb250XzEzNjUyOTZfMmlqY2Jkcm1zZy50dGYnKVwiXG5cdFx0XHR9KVxuXHRcdFx0Ly8gI2VuZGlmXG5cdFx0XHQvLyDliJ3lp4vljJblvZXpn7PnrqHnkIblmahcblx0XHRcdHRoaXMuJHN0b3JlLmNvbW1pdCgnaW5pdFJlY29yZGVyJylcblx0XHRcdFxyXG5cdFx0XHRjb25zb2xlLmxvZygnQXBwIExhdW5jaCcpXHJcblx0XHR9LFxyXG5cdFx0b25TaG93OiBmdW5jdGlvbigpIHtcclxuXHRcdFx0Y29uc29sZS5sb2coJ0FwcCBTaG93JylcclxuXHRcdH0sXHJcblx0XHRvbkhpZGU6IGZ1bmN0aW9uKCkge1xyXG5cdFx0XHRjb25zb2xlLmxvZygnQXBwIEhpZGUnKVxyXG5cdFx0fVxyXG5cdH1cclxuPC9zY3JpcHQ+XHJcblxyXG48c3R5bGU+XHJcblx0Lyrmr4/kuKrpobXpnaLlhazlhbFjc3MgKi9cblx0QGltcG9ydCBcIi4vY29tbW9uL3d4LWZyZWUuY3NzXCI7XG5cdEBpbXBvcnQgXCIuL2NvbW1vbi93eC1jb21tb24uY3NzXCI7XG5cdC8qICNpZm5kZWYgQVBQLVBMVVMtTlZVRSAqL1xuXHRAaW1wb3J0IFwiLi9jb21tb24vd3gtaWNvbi5jc3NcIjtcblx0LyogI2VuZGlmICovXHJcbjwvc3R5bGU+XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///5\n");
 
 /***/ }),
 /* 6 */
@@ -395,6 +395,9 @@ module.exports = {
   },
   "flex-column": {
     "flexDirection": "column"
+  },
+  "flex-warp": {
+    "flexWrap": "wrap"
   },
   "flex-nowarp": {
     "flexWrap": "nowrap"
@@ -1108,6 +1111,9 @@ module.exports = {
   "page": {
     "backgroundColor": "#EDEDED",
     "flex": 1
+  },
+  "scrollPage": {
+    "backgroundColor": "#EDEDED"
   },
   "main-bg-color": {
     "backgroundColor": "#08C060"

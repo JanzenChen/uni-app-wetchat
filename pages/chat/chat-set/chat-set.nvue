@@ -1,0 +1,94 @@
+<template>
+	<view class="scrollPage">
+			<!-- 导航栏 -->
+			<wxNavBar showBack title="聊天设置" fixed :showRight="false"></wxNavBar>
+			<!-- 成员列表 -->
+			<view class="bg-white flex flex-warp py-1" style="margin-top: 2rpx;">
+				<view v-for="i in 12" :key="i" class="flex flex-column align-center justify-center" style="width: 150rpx;">
+					<wx-avatar src="/static/image/iocn_1.jpeg" size="100"></wx-avatar>
+					<text class="font-normaler text-muted mt-1 pb-1">昵称{{i}}</text>
+				</view>
+				
+				<view class="flex flex-column align-center justify-center mb-2" style="width: 150rpx;">
+					<view class="border border-secondary align-center justify-center" style="width: 100rpx;height: 100rpx;">
+						<text class="text-light-muted mb-1" style="font-size: 100rpx;">+</text>
+					</view>
+				</view>
+			</view>
+			
+			<!-- 分割线 -->
+			<wx-devider></wx-devider>
+			<wx-list-item title="群聊名称" showRight :showLeftIcon="false" :showRightIcon="true">
+				<text slot="right" class="font-normal text-secondary">群聊名称</text>
+			</wx-list-item>
+			<wx-list-item title="群二维码" showRight :showLeftIcon="false" :showRightIcon="true">
+				<text slot="right" class="iconfont font-normal text-light-muted">&#xe647;</text>
+			</wx-list-item>
+			<wx-list-item title="群公告" showRight :showLeftIcon="false"> </wx-list-item>
+			
+			<!-- 分割线 -->
+			<wx-devider></wx-devider>
+			<wx-list-item title="查找聊天记录" showRight :showLeftIcon="false"></wx-list-item>
+			
+			<!-- 分割线 -->
+			<wx-devider></wx-devider>
+			<wx-list-item title="消息免打扰" showRight :showLeftIcon="false" :showRightIcon="false">
+				<switch slot="right" checked="false" @change="" color="#08C060"/>
+			</wx-list-item>
+			<wx-list-item title="置顶聊天" showRight :showLeftIcon="false" :showRightIcon="false">
+				<switch slot="right" checked="true" @change="" color="#08C060"/>
+			</wx-list-item>
+			<wx-list-item title="强提醒" showRight :showLeftIcon="false" :showRightIcon="false">
+				<switch slot="right" checked="false" @change="" color="#08C060"/>
+			</wx-list-item>
+			<wx-list-item title="保存到通讯录" showRight :showLeftIcon="false" :showRightIcon="false">
+				<switch slot="right" checked="false" @change="" color="#08C060"/>
+			</wx-list-item>
+			
+			<!-- 分割线 -->
+			<wx-devider></wx-devider>
+			<wx-list-item title="设置聊天背景" showRight :showLeftIcon="false"> </wx-list-item>
+			
+			<!-- 分割线 -->
+			<wx-devider></wx-devider>
+			<wx-list-item title="我在本群的昵称" showRight :showLeftIcon="false" :showRightIcon="true">
+				<text slot="right" class="font-normal text-secondary">我的昵称</text>
+			</wx-list-item>
+			<wx-list-item title="显示群成员昵称" showRight :showLeftIcon="false" :showRightIcon="false">
+				<switch slot="right" checked="true" @change="" color="#08C060"/>
+			</wx-list-item>
+			
+			<!-- 分割线 -->
+			<wx-devider></wx-devider>
+			<wx-list-item title="清空聊天记录" showRight :showLeftIcon="false"> </wx-list-item>
+			
+			<!-- 分割线 -->
+			<wx-devider></wx-devider>
+			<wx-list-item title="投诉" showRight :showLeftIcon="false"> </wx-list-item>
+			
+			<!-- 分割线 -->
+			<wx-devider></wx-devider>
+			<view class="py-3 flex align-center justify-center bg-white" hover-class="bg-hover-light">
+				<text class="font-normal text-danger">删除并退出</text>
+			</view>
+	</view>
+</template>
+
+<script>
+	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
+	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
+	import wxDevider from '@/components/general-ui/wx-devider.vue'
+	import wxListItem from '@/components/general-ui/wx-list-item.vue'
+	
+	export default {
+		components: {
+			wxNavBar,
+			wxAvatar,
+			wxDevider,
+			wxListItem,
+		}
+	}
+</script>
+
+<style>
+</style>

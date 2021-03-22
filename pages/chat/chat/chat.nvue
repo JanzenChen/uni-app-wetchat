@@ -1,7 +1,9 @@
 <template>
 	<div class="page">
 		<!-- 导航栏 -->
-		<wx-nav-bar showBack title="聊天对象名" fixed></wx-nav-bar>
+		<wx-nav-bar showBack title="聊天对象名" fixed>
+			<wx-icon-button slot="right" :icon="`\ue6fd`" @click="openChatSet"></wx-icon-button>
+		</wx-nav-bar>
 		
 		<!-- 聊天内容区域 -->
 		<scroll-view scroll-y :scroll-into-view="scrollIntoId"
@@ -420,6 +422,12 @@
 					}
 				}
 				this.emoticonList = arr
+			},
+			openChatSet(){
+				console.log(123123)
+				uni.navigateTo({
+					url:'/pages/chat/chat-set/chat-set',
+				})
 			},
 			voiceTouchStart(e) {
 				this.isrecording = true

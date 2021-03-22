@@ -1,4 +1,4 @@
-/* 1. 页面背景色 */
+/* 1. 静态页面背景色 */
 .page {
 	background-color: #EDEDED;
 	
@@ -9,6 +9,16 @@
 	
 	/* #ifdef APP-PLUS-NVUE */
 	flex: 1;
+	/* #endif */
+}
+
+/* 2. 滚动页面背景色 */
+.scrollPage {
+	background-color: #EDEDED;
+	
+	/* #ifndef APP-PLUS-NVUE */
+	min-height: 100%;
+	height: auto;
 	/* #endif */
 }
 
