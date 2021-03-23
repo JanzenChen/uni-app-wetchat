@@ -1,0 +1,77 @@
+<template>
+	<view class="scrollPage">
+		<!-- 导航栏 -->
+		<wx-nav-bar showBack title="添加标签" fixed>
+			<wx-button slot="right" name="保存" @click="save"></wx-button>
+		</wx-nav-bar>
+		
+		
+		<view class="flex flex-warp align-start justify-start flex-1 py-2" style="background-color: #EDEDED;">
+			<text v-for="(item, index) in tagsLists" :key="index"
+			 class="font-normaler main-text-color mx-1 mb-2 bg-white rounded-circle border px-2 py"
+			 style="border-color: #08C060;">{{item}}</text>
+			 <view class="border bg-white rounded-circle px-1" style="border-style: dashed; width: 180rpx;">
+				 <input type="text" placeholder="添加标签"
+				 				    class="font-normaler text-center"
+				 					v-model="newTag"
+				 					@confirm="addNewTag"
+				 					confirm-type="send"/>
+			 </view>
+		</view>
+		
+	</view>
+</template>
+
+<script>
+	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
+	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
+	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
+	import wxDevider from '@/components/general-ui/wx-devider.vue'
+	import wxListItem from '@/components/general-ui/wx-list-item.vue'
+	import wxButton from '@/components/general-ui/wx-button.vue'
+	
+	export default {
+		components: {
+			wxNavBar,
+			wxIconButton,
+			wxAvatar,
+			wxDevider,
+			wxListItem,
+			wxButton
+		},
+		data() {
+			return {
+				newTag:"",
+				tagsLists:[]
+			}
+		},
+		onLoad(e) {
+			if (e.tagsLists) {
+				this.tagsLists = JSON.parse(e.tagsLists)
+			}
+		},
+		methods: {
+			addNewTag(){
+				
+				if (this.newTag.length === "") {
+					return;
+				}
+				
+				if (this.tagsLists.indexOf(this.newTag) !== -1) {
+					this.newTag = ""
+					return uni.showToast({
+						title:'标签已存在',
+						icon:'none'
+					})
+				}
+				this.tagsLists.push(this.newTag)
+				this.newTag = ""
+				
+			}
+		}
+	}
+</script>
+
+<style>
+
+</style>

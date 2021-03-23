@@ -43,10 +43,23 @@
 			}
         },
 		{
-            "path" : "pages/mail/user-base",
+            "path" : "pages/mail/user-base/user-base",
             "style" : {
 				"backgroundColor": "#EDEDED"
 			}
+        }
+        ,{
+            "path" : "pages/mail/user-remark-tag/user-remark-tag",
+            "style" : {
+            	"backgroundColor": "#EDEDED"
+            }
+        }
+        ,{
+            "path" : "pages/mail/user-tag-set/user-tag-set",
+            "style" : {
+            	"backgroundColor": "#EDEDED"
+            }
+            
         }
     ],
 	"globalStyle": {

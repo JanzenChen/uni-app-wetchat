@@ -61,9 +61,7 @@
 				</template>
 				<template v-else>
 					<!-- 发送按钮 -->
-					<view class="main-bg-color rounded mx-2 px-2 py-1" @click="sendMessage('text')">
-						<text class="text-white font-samll">发送</text>
-					</view>
+					<wx-button name="发送" @click="sendMessage('text')"></wx-button>
 				</template>
 			  </view>
 		</view>
@@ -112,6 +110,7 @@
 	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
 	import wxChatItem from '@/components/general-ui/wx-chat-item.vue'
 	import wxPopup from '@/components/general-ui/wx-popup.nvue'
+	import wxButton from '@/components/general-ui/wx-button.vue'
 	import wxTimeUtil from '@/common/util/wx-time.js'
 	import { mapState, mapMutations } from 'vuex'
 	export default {
@@ -120,6 +119,7 @@
 			wxChatItem,
 			wxIconButton,
 			wxPopup,
+			wxButton
 		},
 		data() {
 			return {

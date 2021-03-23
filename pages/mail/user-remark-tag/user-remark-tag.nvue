@@ -1,0 +1,66 @@
+<template>
+	<view class="scrollPage">
+		<!-- 导航栏 -->
+		<wx-nav-bar showBack title="设置备注和标签" fixed>
+			<wx-button slot="right" name="完成" @click="save"></wx-button>
+		</wx-nav-bar>
+				
+		<view class="flex flex-column">
+			<text class="font-normaler text-secondary px-3 py-2">备注名</text>
+			<input type="text"  placeholder="请填写备注名" class="font-normal border bg-white px-3" style="height: 100rpx;"/>
+		</view>	
+		
+			
+		<view class="flex flex-column" @click="openTagSet">
+			<text class="font-normaler text-secondary px-3 py-2">标签</text>
+			<view class="flex flex-warp align-start justify-start flex-1 bg-white py-2">
+				<text v-for="(item, index) in tagsLists" :key="index"
+				 class="font-normaler main-text-color mx-1 mb-1 bg-white rounded-circle border px-2 py"
+				 style="border-color: #08C060;">{{item}}</text>
+			</view>
+		</view>	
+		
+	</view>
+</template>
+
+<script>
+	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
+	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
+	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
+	import wxDevider from '@/components/general-ui/wx-devider.vue'
+	import wxListItem from '@/components/general-ui/wx-list-item.vue'
+	import wxButton from '@/components/general-ui/wx-button.vue'
+	
+	export default {
+		components: {
+			wxNavBar,
+			wxIconButton,
+			wxAvatar,
+			wxDevider,
+			wxListItem,
+			wxButton
+		},
+		data() {
+			return {
+				tagsLists:[]
+			}
+		},
+		onLoad(e) {
+			if (e.tagsLists) {
+				this.tagsLists = JSON.parse(e.tagsLists)
+			}
+		},
+		methods: {
+			openTagSet() {
+				let path = '/pages/mail/user-tag-set/user-tag-set' + '?tagsLists='+JSON.stringify(this.tagsLists)
+				uni.navigateTo({
+					url: path
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+
+</style>
