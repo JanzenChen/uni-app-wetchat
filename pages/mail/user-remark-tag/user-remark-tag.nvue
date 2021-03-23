@@ -2,12 +2,15 @@
 	<view class="scrollPage">
 		<!-- 导航栏 -->
 		<wx-nav-bar showBack title="设置备注和标签" fixed>
-			<wx-button slot="right" name="完成" @click="save"></wx-button>
+			<wx-button slot="right" name="完成" @click="updateTags"></wx-button>
 		</wx-nav-bar>
 				
 		<view class="flex flex-column">
 			<text class="font-normaler text-secondary px-3 py-2">备注名</text>
-			<input type="text"  placeholder="请填写备注名" class="font-normal border bg-white px-3" style="height: 100rpx;"/>
+			<input type="text"  placeholder="请填写备注名" 
+				   class="font-normal border bg-white px-3" style="height: 100rpx;"
+				   v-model="mark"
+				   @confirm="hideKeyboard"/>
 		</view>	
 		
 			
@@ -42,6 +45,7 @@
 		},
 		data() {
 			return {
+				mark:"",
 				tagsLists:[]
 			}
 		},
@@ -49,13 +53,35 @@
 			if (e.tagsLists) {
 				this.tagsLists = JSON.parse(e.tagsLists)
 			}
+			
+			if (e.mark) {
+				this.mark = e.mark
+			}
+			
+			uni.$on('updateTag', (e)=> {
+				this.tagsLists = e
+			})
+		},
+		beforeDestroy() {
+			uni.$off('updateTag')
 		},
 		methods: {
 			openTagSet() {
+				uni.hideKeyboard()
 				let path = '/pages/mail/user-tag-set/user-tag-set' + '?tagsLists='+JSON.stringify(this.tagsLists)
 				uni.navigateTo({
 					url: path
 				})
+			},
+			updateTags() {
+				uni.hideKeyboard()
+				uni.$emit('updateTagAndMark', {tagsLists:this.tagsLists, mark: this.mark})
+				uni.navigateBack({
+					delta:1
+				})
+			},
+			hideKeyboard(){
+				uni.hideKeyboard()
 			}
 		}
 	}

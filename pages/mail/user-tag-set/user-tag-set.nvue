@@ -2,22 +2,34 @@
 	<view class="scrollPage">
 		<!-- 导航栏 -->
 		<wx-nav-bar showBack title="添加标签" fixed>
-			<wx-button slot="right" name="保存" @click="save"></wx-button>
+			<wx-button slot="right" name="保存" @click="updateTags"></wx-button>
 		</wx-nav-bar>
 		
-		
-		<view class="flex flex-warp align-start justify-start flex-1 py-2" style="background-color: #EDEDED;">
+		<view class="flex flex-warp align-start justify-start flex-1 py-2 border-bottom" style="background-color: #EDEDED;">
 			<text v-for="(item, index) in tagsLists" :key="index"
 			 class="font-normaler main-text-color mx-1 mb-2 bg-white rounded-circle border px-2 py"
-			 style="border-color: #08C060;">{{item}}</text>
+			 style="border-color: #08C060;"
+			 @click="deleteTag(item)">{{item}}</text>
 			 <view class="border bg-white rounded-circle px-1" style="border-style: dashed; width: 180rpx;">
 				 <input type="text" placeholder="添加标签"
 				 				    class="font-normaler text-center"
+									style="height: 45rpx;"
 				 					v-model="newTag"
 				 					@confirm="addNewTag"
 				 					confirm-type="send"/>
 			 </view>
 		</view>
+		
+		<view class="flex flex-column">
+			<text class="font-normaler text-secondary px-3 py-2">所有标签</text>
+			<view class="flex flex-warp align-start justify-start flex-1 py-2">
+				<text v-for="(item, index) in allTags" :key="index"
+				 class="font-normaler mx-1 mb-1 bg-white rounded-circle border px-2 py"
+				 :class="isCurrentTag(item) ? 'main-text-color':'text-dark'"
+				 @click="addTag(item)">{{item}}</text>
+			</view>
+		</view>			
+		
 		
 	</view>
 </template>
@@ -42,7 +54,8 @@
 		data() {
 			return {
 				newTag:"",
-				tagsLists:[]
+				tagsLists:[],
+				allTags:['朋友', "同事", "亲戚", "家人", "同学", "基友"]
 			}
 		},
 		onLoad(e) {
@@ -51,27 +64,55 @@
 			}
 		},
 		methods: {
+			isCurrentTag(tag) {
+			 return	this.tagsLists.indexOf(tag) !== -1
+			},
 			addNewTag(){
-				
-				if (this.newTag.length === "") {
+				let tag =  this.newTag
+				this.newTag = ""
+				this.addTag(tag)
+			},
+			addTag(tag) {
+				if (tag.length === "") {
 					return;
 				}
 				
-				if (this.tagsLists.indexOf(this.newTag) !== -1) {
-					this.newTag = ""
+				if (this.tagsLists.indexOf(tag) !== -1) {
 					return uni.showToast({
 						title:'标签已存在',
 						icon:'none'
 					})
 				}
-				this.tagsLists.push(this.newTag)
-				this.newTag = ""
-				
+				this.tagsLists.push(tag)
+			},
+			deleteTag(item) {
+				uni.showModal({
+					content:"确定删除吗",
+					success: (res) => {
+						if (res.confirm) {
+							let index = this.tagsLists.indexOf(item)
+							if (index === -1) {
+								return 
+							}
+							
+							this.tagsLists.splice(index, 1)
+						}
+					}
+				})
+			},
+			updateTags() {
+				uni.hideKeyboard()
+				uni.$emit('updateTag', this.tagsLists)
+				uni.navigateBack({
+					delta:1
+				})
 			}
 		}
 	}
 </script>
 
-<style>
-
+<style scoped>
+.currentTag {
+	border-color: #08C060;
+}
 </style>

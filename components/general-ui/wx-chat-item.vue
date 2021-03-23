@@ -181,7 +181,8 @@
 			...mapActions(['audioOn', 'audioEmit', 'audioOff']),
 			// 打开视频
 			openVideo() {
-				if (this.item.type !== 'video') { return; }
+				if (this.item.type !== 'video') { return; } 
+				uni.hideKeyboard()
 				uni.navigateTo({
 					url: '/pages/chat/video/video?url='+this.item.data,
 				})	

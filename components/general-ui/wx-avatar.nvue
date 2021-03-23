@@ -31,6 +31,7 @@
 			avatarTap() {
 				switch(this.clickType) {
 					case "navigate":
+						uni.hideKeyboard()
 						uni.navigateTo({
 							url:'/pages/mail/user-base/user-base',
 						})

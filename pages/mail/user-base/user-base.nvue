@@ -41,7 +41,7 @@
 		
 		<!-- 分割线 -->
 		<wx-devider></wx-devider>
-		<view class="py-3 flex align-center justify-center bg-white" hover-class="bg-hover-light">
+		<view class="py-3 flex align-center justify-center bg-white" hover-class="bg-hover-light" @click="back">
 			<text class="iconfont font-normal text-primary font-weight-bold mr-1">&#xe64e;</text>
 			<text class="font-normal text-primary font-weight-bold">发消息</text>
 		</view>
@@ -80,6 +80,7 @@
 		},
 		data() {
 			return {
+				mark: "这是备注名",
 				tagsLists: ["哈哈", "同事", "基友", "肥仔", "胖的一逼", "逗乐🐷"],
 				actions: [{
 					icon:"\ue6b3",
@@ -119,15 +120,29 @@
 				}]
 			}
 		},
+		onLoad() {
+			uni.$on('updateTagAndMark', (e)=> {
+				this.tagsLists = e.tagsLists
+				this.mark = e.mark
+			})
+		},
+		beforeDestroy() {
+			uni.$off('updateTagAndMark')
+		},
 		methods: {
 			openAction() {
 				this.$refs.actions.show()
 			},
 			navigate(path) {
-				uni.navigateTo({ url:'/pages/'+path + '?tagsLists='+JSON.stringify(this.tagsLists) })
+				uni.navigateTo({ url:'/pages/'+path + '?tagsLists='+JSON.stringify(this.tagsLists) + '&mark='+this.mark })
 			},
 			clickActionItem(item) {
 				
+			},
+			back() {
+				uni.navigateBack({
+					delta:1
+				})
 			}
 		},
 	}

@@ -424,7 +424,7 @@
 				this.emoticonList = arr
 			},
 			openChatSet(){
-				console.log(123123)
+				uni.hideKeyboard()
 				uni.navigateTo({
 					url:'/pages/chat/chat-set/chat-set',
 				})
@@ -531,6 +531,8 @@
 			},
 			// 预览图片
 			previewImage(url){
+				uni.hideKeyboard()
+				uni.hideKeyboard()
 				let arr = []
 				this.lists
 					.filter((item)=>((item.type === "emoticon" || item.type === "image") && item.data.length > 0))
