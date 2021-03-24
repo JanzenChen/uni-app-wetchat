@@ -36,18 +36,12 @@
 
 <script>
 	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
-	import wxIconButton from '@/components/general-ui/wx-icon-button.vue'
-	import wxAvatar from '@/components/general-ui/wx-avatar.nvue'
-	import wxDevider from '@/components/general-ui/wx-devider.vue'
 	import wxListItem from '@/components/general-ui/wx-list-item.vue'
 	import wxButton from '@/components/general-ui/wx-button.vue'
 	
 	export default {
 		components: {
 			wxNavBar,
-			wxIconButton,
-			wxAvatar,
-			wxDevider,
 			wxListItem,
 			wxButton
 		},

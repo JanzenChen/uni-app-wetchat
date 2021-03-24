@@ -7,8 +7,11 @@
 		
 		<view class="px-3 py-4 flex align-center bg-white" style="margin-top: 2rpx;">
 			<wx-avatar src="/static/image/iocn_1.jpeg" size="120"></wx-avatar>
-			<view class="flex flex-column ml-3">
-				<text class="font-large font-weight-bold">昵称: Janzen</text>
+			<view class="flex flex-column ml-3 flex-1">
+				<view class="flex align-center justify-between flex-1">
+					<text class="font-large font-weight-bold">昵称: Janzen</text>
+					<image v-if="isStar" src="/static/image/star.png" style="width: 40rpx; height: 40rpx;"></image>
+				</view>
 				<text class="font-normaler text-light-muted">账号: Janzen</text>
 				<text class="font-normaler text-light-muted">地区: 广西北海市</text>
 			</view>
@@ -16,7 +19,7 @@
 		
 		<!-- 分割线 -->
 		<wx-devider height="5"></wx-devider>
-		<wx-list-item showRight :showLeftIcon="false" :showRightIcon="true" @click="navigate('mail/user-remark-tag/user-remark-tag')">
+		<wx-list-item showRight :showLeftIcon="false" :showRightIcon="true" @click="navigateToTagAndmark">
 			<view slot="title" class="flex">
 				<text class="font-normal text-dark mr-3 flex">标签</text>
 				<view class="flex flex-warp align-start justify-start flex-1" style="width: 560rpx;">
@@ -80,43 +83,51 @@
 		},
 		data() {
 			return {
+				isStar:false,
+				isBlack: false,
 				mark: "这是备注名",
 				tagsLists: ["哈哈", "同事", "基友", "肥仔", "胖的一逼", "逗乐🐷"],
 				actions: [{
 					icon:"\ue6b3",
 					title:"设置备注和标签",
 					actionId:"0",
-					event:""
+					type:"navigate",
+					path:"mail/user-remark-tag/user-remark-tag"
 				},
 				{
 					icon:"\ue613",
 					title:"把他推荐给好友",
 					actionId:"1",
-					event:""
+					type:"navigate",
+					path:""
 				},
 				{
 					icon:"\ue6b0",
 					title:"设为星标好友",
 					actionId:"2",
-					event:""
+					type:"event",
+					event:"setStar"
 				},
 				{
 					icon:"\ue667",
 					title:"设置朋友圈和动态权限",
 					actionId:"3",
-					event:""
+					type:"navigate",
+					path:"mail/user-moment-auth/user-moment-auth"
 				},
 				{
 					icon:"\ue638",
 					title:"加入黑名单",
 					actionId:"4",
-					event:""
+					type:"event",
+					event:"setBlack"
 				},
 				{
 					icon:"\ue610",
 					title:"投诉",
 					actionId:"5",
-					event:""
+					type:"navigate",
+					path:""
 				}]
 			}
 		},
@@ -133,11 +144,51 @@
 			openAction() {
 				this.$refs.actions.show()
 			},
-			navigate(path) {
-				uni.navigateTo({ url:'/pages/'+path + '?tagsLists='+JSON.stringify(this.tagsLists) + '&mark='+this.mark })
+			navigate(url) {
+				uni.navigateTo({url:url})
+			},
+			navigateToTagAndmark() {
+				this.navigate('/pages/'+'mail/user-remark-tag/user-remark-tag' + '?tagsLists='+JSON.stringify(this.tagsLists) + '&mark='+this.mark)
 			},
 			clickActionItem(item) {
+				if (!item.type) {
+					return
+				}
 				
+				this.$refs.actions.hide()
+					
+				switch (item.type){
+					case "navigate":
+						if(item.path.indexOf("user-remark-tag") !== -1) {
+							this.navigateToTagAndmark()
+						} else {
+							this.navigate('/pages/'+item.path)
+						}
+						break;
+					case "event":
+						this[item.event](item)
+					default:
+						break;
+				}
+			},
+			setStar(item) {
+				this.isStar = !this.isStar
+				item.title = this.isStar ? "取消星标好友" : "设为星标好友"
+			},
+			setBlack(item){
+				let content = this.isBlack ? "是否要移出黑名单?" : "是否要加入黑名单?"
+				uni.showModal({
+					content: content,
+					success: (res) => {
+						if (res.confirm) {
+							this.isBlack = !this.isBlack
+							item.title = this.isBlack ? "移出黑名单" : "加入黑名单"
+							uni.showToast({
+								title: this.isBlack ? "加入黑名单成功" : "移出黑名单成功"
+							})
+						}
+					}
+				})
 			},
 			back() {
 				uni.navigateBack({

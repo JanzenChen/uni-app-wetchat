@@ -1,0 +1,36 @@
+<template>
+	<view class="scrollPage">
+		<!-- 导航栏 -->
+		<wx-nav-bar showBack title="设置朋友圈动态权限" fixed :showRight="false"></wx-nav-bar>
+		<wx-list-item title="不给他看" :showLeftIcon="false" showRight :showRightIcon="false">
+				<switch slot="right" checked="false" @change="" color="#08C060"/>
+		</wx-list-item>
+		<wx-list-item title="不看他" :showLeftIcon="false" showRight :showRightIcon="false">
+				<switch slot="right" checked="false" @change="" color="#08C060"/>
+		</wx-list-item>
+	</view>
+</template>
+
+<script>
+	import wxNavBar from '@/components/general-ui/wx-nav-bar.nvue'
+	import wxListItem from '@/components/general-ui/wx-list-item.vue'
+	
+	export default {
+		components: {
+			wxNavBar,
+			wxListItem
+		},
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style>
+
+</style>

@@ -61,6 +61,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/mail/user-moment-auth/user-moment-auth",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

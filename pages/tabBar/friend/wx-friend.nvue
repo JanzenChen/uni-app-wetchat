@@ -4,9 +4,9 @@
 		<wx-nav-bar title="通讯录" fixed></wx-nav-bar>
 		
 		<!-- 通讯录列表 -->
-		<view v-for="(group, index) in groups" :key="group.id">
-			<view  v-if="group.list.length > 0">
-				<view class="py-1 px-3 bg-light">
+		<scroll-view scroll-y="true">
+			<view v-for="(group, index) in groups" :key="group.id" class="border-bottom">
+				<view v-if="group.list.length > 0" class="py-1 px-3 bg-light">
 					<text class="font-normal text-dark pb-1">{{group.sort}}</text>
 					<wx-list-item v-for="(item, index) in group.list"
 								  :key="item.id"
@@ -14,6 +14,13 @@
 								  :title="item.title"
 								  @click=""></wx-list-item>
 				</view>
+			</view>
+		</scroll-view>
+		
+		<!-- 侧标导航条 -->
+		<view class="position-fixed right-0 bottom-0 bg-light" :style="'top:'+topMagin+'px;'" style="width: 44rpx;">
+			<view v-for="(group, index) in groups" :key="group.id" class="flex align-center justify-center">
+				<text class="font-normaler" style="height: 44rpx;">{{group.sort}}</text>
 			</view>
 		</view>
 	</div>
@@ -28,8 +35,13 @@
 			wxNavBar,
 			wxListItem,
 		},
+		onLoad() {
+			let res = uni.getSystemInfoSync()
+			this.topMagin = res.statusBarHeight + uni.upx2px(90)
+		},
 		data() {
 			return {
+				topMagin:0,
 				groups: [
 					{
 						id: 0,
